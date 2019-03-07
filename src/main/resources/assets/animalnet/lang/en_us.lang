@@ -1,0 +1,9 @@
+item.animal_net_small.name=Small Animal Net
+item.animal_net_medium.name=Medium Animal Net
+item.animal_net_big.name=Big Animal Net
+item.mob_net_small.name=Small Mob Net
+item.mob_net_big.name=Big Mob Net
+item.catched_animal.name=Catched Animal/Mob
+item.mob_core.name=Mob Core
+item.npc_net.name=NPC Net
+itemGroup.AnimalNet Items=AnimalNet Items

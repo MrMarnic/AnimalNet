@@ -1,0 +1,11 @@
+{
+  "item.animalnet.animal_net_small":"Small Animal Net",
+  "item.animalnet.animal_net_medium":"Medium Animal Net",
+  "item.animalnet.animal_net_big":"Big Animal Net",
+  "item.animalnet.mob_net_small":"Small Mob Net",
+  "item.animalnet.mob_net_big":"Big Mob Net",
+  "item.animalnet.caught_animal":"Catched Animal/Mob",
+  "item.animalnet.mob_core":"Mob Core",
+  "item.animalnet.npc_net":"NPC Net",
+  "itemGroup.animalnet.general":"AnimalNet Items"
+}
