@@ -1,0 +1,10 @@
+{
+  "item.animalnet.animal_net_small":"小型动物捕捉网",
+  "item.animalnet.animal_net_medium":"中型动物捕捉网",
+  "item.animalnet.animal_net_big":"大型动物捕捉网",
+  "item.animalnet.mob_net_small":"小型怪物捕捉网",
+  "item.animalnet.mob_net_big":"大型怪物捕捉网",
+  "item.animalnet.caught_entity":"捕获动物/怪物",
+  "item.animalnet.mob_core":"生物核心",
+  "itemGroup.AnimalNet Items":"捕兽网 道具"
+}

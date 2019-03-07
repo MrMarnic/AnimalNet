@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SCI",
+    "CBC",
+    "ICS"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:stone",
+      "data": 0
+    },
+    "B": {
+      "item": "animalnet:animal_net_small"
+    },
+    "S": {
+      "item": "minecraft:slime_ball"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "animalnet:animal_net_medium"
+  }
+}
