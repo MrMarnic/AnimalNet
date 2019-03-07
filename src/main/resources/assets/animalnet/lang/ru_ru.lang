@@ -1,0 +1,8 @@
+item.animal_net_small.name=Маленькая сеть животных
+item.animal_net_medium.name=Средняя сеть животных
+item.animal_net_big.name=Большая сеть животных
+item.mob_net_small.name=Маленькая сеть монстров
+item.mob_net_big.name=Большая сеть монстров
+item.catched_animal.name=Пойманное животное / монстр
+item.mob_core.name=Ядро монстра
+itemGroup.AnimalNet Items=AnimalNet Items
