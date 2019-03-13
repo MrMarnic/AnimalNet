@@ -1,139 +1,112 @@
 package me.marnic.animalnet.item;
 
-
-import com.sun.istack.internal.Nullable;
-import me.marnic.animalnet.main.AnimalNet;
-import me.marnic.modapi.objs.item.BasicItem;
+import com.mojang.realmsclient.gui.ChatFormatting;
+import me.marnic.animalnet.api.BasicItem;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLiquid;
-import net.minecraft.block.BlockWorkbench;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.inventory.GuiCrafting;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.resources.LanguageManager;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.*;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntitySlime;
-import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.ContainerWorkbench;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemMonsterPlacer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.stats.StatList;
-import net.minecraft.tileentity.MobSpawnerBaseLogic;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityMobSpawner;
-import net.minecraft.util.*;
-import net.minecraft.util.datafix.fixes.SpawnEggNames;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.common.registry.EntityEntry;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import javax.management.monitor.MonitorSettingException;
+import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
- * Created by Marcel on Sep,2018
+ * Copyright (c) 19.02.2019
+ * Developed by MrMarnic
+ * GitHub: https://github.com/MrMarnic
  */
-public class CaughtAnimalItem extends BasicItem {
-    Entity entity;
+public class CaughtEntityItem extends BasicItem {
 
-
-    public CaughtAnimalItem() {
-        super("catched_animal");
-        setMaxStackSize(1);
+    public CaughtEntityItem() {
+        super("caught_entity");
     }
+
+    private Entity entity;
 
     public ItemStack createInstance(Entity e) {
         this.entity = e;
 
         ItemStack stack = new ItemStack(this);
-        String name = findGoodName(e,e.getEntityWorld().getSaveHandler().getWorldDirectory());
+        String name = findGoodName(e, e.getEntityWorld().getSaveHandler().getWorldDirectory());
 
         NBTTagCompound tag = new NBTTagCompound();
-        tag.setString("animalName",entity.getClass().getName());
-        tag.setString("fileName",name);
 
-        if(!e.getCustomNameTag().equalsIgnoreCase("")) {
-            tag.setString("animalTag",e.getCustomNameTag());
+        System.out.println(EntityList.getKey(entity));
+
+        tag.setString("animalName", EntityList.getKey(entity).toString());
+        tag.setString("fileName", name);
+
+
+        if(e.hasCustomName()) {
+                tag.setString("animalTag",e.getCustomNameTag());
+        }else{
+            tag.removeTag("animalTag");
         }
-        tag.setString("location","x:" + e.getPosition().getX()+" y:" + e.getPosition().getY()+" z:" + e.getPosition().getZ());
+        tag.setString("location", "x:" + e.getPosition().getX() + " y:" + e.getPosition().getY() + " z:" + e.getPosition().getZ());
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         java.util.Date date = new java.util.Date();
-        tag.setString("date",formatter.format(date));
+        tag.setString("date", formatter.format(date));
 
-        if(e instanceof EntityAnimal) {
-            int age = ((EntityAnimal)e).getGrowingAge();
-            if(age<0) {
-                tag.setString("age","Child");
-            }else{
-                tag.setString("age","Adult");
+        if (e instanceof EntityAnimal) {
+            int age = ((EntityAnimal) e).getGrowingAge();
+            if (age < 0) {
+                tag.setString("age", "Child");
+            } else {
+                tag.setString("age", "Adult");
             }
         }
 
         stack.setTagCompound(tag);
 
-        stack.addEnchantment(Enchantments.UNBREAKING,1);
-        stack.setStackDisplayName("Caught " + e.getName());
+        stack.addEnchantment(Enchantments.UNBREAKING, 1);
+
+        if(!e.hasCustomName()) {
+            stack.setStackDisplayName("Caught " + e.getDisplayName().getFormattedText());
+        }else{
+            stack.setStackDisplayName("Caught " + e.getCustomNameTag());
+        }
 
         try {
             NBTTagCompound newtag = new NBTTagCompound();
             entity.writeToNBT(newtag);
 
-            File f = new File(DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath()+"//animalData//"+name+".dat");
+            File f = new File(e.getEntityWorld().getSaveHandler().getWorldDirectory().getAbsolutePath() + "//animalData//" + name + ".dat");
             f.createNewFile();
 
-            CompressedStreamTools.write(newtag,f);
+            CompressedStreamTools.write(newtag, f);
         } catch (IOException e1) {
             e1.printStackTrace();
         }
 
-        ((EntityLiving)e).playLivingSound();
+        ((EntityLiving) e).playLivingSound();
 
         return stack;
     }
 
-    private String createKey(Entity e) {
-        return "entity."+e.getName()+".name";
-    }
-
-    private boolean isFriendly(NBTTagCompound tag) {
-        return tag.getString("type").equalsIgnoreCase("friendly");
-    }
-
-    private String findGoodName(Entity e,File world) {
-        File f = new File(world.getPath()+"//animalData");
+    private String findGoodName(Entity e, File world) {
+        File f = new File(world.getPath() + "//animalData");
 
         return e.getUniqueID().toString();
     }
@@ -157,30 +130,28 @@ public class CaughtAnimalItem extends BasicItem {
 
 
             NBTTagCompound tagCompound = itemstack.getTagCompound();
-            EntityEntry entityEntry = null;
 
 
             NBTTagCompound entTag = null;
 
             try {
                 File f = new File(DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath()+"//animalData//"+tagCompound.getString("fileName")+".dat");
-
                 if(f.exists()) {
                     entTag = CompressedStreamTools.read(f);
+                    System.out.println(entTag.getString("animalName"));
                 }else{
                     entTag = new NBTTagCompound();
                     sendError(player,"Error: The file for this entity : \""+f.getAbsolutePath() + "\" is missing!");
                 }
 
-                entityEntry = AnimalNet.ANIMAL_NET_MOD_HANDLER.registeredEntities.get(tagCompound.getString("animalName"));
 
 
                 player.inventory.removeStackFromSlot(player.inventory.currentItem);
 
                 f.delete();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             IBlockState iblockstate = worldIn.getBlockState(pos);
             Block block = iblockstate.getBlock();
@@ -188,13 +159,33 @@ public class CaughtAnimalItem extends BasicItem {
 
             BlockPos blockpos = pos.offset(facing);
             double d0 = this.getYOffset(worldIn, blockpos);
-            Entity entity = spawnCreature(worldIn, getRes(entityEntry), (double)blockpos.getX() + 0.5D, (double)blockpos.getY() + d0, (double)blockpos.getZ() + 0.5D,entTag,player);
+
+            Entity entity = spawnCreature(worldIn, new ResourceLocation(entTag.getString("animalName")), (double)blockpos.getX() + 0.5D, (double)blockpos.getY() + d0, (double)blockpos.getZ() + 0.5D,entTag,player);
+
             if(tagCompound.hasKey("animalTag")) {
                 entity.setCustomNameTag(tagCompound.getString("animalTag"));
                 entity.setAlwaysRenderNameTag(true);
             }
 
             return EnumActionResult.SUCCESS;
+        }
+    }
+
+    private void sendError(EntityPlayer player,String msg) {
+        player.sendMessage(new TextComponentString(ChatFormatting.RED + msg));
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        if(stack.getTagCompound()!=null) {
+            if (stack.getTagCompound().hasKey("animalTag")) {
+                tooltip.add(stack.getTagCompound().getString("animalTag"));
+            }
+            tooltip.add(stack.getTagCompound().getString("location"));
+            tooltip.add(stack.getTagCompound().getString("date"));
+            if (stack.getTagCompound().hasKey("age")) {
+                tooltip.add("Age: "+stack.getTagCompound().getString("age"));
+            }
         }
     }
 
@@ -219,7 +210,6 @@ public class CaughtAnimalItem extends BasicItem {
             {
                 d0 = Math.max(axisalignedbb1.maxY, d0);
             }
-
             return d0 - (double)p_190909_2_.getY();
         }
     }
@@ -227,7 +217,6 @@ public class CaughtAnimalItem extends BasicItem {
     @Nullable
     public static Entity spawnCreature(World worldIn, @Nullable ResourceLocation entityID, double x, double y, double z,NBTTagCompound tag,EntityPlayer player)
     {
-
         if(entityID!=null) {
             Entity entity = null;
 
@@ -243,6 +232,7 @@ public class CaughtAnimalItem extends BasicItem {
                     entityliving.readEntityFromNBT(tag);
                     worldIn.spawnEntity(entity);
                     entityliving.playLivingSound();
+                    System.out.println(entityliving);
                 }
             }
 
@@ -250,29 +240,7 @@ public class CaughtAnimalItem extends BasicItem {
         }
 
         return null;
-    }
-
-    private static void sendStatus(EntityPlayer p,String msg) {
-        p.sendMessage(new TextComponentString(msg));
-    }
-
-    @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        if(stack.getTagCompound()!=null) {
-            if (stack.getTagCompound().hasKey("animalTag")) {
-                tooltip.add(stack.getTagCompound().getString("animalTag"));
-            }
-            tooltip.add(stack.getTagCompound().getString("location"));
-            tooltip.add(stack.getTagCompound().getString("date"));
-            if (stack.getTagCompound().hasKey("age")) {
-                tooltip.add("Age: "+stack.getTagCompound().getString("age"));
-            }
         }
-    }
-
-    private void sendError(EntityPlayer player,String msg) {
-        player.sendMessage(new TextComponentString("§c" + msg));
-    }
 
     public static NBTTagCompound getTagForEntityFromItem(ItemStack stack) {
         NBTTagCompound tagCompound = stack.getTagCompound();
@@ -302,16 +270,10 @@ public class CaughtAnimalItem extends BasicItem {
 
     public static void makeAdult(ItemStack stack) {
 
-        NBTTagCompound compound = CaughtAnimalItem.getTagForEntityFromItem(stack);
+        NBTTagCompound compound = CaughtEntityItem.getTagForEntityFromItem(stack);
         compound.setInteger("Age",0);
 
-        CaughtAnimalItem.writeTagForEntityFromItem(stack,compound);
-
-        /*NBTTagCompound st = stack.getTagCompound();
-
-        st.setString("age","Adult");
-
-        stack.setTagCompound(st);*/
+        CaughtEntityItem.writeTagForEntityFromItem(stack,compound);
     }
 
     public static void makeFakeAdult(ItemStack stack) {
@@ -324,16 +286,10 @@ public class CaughtAnimalItem extends BasicItem {
 
     public static void makeChild(ItemStack stack) {
 
-        NBTTagCompound compound = CaughtAnimalItem.getTagForEntityFromItem(stack);
+        NBTTagCompound compound = CaughtEntityItem.getTagForEntityFromItem(stack);
         compound.setInteger("Age",-23000);
 
-        CaughtAnimalItem.writeTagForEntityFromItem(stack,compound);
-
-        /*NBTTagCompound st = stack.getTagCompound();
-
-        st.setString("age","Adult");
-
-        stack.setTagCompound(st);*/
+        CaughtEntityItem.writeTagForEntityFromItem(stack,compound);
     }
 
     public static void makeFakeChild(ItemStack stack) {
@@ -344,8 +300,4 @@ public class CaughtAnimalItem extends BasicItem {
         stack.setTagCompound(st);
     }
 
-    @Override
-    public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
-
-    }
 }

@@ -1,4 +1,4 @@
-package me.marnic.modapi.interfaces;
+package me.marnic.animalnet.api;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;

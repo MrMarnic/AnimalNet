@@ -1,12 +1,11 @@
-package me.marnic.modapi.interfaces;
-
-import me.marnic.modapi.proxy.CommonProxy;
+package me.marnic.animalnet.api;
 
 /**
- * Copyright (c) 03.12.2018
+ * Copyright (c) 18.02.2019
  * Developed by MrMarnic
  * GitHub: https://github.com/MrMarnic
  */
+
 public interface IModelRegistry {
     void registerModel();
 }

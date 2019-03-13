@@ -1,6 +1,6 @@
 package me.marnic.animalnet.item;
 
-import me.marnic.modapi.objs.item.BasicItem;
+import me.marnic.animalnet.api.BasicItem;
 
 /**
  * Created by Marcel on Okt,2018

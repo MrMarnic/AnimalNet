@@ -1,4 +1,4 @@
-package me.marnic.modapi.util;
+package me.marnic.animalnet.api;
 
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
@@ -10,8 +10,9 @@ import net.minecraftforge.registries.IForgeRegistryModifiable;
  * Developed by MrMarnic
  * GitHub: https://github.com/MrMarnic
  */
+
 public class RecipeUtil {
-    public static void replaceRecipe(RegistryEvent.Register<IRecipe> e,String idToReplace,IRecipe replacement) {
+    public static void replaceRecipe(RegistryEvent.Register<IRecipe> e, String idToReplace, IRecipe replacement) {
         IForgeRegistryModifiable<IRecipe> ee = (IForgeRegistryModifiable) e.getRegistry();
 
         ee.remove(new ResourceLocation(idToReplace));

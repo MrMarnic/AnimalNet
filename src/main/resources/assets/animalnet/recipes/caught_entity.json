@@ -7,14 +7,15 @@
   ],
   "key": {
     "C": {
-      "item": "minecraft:redstone"
+      "item": "minecraft:dye",
+      "data": 15
     },
     "S": {
-      "item": "animalnet:catched_animal"
+      "item": "animalnet:caught_entity"
     }
   },
   "result": {
-    "item": "animalnet:catched_animal",
+    "item": "animalnet:caught_entity",
     "nbt": {
       "display": { "Name": "Craft to apply information"}
     }
