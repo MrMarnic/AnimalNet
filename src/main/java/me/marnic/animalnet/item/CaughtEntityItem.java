@@ -138,7 +138,6 @@ public class CaughtEntityItem extends BasicItem {
                 File f = new File(DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath()+"//animalData//"+tagCompound.getString("fileName")+".dat");
                 if(f.exists()) {
                     entTag = CompressedStreamTools.read(f);
-                    System.out.println(entTag.getString("animalName"));
                 }else{
                     entTag = new NBTTagCompound();
                     sendError(player,"Error: The file for this entity : \""+f.getAbsolutePath() + "\" is missing!");
@@ -160,7 +159,7 @@ public class CaughtEntityItem extends BasicItem {
             BlockPos blockpos = pos.offset(facing);
             double d0 = this.getYOffset(worldIn, blockpos);
 
-            Entity entity = spawnCreature(worldIn, new ResourceLocation(entTag.getString("animalName")), (double)blockpos.getX() + 0.5D, (double)blockpos.getY() + d0, (double)blockpos.getZ() + 0.5D,entTag,player);
+            Entity entity = spawnCreature(worldIn, new ResourceLocation(tagCompound.getString("animalName")), (double)blockpos.getX() + 0.5D, (double)blockpos.getY() + d0, (double)blockpos.getZ() + 0.5D,entTag,player);
 
             if(tagCompound.hasKey("animalTag")) {
                 entity.setCustomNameTag(tagCompound.getString("animalTag"));
