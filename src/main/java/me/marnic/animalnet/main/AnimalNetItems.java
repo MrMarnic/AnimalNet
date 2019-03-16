@@ -32,13 +32,13 @@ public class AnimalNetItems {
             }
         };
 
-        animalNetSmall = new AnimalNetItem("animal_net_small", NetSize.SMALL, NetType.ANIMAL,1);
+        animalNetSmall = new AnimalNetItem("animal_net_small", NetSize.SMALL, NetType.ANIMAL,1,0);
 
-        animalNetMedium = new AnimalNetItem("animal_net_medium", NetSize.MEDIUM, NetType.ANIMAL,2.2);
-        animalNetBig = new AnimalNetItem("animal_net_big",NetSize.BIG, NetType.ANIMAL,10);
-        mobNetSmall = new AnimalNetItem("mob_net_small",NetSize.SMALL, NetType.MOB,1.4);
-        mobNetBig = new AnimalNetItem("mob_net_big", NetSize.BIG, NetType.MOB,10);
-        npcNet = new AnimalNetItem("npc_net", NetSize.MEDIUM, NetType.NPC,10);
+        animalNetMedium = new AnimalNetItem("animal_net_medium", NetSize.MEDIUM, NetType.ANIMAL,2.2,0);
+        animalNetBig = new AnimalNetItem("animal_net_big",NetSize.BIG, NetType.ANIMAL,10,1);
+        mobNetSmall = new AnimalNetItem("mob_net_small",NetSize.SMALL, NetType.MOB,1.4,0);
+        mobNetBig = new AnimalNetItem("mob_net_big", NetSize.BIG, NetType.MOB,10,1);
+        npcNet = new AnimalNetItem("npc_net", NetSize.MEDIUM, NetType.NPC,10,0);
 
         caughtEntityItem = new CaughtEntityItem();
 

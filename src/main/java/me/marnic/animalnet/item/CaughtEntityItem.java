@@ -2,6 +2,7 @@ package me.marnic.animalnet.item;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.marnic.animalnet.api.BasicItem;
+import me.marnic.animalnet.main.AnimalNetItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
@@ -11,6 +12,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
@@ -49,15 +51,13 @@ public class CaughtEntityItem extends BasicItem {
         this.entity = e;
 
         ItemStack stack = new ItemStack(this);
+
         String name = findGoodName(e, e.getEntityWorld().getSaveHandler().getWorldDirectory());
 
         NBTTagCompound tag = new NBTTagCompound();
 
-        System.out.println(EntityList.getKey(entity));
-
         tag.setString("animalName", EntityList.getKey(entity).toString());
         tag.setString("fileName", name);
-
 
         if(e.hasCustomName()) {
                 tag.setString("animalTag",e.getCustomNameTag());
@@ -142,7 +142,6 @@ public class CaughtEntityItem extends BasicItem {
                     entTag = new NBTTagCompound();
                     sendError(player,"Error: The file for this entity : \""+f.getAbsolutePath() + "\" is missing!");
                 }
-
 
 
                 player.inventory.removeStackFromSlot(player.inventory.currentItem);

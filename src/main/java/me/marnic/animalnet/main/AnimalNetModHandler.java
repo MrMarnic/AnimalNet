@@ -37,6 +37,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
@@ -259,6 +260,9 @@ public class AnimalNetModHandler {
             currentItem = e.getEntityPlayer().inventory.getCurrentItem();
             if (currentItem.getCount() > 1) {
                 currentItem.setCount(currentItem.getCount() - 1);
+                ItemStack damagedItemStack = new ItemStack(currentItem.getItem());
+                damagedItemStack.damageItem(1,e.getEntityPlayer());
+                addItem(e.getEntityPlayer(),damagedItemStack);
             } else {
                 e.getEntityPlayer().inventory.removeStackFromSlot(e.getEntityPlayer().inventory.currentItem);
             }

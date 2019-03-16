@@ -11,12 +11,15 @@ public class AnimalNetItem extends BasicItem {
     private NetSize size;
     private NetType type;
     private double acceptedSize;
+    private int uses;
 
-    public AnimalNetItem(String name, NetSize size, NetType type, double acceptedSize) {
+    public AnimalNetItem(String name, NetSize size, NetType type, double acceptedSize,int uses) {
         super(name);
         this.size = size;
         this.type = type;
         this.acceptedSize = acceptedSize;
+        this.uses = uses;
+        setMaxDamage(uses);
     }
 
     public double getAcceptedSize() {
