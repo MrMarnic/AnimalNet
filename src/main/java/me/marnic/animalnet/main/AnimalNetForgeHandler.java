@@ -112,11 +112,7 @@ public class AnimalNetForgeHandler {
         e.getTarget().remove();
         if (!e.getEntityPlayer().isCreative()) {
             currentItem = e.getEntityPlayer().inventory.getCurrentItem();
-            if (currentItem.getCount() > 1) {
-                currentItem.setCount(currentItem.getCount() - 1);
-            } else {
-                e.getEntityPlayer().inventory.removeStackFromSlot(e.getEntityPlayer().inventory.currentItem);
-            }
+            currentItem.damageItem(1,e.getEntityPlayer());
         }
         return true;
     }
