@@ -27,12 +27,14 @@ public class AnimalNetItem extends BasicItem {
     private NetSize size;
     private NetType type;
     private double acceptedSize;
+    private int uses;
 
-    public AnimalNetItem(String name,Settings settings, NetSize size, NetType type, double acceptedSize) {
-        super(settings, name);
+    public AnimalNetItem(String name,Settings settings, NetSize size, NetType type, double acceptedSize,int uses) {
+        super(settings.durabilityIfNotSet(uses), name);
         this.size = size;
         this.type = type;
         this.acceptedSize = acceptedSize;
+        this.uses = uses;
     }
 
     @Override
@@ -57,5 +59,9 @@ public class AnimalNetItem extends BasicItem {
 
     public NetSize getSize() {
         return size;
+    }
+
+    public int getUses() {
+        return uses;
     }
 }

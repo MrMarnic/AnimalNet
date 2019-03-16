@@ -92,11 +92,7 @@ public class EntityHandler {
         target.invalidate();
         if (!playerEntity.isCreative()) {
             currentItem = playerEntity.getActiveItem();
-            if (currentItem.getAmount() > 1) {
-                currentItem.subtractAmount(1);
-            } else {
-                //playerEntity.inventory.removeStackFromSlot(e.getEntityPlayer().inventory.currentItem);
-            }
+            playerEntity.inventory.getMainHandStack().applyDamage(1,playerEntity);
         }
         return true;
     }
