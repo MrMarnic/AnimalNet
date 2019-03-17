@@ -120,7 +120,7 @@ public class AnimalNetModHandler {
 
             @Override
             public ResourceLocation getRegistryName() {
-                return new ResourceLocation("animalnet:catched_animalToChild");
+                return new ResourceLocation("animalnet:caught_animalToChild");
             }
 
             @Override
@@ -129,7 +129,7 @@ public class AnimalNetModHandler {
             }
         });
 
-        RecipeUtil.replaceRecipe(e,"animalnet:catched_animal",new IRecipe() {
+        RecipeUtil.replaceRecipe(e,"animalnet:caught_entity",new IRecipe() {
 
             private ItemStack match;
 
@@ -196,7 +196,18 @@ public class AnimalNetModHandler {
         if(!f.exists()) {
             f.mkdir();
         }
+    }
 
+    @SubscribeEvent
+    public void craft(final PlayerEvent.ItemCraftedEvent e) {
+        if (e.crafting.getItem().equals(AnimalNetItems.caughtEntityItem)) {
+            if (e.crafting.getTagCompound().getString("age").equalsIgnoreCase("Adult")) {
+                CaughtEntityItem.makeAdult(e.crafting);
+            }
+            else {
+                CaughtEntityItem.makeChild(e.crafting);
+            }
+        }
     }
 
     private static AxisAlignedBB boundingBox;
