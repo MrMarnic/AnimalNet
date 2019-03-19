@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ODO",
+    "IBI",
+    "ODO"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "B": {
+      "item": "animalnet:animal_net_medium"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "animalnet:animal_net_big"
+  }
+}
