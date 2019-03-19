@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Npc;
 import net.minecraft.entity.WaterCreatureEntity;
-import net.minecraft.entity.boss.EntityWither;
+import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.AnimalEntity;
@@ -102,7 +102,7 @@ public class EntityHandler {
     }
 
     private boolean canBeCaughtByMobNet(Entity entity) {
-        return (entity instanceof HostileEntity || entity instanceof Monster)  && !(entity instanceof EntityWither) && !(entity instanceof EnderDragonEntity);
+        return (entity instanceof HostileEntity || entity instanceof Monster)  && !(entity instanceof WitherEntity) && !(entity instanceof EnderDragonEntity);
     }
 
     private void sendCanNotBeCaught(PlayerEntity p, Entity e) {

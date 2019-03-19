@@ -3,8 +3,7 @@
   "package": "me.marnic.animalnet.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "AnimalNetMixinWorldLoad",
-    "AnimalNetMixinVillager"
+
   ],
   "injectors": {
     "defaultRequire": 1

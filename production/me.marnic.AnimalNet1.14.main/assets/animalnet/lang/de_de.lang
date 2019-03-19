@@ -1,9 +1,0 @@
-item.animal_net_small.name=Kleines Tier Netz
-item.animal_net_medium.name=Mittleres Tier Netz
-item.animal_net_big.name=Großes Tier Netz
-item.mob_net_small.name=Kleines Monster Netz
-item.mob_net_big.name=Großes Monster Netz
-item.catched_animal.name=Gefangenes Tier/Monster
-item.mob_core.name=Monster Kern
-item.npc_net.name=NPC Netz
-itemGroup.AnimalNet Items=AnimalNet Items

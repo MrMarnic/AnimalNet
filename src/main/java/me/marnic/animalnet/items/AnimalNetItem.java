@@ -6,7 +6,7 @@ import net.minecraft.container.CraftingResultSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.FoodItem;
+import net.minecraft.item.FoodItemSetting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.recipe.Recipe;

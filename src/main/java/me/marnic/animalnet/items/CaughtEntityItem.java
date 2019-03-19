@@ -9,7 +9,7 @@ import net.minecraft.block.FacingBlock;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.MainMenuScreen;
-import net.minecraft.client.item.TooltipOptions;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -221,7 +221,7 @@ public class CaughtEntityItem extends BasicItem {
     }
 
     @Override
-    public void buildTooltip(ItemStack stack, World world_1, List<TextComponent> tooltip, TooltipOptions tooltipOptions_1) {
+    public void buildTooltip(ItemStack stack, World world_1, List<TextComponent> tooltip, TooltipContext tooltipOptions_1) {
         if(stack.hasTag()) {
             if (stack.getTag().containsKey("animalTag")) {
                 tooltip.add(new StringTextComponent(stack.getTag().getString("animalTag")));
