@@ -3,6 +3,7 @@ package me.marnic.animalnet.items;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import com.sun.jna.platform.unix.X11;
 import me.marnic.animalnet.api.BasicItem;
+import me.marnic.animalnet.api.EntityUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FacingBlock;
@@ -21,6 +22,8 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.DoubleTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
@@ -37,6 +40,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSaveHandler;
@@ -107,7 +111,6 @@ public class CaughtEntityItem extends BasicItem {
 
         try {
             CompoundTag newtag = new CompoundTag();
-
             entity.saveSelfToTag(newtag);
 
             File f = new File(serverWorld.getSaveHandler().getWorldDir().getAbsolutePath() + "//animalData//" + name + ".dat");
@@ -164,7 +167,7 @@ public class CaughtEntityItem extends BasicItem {
 
             if(itemstack.hasTag()) {
 
-                EntityType<?> entitytype = getType(itemstack.getTag());
+                EntityType<LivingEntity> entitytype = getType(itemstack.getTag());
                 LivingEntity living = null;
 
                 CompoundTag tag = itemstack.getTag();
@@ -187,10 +190,26 @@ public class CaughtEntityItem extends BasicItem {
                         custName = (new StringTextComponent(tag.getString("animalTag")));
                     }
 
-                    living = (LivingEntity) entitytype.spawn(world, entTag, custName, con.getPlayer(), blockpos1, SpawnType.SPAWN_EGG, true, !Objects.equals(blockpos, blockpos1) && enumfacing == Direction.UP);
-                    BlockPos pos = new BlockPos(living);
+
+                    living = EntityUtil.createEntity(entitytype,world, null, custName, con.getPlayer(), blockpos1, SpawnType.SPAWN_EGG, true, !Objects.equals(blockpos, blockpos1) && enumfacing == Direction.UP);
+
+                    //living = entitytype.create(world, null, custName, con.getPlayer(), blockpos1, SpawnType.SPAWN_EGG, true, !Objects.equals(blockpos, blockpos1) && enumfacing == Direction.UP);
+
+
+                    double x = living.x;
+                    double y = living.y;
+                    double z = living.z;
+                    float yaw = living.yaw;
+                    float pitch = living.pitch;
+
                     living.fromTag(entTag);
-                    living.setPosition(pos.getX(), pos.getY(), pos.getZ());
+
+                    //living.setPosition(blockpos1.getX(), blockpos1.getY(), blockpos1.getZ());
+
+                    living.setPositionAndAngles(x,y,z,yaw,pitch);
+
+
+                    world.spawnEntity(living);
 
                     con.getPlayer().inventory.removeInvStack(con.getPlayer().inventory.getSlotWithStack(con.getPlayer().inventory.getMainHandStack()));
 
@@ -209,6 +228,23 @@ public class CaughtEntityItem extends BasicItem {
 
             return ActionResult.SUCCESS;
         }
+    }
+
+    private void setBlockPosFromTag(CompoundTag tag,BlockPos pos) {
+        tag.put("Pos",toListTag(pos.getX(),pos.getY(),pos.getZ()));
+    }
+
+    protected ListTag toListTag(double... doubles_1) {
+        ListTag listTag_1 = new ListTag();
+        double[] var3 = doubles_1;
+        int var4 = doubles_1.length;
+
+        for(int var5 = 0; var5 < var4; ++var5) {
+            double double_1 = var3[var5];
+            listTag_1.add(new DoubleTag(double_1));
+        }
+
+        return listTag_1;
     }
 
     private EntityType getType(CompoundTag c) {
