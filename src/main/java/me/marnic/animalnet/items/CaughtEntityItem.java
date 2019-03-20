@@ -2,6 +2,7 @@ package me.marnic.animalnet.items;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.marnic.animalnet.api.BasicItem;
+import me.marnic.animalnet.api.EntityUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
@@ -142,7 +143,7 @@ public class CaughtEntityItem extends BasicItem {
                 blockpos1 = blockpos.offset(enumfacing);
             }
 
-            EntityType<?> entitytype = getType(itemstack.getTag());
+            EntityType<EntityLiving> entitytype = getType(itemstack.getTag());
             EntityLiving living = null;
 
             NBTTagCompound tag = con.getItem().getTag();
@@ -165,10 +166,20 @@ public class CaughtEntityItem extends BasicItem {
                     custName = (new TextComponentString(tag.getString("animalTag")));
                 }
 
-                living = (EntityLiving) entitytype.spawnEntity(world,entTag,custName,con.getPlayer(),blockpos1,true,!Objects.equals(blockpos, blockpos1) && enumfacing == EnumFacing.UP);
-                BlockPos pos = new BlockPos(living);
+                living = EntityUtil.createEntity(entitytype,world,entTag,custName,con.getPlayer(),blockpos1,true,!Objects.equals(blockpos, blockpos1) && enumfacing == EnumFacing.UP);
+                double x = living.posX;
+                double y = living.posY;
+                double z = living.posZ;
+                float yaw = living.rotationYaw;
+                float pitch = living.rotationPitch;
+
+
                 living.read(entTag);
-                living.setPosition(pos.getX(),pos.getY(),pos.getZ());
+
+                living.setPositionAndRotation(x,y,z,yaw,pitch);
+
+                world.spawnEntity(living);
+
                 con.getPlayer().inventory.removeStackFromSlot(con.getPlayer().inventory.currentItem);
 
                 f.delete();
