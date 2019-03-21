@@ -114,12 +114,10 @@ public class CaughtEntityItem extends BasicItem {
     }
 
     private String toString(ITextComponent c) {
-        System.out.println(c.getString());
         return ((TextComponentString) c).getText();
     }
 
     private String toStringTranslate(ITextComponent c) {
-        System.out.println(c.getString());
         return ( c).getFormattedText();
     }
 
