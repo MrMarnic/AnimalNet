@@ -122,9 +122,6 @@ public class CaughtEntityItem extends BasicItem {
             e1.printStackTrace();
         }
 
-
-        AnimalEntity ee;
-
         return stack;
     }
 
@@ -135,12 +132,10 @@ public class CaughtEntityItem extends BasicItem {
     }
 
     private String toString(TextComponent c) {
-        System.out.println(c.getString());
         return ((StringTextComponent) c).getText();
     }
 
     private String toStringTranslate(TextComponent c) {
-        System.out.println(c.getString());
         return ( c).getFormattedText();
     }
 

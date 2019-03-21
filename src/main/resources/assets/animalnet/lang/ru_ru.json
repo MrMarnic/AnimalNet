@@ -1,10 +1,19 @@
-{
-  "item.animalnet.animal_net_small":"Маленькая сеть животных",
-  "item.animalnet.animal_net_medium":"Средняя сеть животных",
-  "item.animalnet.animal_net_big":"Большая сеть животных",
-  "item.animalnet.mob_net_small":"Маленькая сеть монстров",
-  "item.animalnet.mob_net_big":"Большая сеть монстров",
-  "item.animalnet.caught_entity":"Пойманное животное / монстр",
-  "item.animalnet.mob_core":"Ядро монстра",
-  "itemGroup.animalnet.general":"AnimalNet Items"
+{"item.animalnet.mob_net_small":"Маленькая сеть монстров",
+"itemGroup.AnimalNet Items":"AnimalNet Items",
+"message.animalnet.formal_animal":"Это животное",
+"item.animalnet.animal_net_big":"Большая сеть животных",
+"message.animalnet.npc_needed":"Вам нужна сеть NPC, чтобы поймать NPCs!",
+"item.animalnet.animal_net_small":"Маленькая сеть животных",
+"item.animalnet.animal_net_medium":"Средняя сеть животных",
+"message.animalnet.can_not_be_caught":"Эта сущность не может быть поймана!",
+"message.animalnet.net_too_small":"Вам нужна большая сеть",
+"message.animalnet.formal_npc":"Это NPC",
+"message.animalnet.formal_mob":"Этот монстр",
+"item.animalnet.mob_core":"Ядро монстра",
+"message.animalnet.villager_needed":"Вам нужна сеть NPC, чтобы поймать жителя деревни!",
+"message.animalnet.mob_needed":"Вам нужна сеть монстров, чтобы ловить монстров!",
+"item.animalnet.catched_animal":"Пойманное животное / монстр",
+"message.animalnet.animal_needed":"Вам нужна сетка для животных, чтобы ловить нормальных животных!",
+"item.animalnet.mob_net_big":"Большая сеть монстров",
+"message.animalnet.entity_too_big":"%s слишком большой и не может быть пойман!"
 }

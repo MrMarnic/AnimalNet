@@ -18,6 +18,8 @@ import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.StringTextComponent;
+import net.minecraft.text.TextComponent;
+import net.minecraft.text.TranslatableTextComponent;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BoundingBox;
 
@@ -69,14 +71,14 @@ public class EntityHandler {
             } else {
                 if(net.getSize()!= NetSize.BIG) {
                     if(canBeCaughtByAnimalNet(target)&&net.getType()==NetType.ANIMAL) {
-                        sendStatus(playerEntity, "You need a bigger net!");
+                        sendStatus(playerEntity, new TranslatableTextComponent("message.animalnet.net_too_small"));
                     }else if(canBeCaughtByMobNet(target)&&net.getType()==NetType.MOB) {
-                        sendStatus(playerEntity, "You need a bigger net!");
+                        sendStatus(playerEntity, new TranslatableTextComponent("message.animalnet.net_too_small"));
                     }else{
                         sendCanNotBeCaught(playerEntity,target);
                     }
                 }else{
-                    sendStatus(playerEntity, "This " + net.getType().getName() +  " is too big. It can not be caught!");
+                    sendStatus(playerEntity,  new TranslatableTextComponent("message.animalnet.entity_too_big",new TranslatableTextComponent(net.getType().getFormalTranslationKey())));
                 }
             }
         }else{
@@ -88,7 +90,6 @@ public class EntityHandler {
     private boolean addNetToInv(PlayerEntity playerEntity,Entity target) {
         ItemStack stack = AnimalNetItems.caughtEntityItem.createInstance(target);
         addItem(playerEntity, stack);
-        //target.kill();
         target.invalidate();
         if (!playerEntity.isCreative()) {
             currentItem = playerEntity.getActiveItem();
@@ -107,23 +108,28 @@ public class EntityHandler {
 
     private void sendCanNotBeCaught(PlayerEntity p, Entity e) {
         if(canBeCaughtByAnimalNet(e)) {
-            sendStatus(p,"You need an animal net to catch normal animals!");
+            sendStatus(p,new TranslatableTextComponent("message.animalnet.animal_needed"));
         }else if(canBeCaughtByMobNet(e)) {
-            sendStatus(p,"To catch a mob you need a mob net!");
+            sendStatus(p,new TranslatableTextComponent("message.animalnet.mob_needed"));
         }else if(e instanceof Npc) {
             if(e instanceof VillagerEntity) {
-                sendStatus(p,"To catch a villager you need a npc net!");
+                sendStatus(p,new TranslatableTextComponent("message.animalnet.villager_needed"));
             }else{
-                sendStatus(p,"To catch a npc you need a npc net!");
+                sendStatus(p,new TranslatableTextComponent("message.animalnet.npc_needed"));
             }
         }else{
-            sendStatus(p,"This entity can not be caught!");
+            sendStatus(p,new TranslatableTextComponent("message.animalnet.can_not_be_caught"));
         }
     }
 
     private void sendStatus(PlayerEntity p,String msg) {
         p.addChatMessage(new StringTextComponent(msg),true);
     }
+
+    private void sendStatus(PlayerEntity p, TextComponent msg) {
+        p.addChatMessage(msg,true);
+    }
+
 
     private void addItem(PlayerEntity p, ItemStack stack) {
         boolean full = true;
