@@ -38,9 +38,11 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
@@ -219,7 +221,7 @@ public class AnimalNetModHandler {
     public void entityRightClick(PlayerInteractEvent.EntityInteract e) {
         if(!e.getWorld().isRemote) {
             if (e.getHand() == EnumHand.MAIN_HAND) {
-                boundingBox = e.getEntityLiving().getRenderBoundingBox();
+                boundingBox = e.getEntityLiving().getEntityBoundingBox();
                 size = (boundingBox.maxX-boundingBox.minX)*(boundingBox.maxY-boundingBox.minY);
                 if(AnimalNetItem.class.isAssignableFrom(e.getItemStack().getItem().getClass())) {
                     if(!checkEntity((AnimalNetItem)e.getItemStack().getItem(),e)) {
