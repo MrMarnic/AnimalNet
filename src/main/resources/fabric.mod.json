@@ -2,7 +2,7 @@
   "id": "animalnet",
   "name": "AnimalNet",
   "description": "With this mod you can catch animals and mobs with a net",
-  "version": "1.3 Fabric 19w11b",
+  "version": "1.4 Fabric 19w11b",
   "side": "universal",
   "initializers": [
     "me.marnic.animalnet.main.AnimalNet"
