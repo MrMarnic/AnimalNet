@@ -6,6 +6,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.client.ClientTickCallback;
 import net.fabricmc.fabric.mixin.events.playerinteraction.MixinClientPlayerInteractionManager;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.server.world.ServerWorld;
 
 /**
  * Copyright (c) 04.03.2019
@@ -22,6 +23,5 @@ public class AnimalNet implements ModInitializer {
     public void onInitialize() {
         AnimalNetItems.init();
         ITEM_REGISTRY.registerItems();
-
     }
 }

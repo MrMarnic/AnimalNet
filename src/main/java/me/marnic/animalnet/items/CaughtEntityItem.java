@@ -1,49 +1,30 @@
 package me.marnic.animalnet.items;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
-import com.sun.jna.platform.unix.X11;
 import me.marnic.animalnet.api.BasicItem;
 import me.marnic.animalnet.api.EntityUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.FacingBlock;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.MainMenuScreen;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnType;
-import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtIo;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.PlayerManager;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.stat.Stats;
 import net.minecraft.text.StringTextComponent;
 import net.minecraft.text.TextComponent;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.DefaultedList;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldSaveHandler;
 
 import java.io.File;
 import java.io.IOException;
@@ -248,7 +229,7 @@ public class CaughtEntityItem extends BasicItem {
     }
 
     private void sendError(PlayerEntity player, String msg) {
-        player.addChatMessage(new StringTextComponent(ChatFormatting.RED + msg),true);
+        player.addChatMessage(new StringTextComponent("§4" + msg),true);
     }
 
     @Override
