@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CSC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "item": "animalnet:caught_entity"
+    }
+  },
+  "result": {
+    "item": "animalnet:caught_entity",
+    "nbt": {
+      "display": { "Name": "Craft to apply information"}
+    }
+  }
+}

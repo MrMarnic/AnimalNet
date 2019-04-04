@@ -1,0 +1,22 @@
+item.animal_net_small.name=Kleines Tier Netz
+item.animal_net_medium.name=Mittleres Tier Netz
+item.animal_net_big.name=Großes Tier Netz
+item.mob_net_small.name=Kleines Monster Netz
+item.mob_net_big.name=Großes Monster Netz
+item.catched_animal.name=Gefangenes Tier/Monster
+item.mob_core.name=Monster Kern
+item.npc_net.name=NPC Netz
+itemGroup.AnimalNet Items=AnimalNet Items
+
+message.animalnet.net_too_small=Du benötigst ein größeres Netz!
+message.animalnet.can_not_be_caught=Dieses Tier kann nicht gefangen werden!
+message.animalnet.entity_too_big=%s ist zu groß und kann nicht gefangen werden!
+
+message.animalnet.animal_needed=Du brauchst ein Tiernetz um normale Tiere zu fangen!
+message.animalnet.mob_needed=Du brauchst ein Monsternetz um Monster zu fangen!
+message.animalnet.npc_needed=Du brauchst ein Npcnetz um Npcs zu fangen!
+message.animalnet.villager_needed=Du brauchst ein Npcnetz um Villager zu fangen!
+
+message.animalnet.formal_mob=Dieser Mob
+message.animalnet.formal_animal=Dieses Tier
+message.animalnet.formal_npc=Dieser Npc

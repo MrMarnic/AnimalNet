@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CSC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:dye",
+      "data": 15
+    },
+    "S": {
+      "item": "animalnet:caught_entity"
+    }
+  },
+  "result": {
+    "item": "animalnet:caught_entity",
+    "nbt": {
+      "display": { "Name": "Craft to apply information"}
+    }
+  }
+}
