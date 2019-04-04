@@ -1,0 +1,16 @@
+[
+{
+  "modid": "animalnet",
+  "name": "AnimalNet",
+  "description": "With this mod you can catch animals with a net",
+  "version": "Forge 1.7.10 1.0",
+  "mcversion": "1.7.10",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["MrMarnic"],
+  "credits": "MrMarnic",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
