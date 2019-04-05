@@ -19,9 +19,16 @@ public class AnimalNetCrafting {
         GameRegistry.addShapedRecipe(new ItemStack(AnimalNetItems.animalNetMedium),"SCI","CBC","ICS",'C', Blocks.stone
                 ,'B',AnimalNetItems.animalNetSmall,'S', Items.slime_ball,'I',Items.iron_ingot);
 
-        GameRegistry.addShapedRecipe(new ItemStack(AnimalNetItems.animalNetMedium),"CCC","CSC","CCC",'C', Blocks.stone
+        GameRegistry.addShapedRecipe(new ItemStack(AnimalNetItems.animalNetSmall),"CCC","CSC","CCC",'C', Blocks.stone
                 ,'S',Items.string);
 
+        GameRegistry.addShapedRecipe(new ItemStack(AnimalNetItems.mobCore)," B ","SIG"," R ",'B', Items.bone
+                ,'S',Items.string,'I',Items.iron_sword,'R',Items.rotten_flesh,'G',Items.gunpowder);
 
+        GameRegistry.addShapedRecipe(new ItemStack(AnimalNetItems.mobNetBig),"DED","CBS","GDG",'D',Items.diamond,'E',Items.ender_pearl,'S',Blocks.stone,'B',AnimalNetItems.mobNetSmall,'G',Items.gold_ingot,'C',AnimalNetItems.mobCore);
+
+        GameRegistry.addShapedRecipe(new ItemStack(AnimalNetItems.mobNetSmall),"BMB","CSC","BIB",'B',Items.slime_ball,'M',AnimalNetItems.mobCore,'C',Items.string,'S',AnimalNetItems.animalNetSmall,'I',Items.iron_ingot);
+
+        GameRegistry.addShapedRecipe(new ItemStack(AnimalNetItems.npcNet),"WBL","OSO","PEC",'W',Items.wheat,'B',Items.book,'L',Items.coal,'O',Blocks.planks,'S',AnimalNetItems.animalNetMedium,'P',Items.potato,'E',Items.leather,'C',Items.carrot);
     }
 }

@@ -26,6 +26,7 @@ public class AnimalNet
         logger = event.getModLog();
         logger.info("Starting PreInitialization...");
         AnimalNetItems.init();
+        AnimalNetCrafting.init();
         MinecraftForge.EVENT_BUS.register(ANIMAL_NET_MOD_HANDLER);
         FMLCommonHandler.instance().bus().register(ANIMAL_NET_MOD_HANDLER);
         logger.info("PreInitialization finished!");
