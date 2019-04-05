@@ -9,6 +9,7 @@ package me.marnic.animalnet.main;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import me.marnic.animalnet.item.AnimalNetItem;
+import me.marnic.animalnet.item.CaughtEntityItem;
 import me.marnic.animalnet.item.NetSize;
 import me.marnic.animalnet.item.NetType;
 import net.minecraft.entity.Entity;
@@ -36,6 +37,18 @@ import java.io.File;
 public class AnimalNetModHandler {
     private static boolean isValidEntity(Entity e) {
         return e instanceof EntityLiving;
+    }
+
+    @SubscribeEvent
+    public void craft(final PlayerEvent.ItemCraftedEvent e) {
+        if (e.crafting.getItem().equals(AnimalNetItems.caughtEntityItem)) {
+            if (e.crafting.getTagCompound().getString("age").equalsIgnoreCase("Adult")) {
+                CaughtEntityItem.makeAdult(e.crafting);
+            }
+            else {
+                CaughtEntityItem.makeChild(e.crafting);
+            }
+        }
     }
 
     @SubscribeEvent

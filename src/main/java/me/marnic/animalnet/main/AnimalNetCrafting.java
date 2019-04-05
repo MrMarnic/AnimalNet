@@ -2,6 +2,8 @@ package me.marnic.animalnet.main;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import me.marnic.animalnet.item.AnimalNetItem;
+import me.marnic.animalnet.recipes.CaughtAnimalToAdultRecipe;
+import me.marnic.animalnet.recipes.CaughtAnimalToChildRecipe;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -30,5 +32,9 @@ public class AnimalNetCrafting {
         GameRegistry.addShapedRecipe(new ItemStack(AnimalNetItems.mobNetSmall),"BMB","CSC","BIB",'B',Items.slime_ball,'M',AnimalNetItems.mobCore,'C',Items.string,'S',AnimalNetItems.animalNetSmall,'I',Items.iron_ingot);
 
         GameRegistry.addShapedRecipe(new ItemStack(AnimalNetItems.npcNet),"WBL","OSO","PEC",'W',Items.wheat,'B',Items.book,'L',Items.coal,'O',Blocks.planks,'S',AnimalNetItems.animalNetMedium,'P',Items.potato,'E',Items.leather,'C',Items.carrot);
+
+        GameRegistry.addRecipe(new CaughtAnimalToChildRecipe());
+
+        GameRegistry.addRecipe(new CaughtAnimalToAdultRecipe());
     }
 }
