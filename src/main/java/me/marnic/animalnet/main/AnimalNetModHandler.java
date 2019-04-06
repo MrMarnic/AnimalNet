@@ -18,8 +18,10 @@ import net.minecraft.entity.INpc;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
@@ -68,7 +70,8 @@ public class AnimalNetModHandler {
     public void entityRightClick(EntityInteractEvent e) {
         if(!e.entityLiving.worldObj.isRemote) {
                 boundingBox = e.entityLiving.boundingBox;
-                size = (boundingBox.maxX-boundingBox.minX)*(boundingBox.maxY-boundingBox.minY);
+                size = e.target.width*e.target.height;
+            System.out.println(size);
                 if(e.entityPlayer.getHeldItem()!=null) {
                     if (AnimalNetItem.class.isAssignableFrom(e.entityPlayer.getHeldItem().getItem().getClass())) {
                         if (!checkEntity((AnimalNetItem) e.entityPlayer.getHeldItem().getItem(), e)) {

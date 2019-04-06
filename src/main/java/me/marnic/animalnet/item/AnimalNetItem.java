@@ -1,6 +1,10 @@
 package me.marnic.animalnet.item;
 
 import me.marnic.animalnet.api.BasicItem;
+import net.minecraft.entity.Entity;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Copyright (c) 19.02.2019
@@ -13,7 +17,7 @@ public class AnimalNetItem extends BasicItem {
     private double acceptedSize;
     private int uses;
 
-    public AnimalNetItem(String name, NetSize size, NetType type, double acceptedSize,int uses) {
+    public AnimalNetItem(String name, NetSize size, NetType type, double acceptedSize, int uses) {
         super(name);
         this.size = size;
         this.type = type;

@@ -10,6 +10,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import me.marnic.animalnet.api.BasicItem;
 import me.marnic.animalnet.item.*;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -36,7 +37,7 @@ public class AnimalNetItems {
 
         animalNetSmall = new AnimalNetItem("animal_net_small", NetSize.SMALL, NetType.ANIMAL,1,0);
 
-        animalNetMedium = new AnimalNetItem("animal_net_medium", NetSize.MEDIUM, NetType.ANIMAL,2.2,0);
+        animalNetMedium = new AnimalNetItem("animal_net_medium", NetSize.MEDIUM, NetType.ANIMAL,1.1,0);
         animalNetBig = new AnimalNetItem("animal_net_big",NetSize.BIG, NetType.ANIMAL,10,1);
         mobNetSmall = new AnimalNetItem("mob_net_small",NetSize.SMALL, NetType.MOB,1.4,0);
         mobNetBig = new AnimalNetItem("mob_net_big", NetSize.BIG, NetType.MOB,10,1);

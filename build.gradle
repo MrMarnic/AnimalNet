@@ -17,9 +17,9 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.0"
-group= "com.yourname.modid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "modid"
+version = "1.0-1.7.10"
+group= "me.marnic.animalnet" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "animalnet"
 
 minecraft {
     version = "1.7.10-10.13.4.1558-1.7.10"
@@ -41,8 +41,6 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
 }
-
-idea { module { inheritOutputDirs = true } }
 
 processResources
 {
