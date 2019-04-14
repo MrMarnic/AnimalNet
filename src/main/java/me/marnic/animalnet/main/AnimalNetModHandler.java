@@ -221,8 +221,9 @@ public class AnimalNetModHandler {
     public void entityRightClick(PlayerInteractEvent.EntityInteract e) {
         if(!e.getWorld().isRemote) {
             if (e.getHand() == EnumHand.MAIN_HAND) {
-                boundingBox = e.getEntityLiving().getEntityBoundingBox();
+                boundingBox = e.getTarget().getEntityBoundingBox();
                 size = (boundingBox.maxX-boundingBox.minX)*(boundingBox.maxY-boundingBox.minY);
+                System.out.println(size);
                 if(AnimalNetItem.class.isAssignableFrom(e.getItemStack().getItem().getClass())) {
                     if(!checkEntity((AnimalNetItem)e.getItemStack().getItem(),e)) {
                         e.setCanceled(true);
