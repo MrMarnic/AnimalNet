@@ -29,9 +29,9 @@ public class AnimalNetItems {
             }
         };
 
-        animalNetSmall = new AnimalNetItem("animal_net_small",new Item.Properties().group(ANIMAL_NET_ITEMS), NetSize.SMALL, NetType.ANIMAL,0.4,1);
+        animalNetSmall = new AnimalNetItem("animal_net_small",new Item.Properties().group(ANIMAL_NET_ITEMS), NetSize.SMALL, NetType.ANIMAL,0.5,1);
 
-        animalNetMedium = new AnimalNetItem("animal_net_medium",new Item.Properties().group(ANIMAL_NET_ITEMS), NetSize.MEDIUM, NetType.ANIMAL,1.1,1);
+        animalNetMedium = new AnimalNetItem("animal_net_medium",new Item.Properties().group(ANIMAL_NET_ITEMS), NetSize.MEDIUM, NetType.ANIMAL,1.2,1);
         animalNetBig = new AnimalNetItem("animal_net_big",new Item.Properties().group(ANIMAL_NET_ITEMS),NetSize.BIG, NetType.ANIMAL,10,2);
         mobNetSmall = new AnimalNetItem("mob_net_small",new Item.Properties().group(ANIMAL_NET_ITEMS),NetSize.SMALL, NetType.MOB,1.3,1);
         mobNetBig = new AnimalNetItem("mob_net_big",new Item.Properties().group(ANIMAL_NET_ITEMS), NetSize.BIG, NetType.MOB,10,2);

@@ -10,9 +10,7 @@ import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.entity.passive.EntityWaterMob;
+import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -120,7 +118,7 @@ public class AnimalNetForgeHandler {
     }
 
     private static boolean canBeCaughtByAnimalNet(Entity entity) {
-        return entity instanceof EntityAnimal || entity instanceof EntityWaterMob;
+        return entity instanceof EntityAnimal || entity instanceof EntityWaterMob || entity instanceof IAnimal;
     }
 
     private static boolean canBeCaughtByMobNet(Entity entity) {
