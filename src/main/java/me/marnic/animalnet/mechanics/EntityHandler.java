@@ -42,8 +42,8 @@ public class EntityHandler {
         if(!e.getEntityWorld().isClient) {
             if (hand == Hand.MAIN) {
                 boundingBox = e.getBoundingBox();
-
                 size = (boundingBox.maxX-boundingBox.minX)*(boundingBox.maxY-boundingBox.minY);
+                System.out.println(size);
                 if(AnimalNetItem.class.isAssignableFrom(stack.getItem().getClass())) {
                     if(!checkEntity((AnimalNetItem)stack.getItem(),e,entity)) {
 

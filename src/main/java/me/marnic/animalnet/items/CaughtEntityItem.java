@@ -54,6 +54,7 @@ public class CaughtEntityItem extends BasicItem {
         CompoundTag tag = new CompoundTag();
 
         tag.putString("animalName", EntityType.getId(e.getType()).toString());
+        tag.putString("modName",EntityType.getId(e.getType()).getNamespace());
         tag.putString("fileName", name);
 
 
@@ -242,6 +243,9 @@ public class CaughtEntityItem extends BasicItem {
             tooltip.add(new StringTextComponent(stack.getTag().getString("date")));
             if (stack.getTag().containsKey("age")) {
                 tooltip.add(new StringTextComponent("Age: "+stack.getTag().getString("age")));
+            }
+            if (stack.getTag().containsKey("modName")) {
+                tooltip.add(new StringTextComponent("Mod: "+stack.getTag().getString("modName")));
             }
         }
     }
