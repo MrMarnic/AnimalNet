@@ -20,9 +20,7 @@ import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.entity.passive.EntityWaterMob;
+import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
@@ -262,7 +260,6 @@ public class AnimalNetModHandler {
             }
         }else{
             sendStatus(e.getEntityPlayer(),new TextComponentTranslation("message.animalnet.can_not_be_caught"));
-            System.out.println(e.getTarget());
         }
         return false;
     }
@@ -288,7 +285,7 @@ public class AnimalNetModHandler {
     }
 
     private static boolean canBeCaughtByAnimalNet(Entity entity) {
-        return entity instanceof EntityAnimal || entity instanceof EntityWaterMob;
+        return entity instanceof EntityAnimal || entity instanceof EntityWaterMob || entity instanceof IAnimals;
     }
 
     private static boolean canBeCaughtByMobNet(Entity entity) {
