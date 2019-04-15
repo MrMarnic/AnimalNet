@@ -42,6 +42,7 @@ public class CaughtEntityItem extends BasicItem {
         NBTTagCompound tag = new NBTTagCompound();
 
         tag.setInteger("animalName", EntityList.getEntityID(entity));
+        tag.setString("modName",EntityList.getEntityString(entity));
         tag.setString("fileName", name);
 
         if(e.hasCustomNameTag()) {
@@ -110,6 +111,9 @@ public class CaughtEntityItem extends BasicItem {
             p_77624_3_.add(p_77624_1_.getTagCompound().getString("date"));
             if (p_77624_1_.getTagCompound().hasKey("age")) {
                 p_77624_3_.add("Age: "+p_77624_1_.getTagCompound().getString("age"));
+            }
+            if(p_77624_1_.getTagCompound().hasKey("modName")) {
+                p_77624_3_.add("Mod: "+p_77624_1_.getTagCompound().getString("modName"));
             }
         }
     }

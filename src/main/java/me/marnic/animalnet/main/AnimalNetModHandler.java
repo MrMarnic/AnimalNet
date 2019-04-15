@@ -71,7 +71,7 @@ public class AnimalNetModHandler {
         if(!e.entityLiving.worldObj.isRemote) {
                 boundingBox = e.entityLiving.boundingBox;
                 size = e.target.width*e.target.height;
-            System.out.println(size);
+                System.out.println(size);
                 if(e.entityPlayer.getHeldItem()!=null) {
                     if (AnimalNetItem.class.isAssignableFrom(e.entityPlayer.getHeldItem().getItem().getClass())) {
                         if (!checkEntity((AnimalNetItem) e.entityPlayer.getHeldItem().getItem(), e)) {

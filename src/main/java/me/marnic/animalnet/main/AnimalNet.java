@@ -14,7 +14,7 @@ public class AnimalNet
 {
     public static final String MODID = "animalnet";
     public static final String NAME = "AnimalNet";
-    public static final String VERSION = "Forge 1.7.10 1.0";
+    public static final String VERSION = "Forge 1.7.10 1.1";
     public static final AnimalNetModHandler ANIMAL_NET_MOD_HANDLER = new AnimalNetModHandler();
 
 
