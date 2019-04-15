@@ -55,7 +55,7 @@ public class AnimalNetForgeHandler {
     public static void entityRightClick(PlayerInteractEvent.EntityInteract e) {
         if(!e.getWorld().isRemote) {
             if (e.getHand() == EnumHand.MAIN_HAND) {
-                boundingBox = e.getEntityLiving().getBoundingBox();
+                boundingBox = e.getTarget().getBoundingBox();
                 size = (boundingBox.maxX-boundingBox.minX)*(boundingBox.maxY-boundingBox.minY);
                 if(AnimalNetItem.class.isAssignableFrom(e.getItemStack().getItem().getClass())) {
                     if(!checkEntity((AnimalNetItem)e.getItemStack().getItem(),e)) {
