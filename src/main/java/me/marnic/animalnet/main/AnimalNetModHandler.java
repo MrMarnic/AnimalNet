@@ -262,6 +262,7 @@ public class AnimalNetModHandler {
             }
         }else{
             sendStatus(e.getEntityPlayer(),new TextComponentTranslation("message.animalnet.can_not_be_caught"));
+            System.out.println(e.getTarget());
         }
         return false;
     }
