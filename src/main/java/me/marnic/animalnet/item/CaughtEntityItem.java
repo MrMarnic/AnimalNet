@@ -57,6 +57,7 @@ public class CaughtEntityItem extends BasicItem {
         NBTTagCompound tag = new NBTTagCompound();
 
         tag.setString("animalName", EntityList.getKey(entity).toString());
+        tag.setString("modName",EntityList.getKey(entity).getResourceDomain());
         tag.setString("fileName", name);
 
         if(e.hasCustomName()) {
@@ -183,6 +184,9 @@ public class CaughtEntityItem extends BasicItem {
             tooltip.add(stack.getTagCompound().getString("date"));
             if (stack.getTagCompound().hasKey("age")) {
                 tooltip.add("Age: "+stack.getTagCompound().getString("age"));
+            }
+            if (stack.getTagCompound().hasKey("modName")) {
+                tooltip.add("Mod: "+stack.getTagCompound().getString("modName"));
             }
         }
     }

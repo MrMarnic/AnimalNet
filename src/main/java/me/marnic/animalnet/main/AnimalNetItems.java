@@ -34,7 +34,7 @@ public class AnimalNetItems {
 
         animalNetSmall = new AnimalNetItem("animal_net_small", NetSize.SMALL, NetType.ANIMAL,0.4,0);
 
-        animalNetMedium = new AnimalNetItem("animal_net_medium", NetSize.MEDIUM, NetType.ANIMAL,0.9,0);
+        animalNetMedium = new AnimalNetItem("animal_net_medium", NetSize.MEDIUM, NetType.ANIMAL,1.1,0);
         animalNetBig = new AnimalNetItem("animal_net_big",NetSize.BIG, NetType.ANIMAL,10,1);
         mobNetSmall = new AnimalNetItem("mob_net_small",NetSize.SMALL, NetType.MOB,1.3,0);
         mobNetBig = new AnimalNetItem("mob_net_big", NetSize.BIG, NetType.MOB,10,1);
