@@ -1,5 +1,5 @@
 {"item.animalnet.mob_net_small":"Маленькая сеть монстров",
-"itemGroup.AnimalNet Items":"AnimalNet Items",
+"itemGroup.animalnet.general":"AnimalNet Items",
 "message.animalnet.formal_animal":"Это животное",
 "item.animalnet.animal_net_big":"Большая сеть животных",
 "message.animalnet.npc_needed":"Вам нужна сеть NPC, чтобы поймать NPCs!",

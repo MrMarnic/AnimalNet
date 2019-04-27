@@ -1,5 +1,5 @@
 {"item.animalnet.mob_net_small":"Small Mob Net",
-"itemGroup.AnimalNet Items":"AnimalNet Items",
+"itemGroup.animalnet.general":"AnimalNet Items",
 "message.animalnet.formal_animal":"This animal",
 "item.animalnet.animal_net_big":"Big Animal Net",
 "message.animalnet.npc_needed":"You need a npc net to catch npcs!",
