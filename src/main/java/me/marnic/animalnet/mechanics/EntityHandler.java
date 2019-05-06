@@ -4,6 +4,7 @@ import me.marnic.animalnet.items.AnimalNetItem;
 import me.marnic.animalnet.items.NetSize;
 import me.marnic.animalnet.items.NetType;
 import me.marnic.animalnet.main.AnimalNetItems;
+import net.minecraft.datafixers.fixes.ItemSpawnEggFix;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Npc;
@@ -17,6 +18,7 @@ import net.minecraft.entity.passive.SquidEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.StringTextComponent;
 import net.minecraft.text.TextComponent;
 import net.minecraft.text.TranslatableTextComponent;
@@ -40,7 +42,7 @@ public class EntityHandler {
 
     public boolean handleRightClick(LivingEntity e, Hand hand,ItemStack stack,PlayerEntity entity) {
         if(!e.getEntityWorld().isClient) {
-            if (hand == Hand.MAIN) {
+            if (hand == Hand.MAIN_HAND) {
                 boundingBox = e.getBoundingBox();
                 size = (boundingBox.maxX-boundingBox.minX)*(boundingBox.maxY-boundingBox.minY);
                 System.out.println(size);
@@ -90,10 +92,13 @@ public class EntityHandler {
     private boolean addNetToInv(PlayerEntity playerEntity,Entity target) {
         ItemStack stack = AnimalNetItems.caughtEntityItem.createInstance(target);
         addItem(playerEntity, stack);
-        target.invalidate();
+        target.remove();
         if (!playerEntity.isCreative()) {
-            currentItem = playerEntity.getActiveItem();
-            playerEntity.inventory.getMainHandStack().applyDamage(1,playerEntity);
+            currentItem = playerEntity.inventory.getMainHandStack();
+            currentItem.applyDamage(1,playerEntity.getRand(),(ServerPlayerEntity)playerEntity);
+            if(currentItem.getDamage()>=((AnimalNetItem)currentItem.getItem()).getUses()) {
+                currentItem.setAmount(0);
+            }
         }
         return true;
     }

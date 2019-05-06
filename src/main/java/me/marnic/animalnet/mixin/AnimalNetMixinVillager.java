@@ -1,31 +1,29 @@
 package me.marnic.animalnet.mixin;
 
-import com.mojang.authlib.GameProfile;
 import me.marnic.animalnet.items.AnimalNetItem;
 import me.marnic.animalnet.main.AnimalNetItems;
-import net.minecraft.class_4139;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.SpawnEggItem;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.village.TraderRecipe;
+import net.minecraft.village.TradeOffer;
+import net.minecraft.village.VillageGossipType;
+import net.minecraft.village.VillagerGossips;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Iterator;
@@ -47,17 +45,48 @@ public abstract class AnimalNetMixinVillager extends LivingEntity {
         return AnimalNetItem.class.isAssignableFrom(item.getClass());
     }
 
-    @Inject(method = "interactMob",at=@At("HEAD"))
-    public void interactMob(PlayerEntity playerEntity_1, Hand hand_1,CallbackInfoReturnable returnable) {
+    public boolean interactMob(PlayerEntity playerEntity_1, Hand hand_1) {
         ItemStack itemStack_1 = playerEntity_1.getStackInHand(hand_1);
         boolean boolean_1 = itemStack_1.getItem() == Items.NAME_TAG || isNet(itemStack_1.getItem());
-
-        if(boolean_1) {
+        if (boolean_1) {
             itemStack_1.interactWithEntity(playerEntity_1, this, hand_1);
+            return true;
+        } else if (itemStack_1.getItem() != Items.VILLAGER_SPAWN_EGG && this.isAlive() && !getVillager().hasCustomer() && !this.isSleeping()) {
+            if (this.isChild()) {
+                this.sayNo();
+                return getVillager().interactMob(playerEntity_1, hand_1);
+            } else {
+                boolean boolean_2 = getVillager().getOffers().isEmpty();
+                if (hand_1 == Hand.MAIN_HAND) {
+                    if (boolean_2) {
+                        this.sayNo();
+                    }
+
+                    playerEntity_1.incrementStat(Stats.TALKED_TO_VILLAGER);
+                }
+
+                if (boolean_2) {
+                    return getVillager().interactMob(playerEntity_1, hand_1);
+                } else {
+                    if (!this.world.isClient && !getVillager().getOffers().isEmpty()) {
+                        this.beginTradeWith(playerEntity_1);
+                    }
+
+                    return true;
+                }
+            }
+        } else {
+            return getVillager().interactMob(playerEntity_1, hand_1);
         }
     }
 
     public VillagerEntity getVillager() {
         return ((VillagerEntity)(LivingEntity)this);
     }
+
+    @Shadow
+    private void sayNo() {}
+
+    @Shadow
+    private void beginTradeWith(PlayerEntity playerEntity_1) { }
 }

@@ -67,7 +67,7 @@ public class CaughtEntityItem extends BasicItem {
         }else{
             tag.remove("animalTag");
         }
-        tag.putString("location", "x:" + e.getPos().getX() + " y:" + e.getPos().getY() + " z:" + e.getPos().getZ());
+        tag.putString("location", "x:" + (int)e.getPos().getX() + " y:" + (int)e.getPos().getY() + " z:" + (int)e.getPos().getZ());
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         java.util.Date date = new java.util.Date();
         tag.putString("date", formatter.format(date));

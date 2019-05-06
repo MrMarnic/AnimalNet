@@ -28,8 +28,8 @@ public class AnimalNetMixinWorldCreate{
     @Shadow
     private File gameDir;
 
-    @Inject(method = "method_3735",at=@At(value = "HEAD"))
-    public void method_3735(String string_1, String string_2, long long_1, LevelGeneratorType levelGeneratorType_1, JsonElement jsonElement_1,CallbackInfo info) {
+    @Inject(method = "loadWorld",at=@At(value = "HEAD"))
+    public void loadWorld(String string_1, String string_2, long long_1, LevelGeneratorType levelGeneratorType_1, JsonElement jsonElement_1,CallbackInfo info) {
         File f = new File(gameDir.getAbsolutePath()+"\\"+string_1);
         File animalData = new File(f.getAbsolutePath()+"\\animalData");
         if(!animalData.exists()) {

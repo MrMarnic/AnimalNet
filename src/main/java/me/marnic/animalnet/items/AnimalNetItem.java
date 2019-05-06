@@ -40,6 +40,7 @@ public class AnimalNetItem extends BasicItem {
     @Override
     public boolean interactWithEntity(ItemStack itemStack_1, PlayerEntity playerEntity_1, LivingEntity livingEntity_1, Hand hand_1) {
         if(!playerEntity_1.getEntityWorld().isClient) {
+            System.out.println("ddd");
             return AnimalNet.ENTITY_HANDLER.handleRightClick(livingEntity_1, hand_1, itemStack_1, playerEntity_1);
         }
         return super.interactWithEntity(itemStack_1,playerEntity_1,livingEntity_1,hand_1);
