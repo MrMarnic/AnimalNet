@@ -1,0 +1,22 @@
+item.animal_net_small.name=Küçük Hayvan Ağı
+item.animal_net_medium.name=Orta Hayvan Ağı
+item.animal_net_big.name=Büyük Hayvan Ağı
+item.mob_net_small.name=Küçük Mob Ağı
+item.mob_net_big.name=Büyük Hayvan Ağı
+item.catched_animal.name=Yakalanmış Hayvan/Mob
+item.mob_core.name=Mob Çekirdeği
+item.npc_net.name=NPC Ağı
+itemGroup.AnimalNet Items=AnimalNet Eşyaları
+
+message.animalnet.net_too_small=Daha büyük bir ağ gerek!
+message.animalnet.can_not_be_caught=Bu varlık yakalanamaz!
+message.animalnet.entity_too_big=%s çok büyük ve yakalanamaz!
+
+message.animalnet.animal_needed=Normal hayvanları yakalaman için bir hayvan ağı gerek!
+message.animalnet.mob_needed=Mobları yakalaman için bir mob ağı gerek!
+message.animalnet.npc_needed=NPCleri yakalaman için bir NPC ağı gerek!
+message.animalnet.villager_needed=Köylü yakalaman için NPC ağı gerek!
+
+message.animalnet.formal_mob=Bu mob
+message.animalnet.formal_animal=Bu hayvan
+message.animalnet.formal_npc=Bu NPC
