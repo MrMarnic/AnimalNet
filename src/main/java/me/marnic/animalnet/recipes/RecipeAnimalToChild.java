@@ -6,18 +6,39 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.crafting.IShapedRecipe;
 
 /**
  * Copyright (c) 18.05.2019
  * Developed by MrMarnic
  * GitHub: https://github.com/MrMarnic
  */
-public class RecipeAnimalToChild implements IRecipe {
+public class RecipeAnimalToChild implements IShapedRecipe {
     private ItemStack match;
 
     private final ItemStack out = new ItemStack(AnimalNetItems.caughtEntityItem);
+
+    private NonNullList<Ingredient> ingredients;
+
+    public RecipeAnimalToChild() {
+        ingredients = NonNullList.create();
+        ingredients.add(Ingredient.fromItem(Items.REDSTONE));
+        ingredients.add(Ingredient.fromItem(Items.REDSTONE));
+        ingredients.add(Ingredient.fromItem(Items.REDSTONE));
+
+        ingredients.add(Ingredient.fromItem(Items.REDSTONE));
+        ingredients.add(Ingredient.fromItem(AnimalNetItems.caughtEntityItem));
+        ingredients.add(Ingredient.fromItem(Items.REDSTONE));
+
+        ingredients.add(Ingredient.fromItem(Items.REDSTONE));
+        ingredients.add(Ingredient.fromItem(Items.REDSTONE));
+        ingredients.add(Ingredient.fromItem(Items.REDSTONE));
+    }
 
     @Override
     public boolean matches(InventoryCrafting inv, World worldIn) {
@@ -71,5 +92,20 @@ public class RecipeAnimalToChild implements IRecipe {
     @Override
     public Class<IRecipe> getRegistryType() {
         return null;
+    }
+
+    @Override
+    public int getRecipeWidth() {
+        return 3;
+    }
+
+    @Override
+    public int getRecipeHeight() {
+        return 3;
+    }
+
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return ingredients;
     }
 }
