@@ -6,7 +6,12 @@ import me.marnic.animalnet.recipes.RecipeAnimalToChild;
 import me.marnic.animalnet.recipes.RecipeChildToAnimal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.crafting.ShapedRecipe;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.DefaultedList;
+import net.minecraft.world.dimension.DimensionType;
 
 /**
  * Copyright (c) 18.05.2019

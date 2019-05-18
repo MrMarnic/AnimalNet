@@ -6,10 +6,13 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.crafting.CraftingRecipe;
+import net.minecraft.recipe.crafting.ShapedRecipe;
+import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
@@ -18,11 +21,24 @@ import net.minecraft.world.World;
  * Developed by MrMarnic
  * GitHub: https://github.com/MrMarnic
  */
-public class RecipeChildToAnimal implements CraftingRecipe {
+public class RecipeChildToAnimal extends ShapedRecipe {
 
     private ItemStack match;
 
     private final ItemStack out = new ItemStack(AnimalNetItems.caughtEntityItem);
+
+    public RecipeChildToAnimal() {
+        super(new Identifier("animalnet","caught_child_to_adult"), "", 3, 3, DefaultedList.create(), new ItemStack(AnimalNetItems.caughtEntityItem));
+        getPreviewInputs().add(Ingredient.ofItems(Items.BONE_MEAL));
+        getPreviewInputs().add(Ingredient.ofItems(Items.BONE_MEAL));
+        getPreviewInputs().add(Ingredient.ofItems(Items.BONE_MEAL));
+        getPreviewInputs().add(Ingredient.ofItems(Items.BONE_MEAL));
+        getPreviewInputs().add(Ingredient.ofItems(AnimalNetItems.caughtEntityItem));
+        getPreviewInputs().add(Ingredient.ofItems(Items.BONE_MEAL));
+        getPreviewInputs().add(Ingredient.ofItems(Items.BONE_MEAL));
+        getPreviewInputs().add(Ingredient.ofItems(Items.BONE_MEAL));
+        getPreviewInputs().add(Ingredient.ofItems(Items.BONE_MEAL));
+    }
 
 
     @Override
@@ -51,30 +67,5 @@ public class RecipeChildToAnimal implements CraftingRecipe {
         ItemStack stack = match.copy();
         CaughtEntityItem.makeFakeAdult(stack);
         return stack;
-    }
-
-    @Override
-    public boolean fits(int width, int height) {
-        return width>=3 && height>=3;
-    }
-
-    @Override
-    public ItemStack getOutput() {
-        return out;
-    }
-
-    @Override
-    public Identifier getId() {
-        return new Identifier("animalnet","caught_child_to_adult");
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-        return RecipeSerializer.SHAPED;
-    }
-
-    @Override
-    public RecipeType<?> getType() {
-        return RecipeType.CRAFTING;
     }
 }

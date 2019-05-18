@@ -27,6 +27,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -99,7 +101,7 @@ public class CaughtEntityItem extends BasicItem {
 
             f.createNewFile();
 
-            NbtIo.write(newtag, f);
+            NbtIo.writeCompressed(newtag, new FileOutputStream(f));
         } catch (IOException e1) {
             e1.printStackTrace();
         }
@@ -155,7 +157,7 @@ public class CaughtEntityItem extends BasicItem {
                     File f = new File(serverWorld.getSaveHandler().getWorldDir().getAbsolutePath() + "//animalData//" + tag.getString("fileName") + ".dat");
 
                     if (f.exists()) {
-                        entTag = NbtIo.read(f);
+                        entTag = NbtIo.readCompressed(new FileInputStream(f));
                     } else {
                         entTag = new CompoundTag();
                         sendError(con.getPlayer(), "Error: The file for this entity : \"" + f.getAbsolutePath() + "\" is missing!");
@@ -188,7 +190,7 @@ public class CaughtEntityItem extends BasicItem {
 
                     world.spawnEntity(living);
 
-                    con.getPlayer().inventory.removeInvStack(con.getPlayer().inventory.getSlotWithStack(con.getPlayer().inventory.getMainHandStack()));
+                    con.getPlayer().inventory.removeInvStack(con.getPlayer().inventory.selectedSlot);
 
                     f.delete();
 
@@ -288,7 +290,7 @@ public class CaughtEntityItem extends BasicItem {
 
         try {
             if(f.exists()) {
-                return NbtIo.read(f);
+                return NbtIo.readCompressed(new FileInputStream(f));
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -302,7 +304,7 @@ public class CaughtEntityItem extends BasicItem {
 
         try {
             f.delete();
-            NbtIo.write(entity,f);
+            NbtIo.writeCompressed(entity,new FileOutputStream(f));
         }catch (Exception e) {
             e.printStackTrace();
         }

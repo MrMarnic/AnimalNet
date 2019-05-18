@@ -7,23 +7,41 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.crafting.CraftingRecipe;
+import net.minecraft.recipe.crafting.ShapedRecipe;
+import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+
+import java.util.Arrays;
 
 /**
  * Copyright (c) 18.05.2019
  * Developed by MrMarnic
  * GitHub: https://github.com/MrMarnic
  */
-public class RecipeAnimalToChild implements CraftingRecipe {
+public class RecipeAnimalToChild extends ShapedRecipe {
 
     private ItemStack match;
 
     private final ItemStack out = new ItemStack(AnimalNetItems.caughtEntityItem);
+
+    public RecipeAnimalToChild() {
+        super(new Identifier("animalnet","caught_animal_to_child"), "", 3, 3, DefaultedList.create(), new ItemStack(AnimalNetItems.caughtEntityItem));
+        getPreviewInputs().add(Ingredient.ofItems(Items.REDSTONE));
+        getPreviewInputs().add(Ingredient.ofItems(Items.REDSTONE));
+        getPreviewInputs().add(Ingredient.ofItems(Items.REDSTONE));
+        getPreviewInputs().add(Ingredient.ofItems(Items.REDSTONE));
+        getPreviewInputs().add(Ingredient.ofItems(AnimalNetItems.caughtEntityItem));
+        getPreviewInputs().add(Ingredient.ofItems(Items.REDSTONE));
+        getPreviewInputs().add(Ingredient.ofItems(Items.REDSTONE));
+        getPreviewInputs().add(Ingredient.ofItems(Items.REDSTONE));
+        getPreviewInputs().add(Ingredient.ofItems(Items.REDSTONE));
+    }
 
     @Override
     public boolean matches(CraftingInventory inv, World var2) {
@@ -52,30 +70,5 @@ public class RecipeAnimalToChild implements CraftingRecipe {
         ItemStack stack = match.copy();
         CaughtEntityItem.makeFakeChild(stack);
         return stack;
-    }
-
-    @Override
-    public boolean fits(int width, int height) {
-        return width>=3 && height>=3;
-    }
-
-    @Override
-    public ItemStack getOutput() {
-        return out;
-    }
-
-    @Override
-    public Identifier getId() {
-        return new Identifier("animalnet","caught_animal_to_child");
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-        return RecipeSerializer.SHAPED;
-    }
-
-    @Override
-    public RecipeType<?> getType() {
-        return RecipeType.CRAFTING;
     }
 }
