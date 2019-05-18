@@ -45,6 +45,7 @@ public abstract class AnimalNetMixinVillager extends LivingEntity {
         return AnimalNetItem.class.isAssignableFrom(item.getClass());
     }
 
+    @Overwrite
     public boolean interactMob(PlayerEntity playerEntity_1, Hand hand_1) {
         ItemStack itemStack_1 = playerEntity_1.getStackInHand(hand_1);
         boolean boolean_1 = itemStack_1.getItem() == Items.NAME_TAG || isNet(itemStack_1.getItem());
@@ -66,7 +67,8 @@ public abstract class AnimalNetMixinVillager extends LivingEntity {
                 }
 
                 if (boolean_2) {
-                    return getVillager().interactMob(playerEntity_1, hand_1);
+                    //return getVillager().interactMob(playerEntity_1, hand_1);
+                    return false;
                 } else {
                     if (!this.world.isClient && !getVillager().getOffers().isEmpty()) {
                         this.beginTradeWith(playerEntity_1);

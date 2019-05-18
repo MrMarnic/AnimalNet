@@ -4,7 +4,10 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "AnimalNetMixinVillager",
-    "AnimalNetMixinWorldLoad"
+    "AnimalNetMixinWorldLoad",
+    "AnimalNetMixinServerStartingDedicated",
+    "AnimalNetMixinServerStartingIntegrated",
+    "AnimalNetMixinCrafting"
   ],
   "injectors": {
     "defaultRequire": 1

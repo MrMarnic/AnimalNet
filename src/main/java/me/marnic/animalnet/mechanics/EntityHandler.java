@@ -12,10 +12,7 @@ import net.minecraft.entity.WaterCreatureEntity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.mob.*;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.CowEntity;
-import net.minecraft.entity.passive.SquidEntity;
-import net.minecraft.entity.passive.VillagerEntity;
+import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -45,7 +42,6 @@ public class EntityHandler {
             if (hand == Hand.MAIN_HAND) {
                 boundingBox = e.getBoundingBox();
                 size = (boundingBox.maxX-boundingBox.minX)*(boundingBox.maxY-boundingBox.minY);
-                System.out.println(size);
                 if(AnimalNetItem.class.isAssignableFrom(stack.getItem().getClass())) {
                     if(!checkEntity((AnimalNetItem)stack.getItem(),e,entity)) {
 
@@ -104,7 +100,7 @@ public class EntityHandler {
     }
 
     private boolean canBeCaughtByAnimalNet(Entity entity) {
-        return entity instanceof AnimalEntity || entity instanceof WaterCreatureEntity;
+        return entity instanceof AnimalEntity || entity instanceof WaterCreatureEntity || entity instanceof AmbientEntity;
     }
 
     private boolean canBeCaughtByMobNet(Entity entity) {

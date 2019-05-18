@@ -249,4 +249,62 @@ public class CaughtEntityItem extends BasicItem {
             }
         }
     }
+
+    public static void makeAdult(ItemStack stack,World world) {
+        
+        CompoundTag compound = CaughtEntityItem.getTagForEntityFromItem(stack,world);
+        compound.putInt("Age",0);
+
+        CaughtEntityItem.writeTagForEntityFromItem(stack,compound,world);
+    }
+
+    public static void makeFakeAdult(ItemStack stack) {
+        CompoundTag st = stack.getTag();
+
+        st.putString("age","Adult");
+
+        stack.setTag(st);
+    }
+
+    public static void makeChild(ItemStack stack,World world) {
+
+        CompoundTag compound = CaughtEntityItem.getTagForEntityFromItem(stack,world);
+        compound.putInt("Age",-23000);
+
+        CaughtEntityItem.writeTagForEntityFromItem(stack,compound,world);
+    }
+
+    public static void makeFakeChild(ItemStack stack) {
+        CompoundTag st = stack.getTag();
+
+        st.putString("age","Child");
+
+        stack.setTag(st);
+    }
+
+    public static CompoundTag getTagForEntityFromItem(ItemStack stack, World world) {
+        CompoundTag tagCompound = stack.getTag();
+        File f = new File(world.getServer().getWorld(world.dimension.getType()).getSaveHandler().getWorldDir().getAbsolutePath()+"//animalData//"+tagCompound.getString("fileName")+".dat");
+
+        try {
+            if(f.exists()) {
+                return NbtIo.read(f);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new CompoundTag();
+    }
+
+    public static void writeTagForEntityFromItem(ItemStack stack,CompoundTag entity,World world) {
+        CompoundTag tagCompound = stack.getTag();
+        File f = new File(world.getServer().getWorld(world.dimension.getType()).getSaveHandler().getWorldDir().getAbsolutePath()+"//animalData//"+tagCompound.getString("fileName")+".dat");
+
+        try {
+            f.delete();
+            NbtIo.write(entity,f);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
