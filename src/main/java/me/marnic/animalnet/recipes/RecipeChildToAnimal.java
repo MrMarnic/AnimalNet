@@ -5,9 +5,8 @@ import me.marnic.animalnet.main.AnimalNetItems;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.RecipeSerializers;
+import net.minecraft.item.crafting.*;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -16,11 +15,22 @@ import net.minecraft.world.World;
  * Developed by MrMarnic
  * GitHub: https://github.com/MrMarnic
  */
-public class RecipeChildToAnimal implements IRecipe {
+public class RecipeChildToAnimal extends ShapedRecipe {
 
     private ItemStack match;
 
-    private final ItemStack out = new ItemStack(AnimalNetItems.caughtEntityItem);
+    public RecipeChildToAnimal() {
+        super(new ResourceLocation("animalnet:caught_child_to_adult"), "", 3, 3, NonNullList.create(), new ItemStack(AnimalNetItems.caughtEntityItem));
+        getIngredients().add(Ingredient.fromItems(Items.BONE_MEAL));
+        getIngredients().add(Ingredient.fromItems(Items.BONE_MEAL));
+        getIngredients().add(Ingredient.fromItems(Items.BONE_MEAL));
+        getIngredients().add(Ingredient.fromItems(Items.BONE_MEAL));
+        getIngredients().add(Ingredient.fromItems(AnimalNetItems.caughtEntityItem));
+        getIngredients().add(Ingredient.fromItems(Items.BONE_MEAL));
+        getIngredients().add(Ingredient.fromItems(Items.BONE_MEAL));
+        getIngredients().add(Ingredient.fromItems(Items.BONE_MEAL));
+        getIngredients().add(Ingredient.fromItems(Items.BONE_MEAL));
+    }
 
     @Override
     public boolean matches(IInventory inv, World worldIn) {
@@ -48,25 +58,5 @@ public class RecipeChildToAnimal implements IRecipe {
         ItemStack stack = match.copy();
         CaughtEntityItem.makeFakeAdult(stack);
         return stack;
-    }
-
-    @Override
-    public boolean canFit(int width, int height) {
-        return width>=3 && height>=3;
-    }
-
-    @Override
-    public ItemStack getRecipeOutput() {
-        return out;
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return new ResourceLocation("animalnet:caught_child_to_adult");
-    }
-
-    @Override
-    public IRecipeSerializer<?> getSerializer() {
-        return RecipeSerializers.CRAFTING_SHAPED;
     }
 }

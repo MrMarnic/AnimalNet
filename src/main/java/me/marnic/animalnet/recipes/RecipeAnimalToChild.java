@@ -17,11 +17,23 @@ import net.minecraft.world.World;
  * Developed by MrMarnic
  * GitHub: https://github.com/MrMarnic
  */
-public class RecipeAnimalToChild implements IRecipe {
+public class RecipeAnimalToChild extends ShapedRecipe {
 
     private ItemStack match;
 
-    private final ItemStack out = new ItemStack(AnimalNetItems.caughtEntityItem);
+
+    public RecipeAnimalToChild() {
+        super(new ResourceLocation("animalnet:caught_animal_to_child"), "", 3, 3, NonNullList.create(), new ItemStack(AnimalNetItems.caughtEntityItem));
+        getIngredients().add(Ingredient.fromItems(Items.REDSTONE));
+        getIngredients().add(Ingredient.fromItems(Items.REDSTONE));
+        getIngredients().add(Ingredient.fromItems(Items.REDSTONE));
+        getIngredients().add(Ingredient.fromItems(Items.REDSTONE));
+        getIngredients().add(Ingredient.fromItems(AnimalNetItems.caughtEntityItem));
+        getIngredients().add(Ingredient.fromItems(Items.REDSTONE));
+        getIngredients().add(Ingredient.fromItems(Items.REDSTONE));
+        getIngredients().add(Ingredient.fromItems(Items.REDSTONE));
+        getIngredients().add(Ingredient.fromItems(Items.REDSTONE));
+    }
 
     @Override
     public boolean matches(IInventory inv, World worldIn) {
@@ -50,25 +62,5 @@ public class RecipeAnimalToChild implements IRecipe {
         ItemStack stack = match.copy();
         CaughtEntityItem.makeFakeChild(stack);
         return stack;
-    }
-
-    @Override
-    public boolean canFit(int width, int height) {
-        return width>=3 && height>=3;
-    }
-
-    @Override
-    public ItemStack getRecipeOutput() {
-        return out;
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return new ResourceLocation("animalnet:caught_animal_to_child");
-    }
-
-    @Override
-    public IRecipeSerializer<?> getSerializer() {
-        return RecipeSerializers.CRAFTING_SHAPED;
     }
 }

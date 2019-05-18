@@ -1,30 +1,35 @@
 package me.marnic.animalnet.main;
 
 import me.marnic.animalnet.api.BasicItem;
+import me.marnic.animalnet.items.CaughtEntityItem;
 import me.marnic.animalnet.recipes.RecipeAnimalToChild;
 import me.marnic.animalnet.recipes.RecipeChildToAnimal;
+import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.RecipeBook;
-import net.minecraft.item.crafting.RecipeItemHelper;
-import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.item.crafting.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.IngredientNBT;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.GameData;
 
 /**
  * Copyright (c) 19.02.2019
@@ -47,7 +52,7 @@ public class AnimalNet {
 
     @SubscribeEvent
     public void serverStarting(FMLServerStartingEvent e) {
-        e.getServer().getRecipeManager().addRecipe(new RecipeAnimalToChild());
         e.getServer().getRecipeManager().addRecipe(new RecipeChildToAnimal());
+        e.getServer().getRecipeManager().addRecipe(new RecipeAnimalToChild());
     }
 }
