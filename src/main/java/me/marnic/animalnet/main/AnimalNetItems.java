@@ -41,7 +41,7 @@ public class AnimalNetItems {
         mobNetBig = new AnimalNetItem("mob_net_big", NetSize.BIG, NetType.MOB,10,2);
         npcNet = new AnimalNetItem("npc_net", NetSize.MEDIUM, NetType.NPC,10,0);
 
-        spawnerFragmental = new ItemSpawnerFragmental();
+        //spawnerFragmental = new ItemSpawnerFragmental();
 
         caughtEntityItem = new CaughtEntityItem();
 
