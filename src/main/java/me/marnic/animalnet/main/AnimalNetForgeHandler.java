@@ -1,6 +1,7 @@
 package me.marnic.animalnet.main;
 
 import me.marnic.animalnet.items.AnimalNetItem;
+import me.marnic.animalnet.items.CaughtEntityItem;
 import me.marnic.animalnet.items.NetSize;
 import me.marnic.animalnet.items.NetType;
 import net.minecraft.entity.Entity;
@@ -70,7 +71,20 @@ public class AnimalNetForgeHandler {
         if(!f.exists()) {
             f.mkdir();
         }
+    }
 
+    @SubscribeEvent
+    public static void craft(final PlayerEvent.ItemCraftedEvent e) {
+        if(!e.getPlayer().getEntityWorld().isRemote) {
+            if (e.getCrafting().getItem().equals(AnimalNetItems.caughtEntityItem)) {
+                if (e.getCrafting().getTag().getString("age").equalsIgnoreCase("Adult")) {
+                    CaughtEntityItem.makeAdult(e.getCrafting(),e.getPlayer().world);
+                }
+                else {
+                    CaughtEntityItem.makeChild(e.getCrafting(),e.getPlayer().world);
+                }
+            }
+        }
     }
 
     private static boolean checkEntity(AnimalNetItem net,PlayerInteractEvent.EntityInteract e) {

@@ -1,17 +1,24 @@
 package me.marnic.animalnet.main;
 
 import me.marnic.animalnet.api.BasicItem;
+import me.marnic.animalnet.recipes.RecipeAnimalToChild;
+import me.marnic.animalnet.recipes.RecipeChildToAnimal;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.EntityPig;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeBook;
 import net.minecraft.item.crafting.RecipeItemHelper;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.*;
@@ -34,5 +41,13 @@ public class AnimalNet {
     public AnimalNet() {
         AnimalNetItems.init();
         MinecraftForge.EVENT_BUS.register(modHandler = new AnimalNetModHandler());
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+
+
+    @SubscribeEvent
+    public void serverStarting(FMLServerStartingEvent e) {
+        e.getServer().getRecipeManager().addRecipe(new RecipeAnimalToChild());
+        e.getServer().getRecipeManager().addRecipe(new RecipeChildToAnimal());
     }
 }

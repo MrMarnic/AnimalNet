@@ -1,10 +1,21 @@
 package me.marnic.animalnet.main;
 
 import me.marnic.animalnet.api.BasicItem;
+import me.marnic.animalnet.recipes.RecipeAnimalToChild;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.*;
+import net.minecraft.util.NonNullList;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.extensions.ForgeRecipeManager;
+import net.minecraftforge.common.extensions.IForgeRecipe;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 

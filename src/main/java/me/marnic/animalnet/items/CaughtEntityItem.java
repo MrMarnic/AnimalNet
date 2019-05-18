@@ -5,6 +5,7 @@ import me.marnic.animalnet.api.BasicItem;
 import me.marnic.animalnet.api.EntityUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -22,6 +23,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 import javax.annotation.Nullable;
@@ -217,6 +219,64 @@ public class CaughtEntityItem extends BasicItem {
             if (stack.getTag().hasKey("modName")) {
                 tooltip.add(new TextComponentString("Mod: "+stack.getTag().getString("modName")));
             }
+        }
+    }
+
+    public static void makeAdult(ItemStack stack,World world) {
+
+        NBTTagCompound compound = CaughtEntityItem.getTagForEntityFromItem(stack,world);
+        compound.setInt("Age",0);
+
+        CaughtEntityItem.writeTagForEntityFromItem(stack,compound,world);
+    }
+
+    public static void makeFakeAdult(ItemStack stack) {
+        NBTTagCompound st = stack.getTag();
+
+        st.setString("age","Adult");
+
+        stack.setTag(st);
+    }
+
+    public static void makeChild(ItemStack stack,World world) {
+
+        NBTTagCompound compound = CaughtEntityItem.getTagForEntityFromItem(stack,world);
+        compound.setInt("Age",-23000);
+
+        CaughtEntityItem.writeTagForEntityFromItem(stack,compound,world);
+    }
+
+    public static void makeFakeChild(ItemStack stack) {
+        NBTTagCompound st = stack.getTag();
+
+        st.setString("age","Child");
+
+        stack.setTag(st);
+    }
+
+    public static NBTTagCompound getTagForEntityFromItem(ItemStack stack, World world) {
+        NBTTagCompound tagCompound = stack.getTag();
+        File f = new File(world.getSaveHandler().getWorldDirectory().getAbsolutePath()+"//animalData//"+tagCompound.getString("fileName")+".dat");
+
+        try {
+            if(f.exists()) {
+                return CompressedStreamTools.read(f);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new NBTTagCompound();
+    }
+
+    public static void writeTagForEntityFromItem(ItemStack stack,NBTTagCompound entity,World world) {
+        NBTTagCompound tagCompound = stack.getTag();
+        File f = new File(world.getSaveHandler().getWorldDirectory().getAbsolutePath()+"//animalData//"+tagCompound.getString("fileName")+".dat");
+
+        try {
+            f.delete();
+            CompressedStreamTools.write(entity,f);
+        }catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
