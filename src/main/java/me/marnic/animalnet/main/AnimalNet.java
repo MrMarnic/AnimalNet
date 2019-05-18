@@ -1,6 +1,7 @@
 package me.marnic.animalnet.main;
 
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.item.ItemLead;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.Mod;

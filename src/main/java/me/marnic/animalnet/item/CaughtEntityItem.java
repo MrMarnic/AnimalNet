@@ -234,7 +234,6 @@ public class CaughtEntityItem extends BasicItem {
                     entityliving.readEntityFromNBT(tag);
                     worldIn.spawnEntity(entity);
                     entityliving.playLivingSound();
-                    System.out.println(entityliving);
                 }
             }
 

@@ -13,6 +13,9 @@ import me.marnic.animalnet.item.AnimalNetItem;
 import me.marnic.animalnet.item.CaughtEntityItem;
 import me.marnic.animalnet.item.NetSize;
 import me.marnic.animalnet.item.NetType;
+import me.marnic.animalnet.recipes.RecipeAnimalToChild;
+import me.marnic.animalnet.recipes.RecipeChildToAnimal;
+import net.minecraft.block.BlockMobSpawner;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.INpc;
@@ -22,11 +25,15 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemMonsterPlacer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -40,12 +47,14 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class AnimalNetModHandler {
     public static final ArrayList<IModelRegistry> MODELS_TO_REGISTER = new ArrayList<>();
@@ -70,126 +79,9 @@ public class AnimalNetModHandler {
 
     @SubscribeEvent
     public void recipeRegisterEvent(RegistryEvent.Register<IRecipe> e) {
-        RecipeUtil.replaceRecipe(e,"animalnet:catched_animalToChild",new IRecipe() {
+        RecipeUtil.replaceRecipe(e,"animalnet:catched_animalToChild",new RecipeAnimalToChild());
 
-            private ItemStack match;
-
-            private final ItemStack out = new ItemStack(AnimalNetItems.caughtEntityItem);
-
-            @Override
-            public boolean matches(InventoryCrafting inv, World worldIn) {
-                if(inv.getStackInSlot(0).getItem().equals(Items.REDSTONE)&&
-                        inv.getStackInSlot(1).getItem().equals(Items.REDSTONE)&&
-                        inv.getStackInSlot(2).getItem().equals(Items.REDSTONE)&&
-                        inv.getStackInSlot(3).getItem().equals(Items.REDSTONE)&&
-                        inv.getStackInSlot(4).getItem().equals(AnimalNetItems.caughtEntityItem)&&
-                        inv.getStackInSlot(5).getItem().equals(Items.REDSTONE)&&
-                        inv.getStackInSlot(6).getItem().equals(Items.REDSTONE)&&
-                        inv.getStackInSlot(7).getItem().equals(Items.REDSTONE)&&
-                        inv.getStackInSlot(8).getItem().equals(Items.REDSTONE)) {
-                    match = inv.getStackInSlot(4).copy();
-
-                    if(match.getTagCompound().hasKey("age")) {
-                        return true;
-                    }
-
-                    return false;
-                }
-                return false;
-            }
-
-            @Override
-            public ItemStack getCraftingResult(InventoryCrafting inv) {
-                ItemStack stack = match.copy();
-                CaughtEntityItem.makeFakeChild(stack);
-                return stack;
-            }
-
-            @Override
-            public boolean canFit(int width, int height) {
-                return true;
-            }
-
-            @Override
-            public ItemStack getRecipeOutput() {
-                return out;
-            }
-
-            @Override
-            public IRecipe setRegistryName(ResourceLocation name) {
-                return this;
-            }
-
-            @Override
-            public ResourceLocation getRegistryName() {
-                return new ResourceLocation("animalnet:caught_animalToChild");
-            }
-
-            @Override
-            public Class<IRecipe> getRegistryType() {
-                return null;
-            }
-        });
-
-        RecipeUtil.replaceRecipe(e,"animalnet:caught_entity",new IRecipe() {
-
-            private ItemStack match;
-
-            private final ItemStack out = new ItemStack(AnimalNetItems.caughtEntityItem);
-
-            @Override
-            public boolean matches(InventoryCrafting inv, World worldIn) {
-                if(inv.getStackInSlot(0).getItem().equals(Items.DYE)&&
-                        inv.getStackInSlot(1).getItem().equals(Items.DYE)&&
-                        inv.getStackInSlot(2).getItem().equals(Items.DYE)&&
-                        inv.getStackInSlot(3).getItem().equals(Items.DYE)&&
-                        inv.getStackInSlot(4).getItem().equals(AnimalNetItems.caughtEntityItem)&&
-                        inv.getStackInSlot(5).getItem().equals(Items.DYE)&&
-                        inv.getStackInSlot(6).getItem().equals(Items.DYE)&&
-                        inv.getStackInSlot(7).getItem().equals(Items.DYE)&&
-                        inv.getStackInSlot(8).getItem().equals(Items.DYE)) {
-                    match = inv.getStackInSlot(4).copy();
-
-                    if(match.getTagCompound().hasKey("age")) {
-                        return true;
-                    }
-                    return false;
-                }
-                return false;
-            }
-
-            @Override
-            public ItemStack getCraftingResult(InventoryCrafting inv) {
-                ItemStack stack = match.copy();
-                CaughtEntityItem.makeFakeAdult(stack);
-                return stack;
-            }
-
-            @Override
-            public boolean canFit(int width, int height) {
-                return true;
-            }
-
-            @Override
-            public ItemStack getRecipeOutput() {
-                return out;
-            }
-
-            @Override
-            public IRecipe setRegistryName(ResourceLocation name) {
-                return this;
-            }
-
-            @Override
-            public ResourceLocation getRegistryName() {
-                return new ResourceLocation("animalnet:caught_animal");
-            }
-
-            @Override
-            public Class<IRecipe> getRegistryType() {
-                return null;
-            }
-        });
+        RecipeUtil.replaceRecipe(e,"animalnet:caught_entity",new RecipeChildToAnimal());
     }
 
     @SubscribeEvent
@@ -202,12 +94,14 @@ public class AnimalNetModHandler {
 
     @SubscribeEvent
     public void craft(final PlayerEvent.ItemCraftedEvent e) {
-        if (e.crafting.getItem().equals(AnimalNetItems.caughtEntityItem)) {
-            if (e.crafting.getTagCompound().getString("age").equalsIgnoreCase("Adult")) {
-                CaughtEntityItem.makeAdult(e.crafting);
-            }
-            else {
-                CaughtEntityItem.makeChild(e.crafting);
+        if(!e.player.world.isRemote) {
+            if (e.crafting.getItem().equals(AnimalNetItems.caughtEntityItem)) {
+                if (e.crafting.getTagCompound().getString("age").equalsIgnoreCase("Adult")) {
+                    CaughtEntityItem.makeAdult(e.crafting);
+                }
+                else {
+                    CaughtEntityItem.makeChild(e.crafting);
+                }
             }
         }
     }
@@ -221,11 +115,25 @@ public class AnimalNetModHandler {
             if (e.getHand() == EnumHand.MAIN_HAND) {
                 boundingBox = e.getTarget().getEntityBoundingBox();
                 size = (boundingBox.maxX-boundingBox.minX)*(boundingBox.maxY-boundingBox.minY);
-                System.out.println(size);
                 if(AnimalNetItem.class.isAssignableFrom(e.getItemStack().getItem().getClass())) {
                     if(!checkEntity((AnimalNetItem)e.getItemStack().getItem(),e)) {
                         e.setCanceled(true);
                     }
+                }
+            }
+        }
+    }
+
+    private static final Random RANDOM = new Random();
+
+    @SubscribeEvent
+    public void dropEvent(BlockEvent.HarvestDropsEvent e) {
+        if(!e.getWorld().isRemote) {
+            if(e.getState() == Blocks.MOB_SPAWNER.getDefaultState()) {
+                if(RANDOM.nextInt(3)==2) {
+                    e.getDrops().add(new ItemStack(AnimalNetItems.spawnerFragmental,2));
+                }else {
+                    e.getDrops().add(new ItemStack(AnimalNetItems.spawnerFragmental));
                 }
             }
         }
@@ -278,7 +186,11 @@ public class AnimalNetModHandler {
                 damagedItemStack.damageItem(1,e.getEntityPlayer());
                 addItem(e.getEntityPlayer(),damagedItemStack);
             } else {
-                e.getEntityPlayer().inventory.removeStackFromSlot(e.getEntityPlayer().inventory.currentItem);
+                if(currentItem.getItemDamage()==0) {
+                    currentItem.damageItem(1,e.getEntityPlayer());
+                }else {
+                    e.getEntityPlayer().inventory.removeStackFromSlot(e.getEntityPlayer().inventory.currentItem);
+                }
             }
         }
         return true;

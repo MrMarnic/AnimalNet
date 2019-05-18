@@ -19,6 +19,7 @@ public class AnimalNetItems {
     public static AnimalNetItem animalNetSmall,animalNetMedium,animalNetBig,mobNetSmall,mobNetBig,npcNet;
     public static CaughtEntityItem caughtEntityItem;
     public static MobCore mobCore;
+    public static ItemSpawnerFragmental spawnerFragmental;
 
     public static CreativeTabs ANIMAL_NET_ITEMS;
 
@@ -35,10 +36,12 @@ public class AnimalNetItems {
         animalNetSmall = new AnimalNetItem("animal_net_small", NetSize.SMALL, NetType.ANIMAL,0.5,0);
 
         animalNetMedium = new AnimalNetItem("animal_net_medium", NetSize.MEDIUM, NetType.ANIMAL,1.2,0);
-        animalNetBig = new AnimalNetItem("animal_net_big",NetSize.BIG, NetType.ANIMAL,10,1);
+        animalNetBig = new AnimalNetItem("animal_net_big",NetSize.BIG, NetType.ANIMAL,10,2);
         mobNetSmall = new AnimalNetItem("mob_net_small",NetSize.SMALL, NetType.MOB,1.3,0);
-        mobNetBig = new AnimalNetItem("mob_net_big", NetSize.BIG, NetType.MOB,10,1);
+        mobNetBig = new AnimalNetItem("mob_net_big", NetSize.BIG, NetType.MOB,10,2);
         npcNet = new AnimalNetItem("npc_net", NetSize.MEDIUM, NetType.NPC,10,0);
+
+        spawnerFragmental = new ItemSpawnerFragmental();
 
         caughtEntityItem = new CaughtEntityItem();
 
