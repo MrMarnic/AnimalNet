@@ -62,7 +62,7 @@ public class RecipeChildToAnimal implements IRecipe {
 
     @Override
     public ResourceLocation getId() {
-        return new ResourceLocation("animalnet:caught_animal");
+        return new ResourceLocation("animalnet:caught_child_to_adult");
     }
 
     @Override
