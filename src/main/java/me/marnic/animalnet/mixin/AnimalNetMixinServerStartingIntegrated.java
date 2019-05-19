@@ -32,7 +32,7 @@ public abstract class AnimalNetMixinServerStartingIntegrated extends MinecraftSe
         super(file_1, proxy_1, dataFixer_1, commandManager_1, yggdrasilAuthenticationService_1, minecraftSessionService_1, gameProfileRepository_1, userCache_1, worldGenerationProgressListenerFactory_1, string_1);
     }
 
-    @Inject(method = "setupServer",at = @At("TAIL"))
+    @Inject(method = "setupServer",at = @At("RETURN"))
     public void setup(CallbackInfoReturnable returnable) {
         ServerHandler.handleServerStarting(this);
     }

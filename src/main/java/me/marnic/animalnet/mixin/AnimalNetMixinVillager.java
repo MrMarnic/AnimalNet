@@ -45,7 +45,16 @@ public abstract class AnimalNetMixinVillager extends LivingEntity {
         return AnimalNetItem.class.isAssignableFrom(item.getClass());
     }
 
-    @Overwrite
+    @Inject(method = "interactMob",at = @At("HEAD"),cancellable = true)
+    public void intercatMob(PlayerEntity playerEntity_1, Hand hand_1,CallbackInfoReturnable infoReturnable) {
+        ItemStack itemStack_1 = playerEntity_1.getStackInHand(hand_1);
+        if(isNet(itemStack_1.getItem())) {
+            itemStack_1.interactWithEntity(playerEntity_1, this, hand_1);
+            infoReturnable.setReturnValue(true);
+        }
+    }
+
+    /*@Overwrite
     public boolean interactMob(PlayerEntity playerEntity_1, Hand hand_1) {
         ItemStack itemStack_1 = playerEntity_1.getStackInHand(hand_1);
         boolean boolean_1 = itemStack_1.getItem() == Items.NAME_TAG || isNet(itemStack_1.getItem());
@@ -80,7 +89,7 @@ public abstract class AnimalNetMixinVillager extends LivingEntity {
         } else {
             return getVillager().interactMob(playerEntity_1, hand_1);
         }
-    }
+    }*/
 
     public VillagerEntity getVillager() {
         return ((VillagerEntity)(LivingEntity)this);
