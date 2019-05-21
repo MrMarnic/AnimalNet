@@ -13,7 +13,7 @@ public class AnimalNetItem extends BasicItem {
     private double acceptedSize;
     private int uses;
 
-    public AnimalNetItem(String name, NetSize size, NetType type, double acceptedSize,int uses) {
+    public AnimalNetItem(String name, NetSize size, NetType type, double acceptedSize, int uses) {
         super(name);
         this.size = size;
         this.type = type;
@@ -27,7 +27,7 @@ public class AnimalNetItem extends BasicItem {
     }
 
     public boolean fitSize(double size) {
-        return size<=acceptedSize;
+        return size <= acceptedSize;
     }
 
     public NetType getType() {

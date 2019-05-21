@@ -6,6 +6,8 @@ item.mob_net_big.name=Big Mob Net
 item.catched_animal.name=Caught Animal/Mob
 item.mob_core.name=Mob Core
 item.npc_net.name=NPC Net
+item.spawner_fragmental.name=Spawner Fragmental
+
 itemGroup.AnimalNet Items=AnimalNet Items
 
 message.animalnet.net_too_small=You need a bigger net!

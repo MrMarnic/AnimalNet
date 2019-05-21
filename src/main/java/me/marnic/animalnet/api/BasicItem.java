@@ -17,7 +17,13 @@ public class BasicItem extends Item implements IModelRegistry {
         setUnlocalizedName(name);
         AnimalNetModHandler.MODELS_TO_REGISTER.add(this);
         AnimalNetItems.ITEMS_TO_REGISTER.add(this);
-        setCreativeTab(AnimalNetItems.ANIMAL_NET_ITEMS);
+        if (shouldBeAddedToTab()) {
+            setCreativeTab(AnimalNetItems.ANIMAL_NET_ITEMS);
+        }
+    }
+
+    public boolean shouldBeAddedToTab() {
+        return true;
     }
 
     @Override

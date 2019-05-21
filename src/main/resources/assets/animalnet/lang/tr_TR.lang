@@ -6,6 +6,8 @@ item.mob_net_big.name=Büyük Hayvan Ağı
 item.catched_animal.name=Yakalanmış Hayvan/Mob
 item.mob_core.name=Mob Çekirdeği
 item.npc_net.name=NPC Ağı
+item.spawner_fragmental.name=Canavar Yaratıcısı parçalardan oluşmuş
+
 itemGroup.AnimalNet Items=AnimalNet Eşyaları
 
 message.animalnet.net_too_small=Daha büyük bir ağ gerek!

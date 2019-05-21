@@ -6,6 +6,8 @@ item.mob_net_big.name=Großes Monster Netz
 item.catched_animal.name=Gefangenes Tier/Monster
 item.mob_core.name=Monster Kern
 item.npc_net.name=NPC Netz
+item.spawner_fragmental.name=Spawner Fragment
+
 itemGroup.AnimalNet Items=AnimalNet Items
 
 message.animalnet.net_too_small=Du benötigst ein größeres Netz!

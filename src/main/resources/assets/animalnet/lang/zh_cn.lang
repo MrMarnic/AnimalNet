@@ -6,6 +6,8 @@ item.mob_net_big.name=大型怪物捕捉网
 item.catched_animal.name=捕获动物/怪物
 item.mob_core.name=生物核心
 item.npc_net.name=NPC捕捉网
+item.spawner_fragmental.name=Fragmental刷怪箱
+
 itemGroup.AnimalNet Items=动物捕兽网
 
 message.animalnet.net_too_small=你需要一个更大的网！

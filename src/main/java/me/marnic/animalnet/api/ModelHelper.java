@@ -11,10 +11,10 @@ import net.minecraftforge.client.model.ModelLoader;
  */
 public class ModelHelper {
     public static void registerComplexItemModel(Item item, int meta, String variant) {
-        ModelLoader.setCustomModelResourceLocation(item,meta,new ModelResourceLocation(item.getRegistryName(),variant));
+        ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), variant));
     }
 
     public static void registerDefaultItemModel(Item item) {
-        registerComplexItemModel(item,0,"inventory");
+        registerComplexItemModel(item, 0, "inventory");
     }
 }

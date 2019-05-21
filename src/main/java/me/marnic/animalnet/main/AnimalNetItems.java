@@ -7,6 +7,7 @@ package me.marnic.animalnet.main;
  */
 
 import me.marnic.animalnet.api.BasicItem;
+import me.marnic.animalnet.config.AnimalNetConfig;
 import me.marnic.animalnet.item.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class AnimalNetItems {
     public static final ArrayList<BasicItem> ITEMS_TO_REGISTER = new ArrayList<>();
 
-    public static AnimalNetItem animalNetSmall,animalNetMedium,animalNetBig,mobNetSmall,mobNetBig,npcNet;
+    public static AnimalNetItem animalNetSmall, animalNetMedium, animalNetBig, mobNetSmall, mobNetBig, npcNet;
     public static CaughtEntityItem caughtEntityItem;
     public static MobCore mobCore;
     public static ItemSpawnerFragmental spawnerFragmental;
@@ -33,18 +34,19 @@ public class AnimalNetItems {
             }
         };
 
-        animalNetSmall = new AnimalNetItem("animal_net_small", NetSize.SMALL, NetType.ANIMAL,0.5,0);
+        animalNetSmall = new AnimalNetItem("animal_net_small", NetSize.SMALL, NetType.ANIMAL, AnimalNetConfig.animal_net_small.maxSize, AnimalNetConfig.animal_net_small.maxUses);
 
-        animalNetMedium = new AnimalNetItem("animal_net_medium", NetSize.MEDIUM, NetType.ANIMAL,1.2,0);
-        animalNetBig = new AnimalNetItem("animal_net_big",NetSize.BIG, NetType.ANIMAL,10,2);
-        mobNetSmall = new AnimalNetItem("mob_net_small",NetSize.SMALL, NetType.MOB,1.3,0);
-        mobNetBig = new AnimalNetItem("mob_net_big", NetSize.BIG, NetType.MOB,10,2);
-        npcNet = new AnimalNetItem("npc_net", NetSize.MEDIUM, NetType.NPC,10,0);
+        animalNetMedium = new AnimalNetItem("animal_net_medium", NetSize.MEDIUM, NetType.ANIMAL, AnimalNetConfig.animal_net_medium.maxSize, AnimalNetConfig.animal_net_medium.maxUses);
+        animalNetBig = new AnimalNetItem("animal_net_big", NetSize.BIG, NetType.ANIMAL, AnimalNetConfig.animal_net_big.maxSize, AnimalNetConfig.animal_net_big.maxUses);
+        mobNetSmall = new AnimalNetItem("mob_net_small", NetSize.SMALL, NetType.MOB, AnimalNetConfig.mob_net_small.maxSize, AnimalNetConfig.mob_net_small.maxUses);
+        mobNetBig = new AnimalNetItem("mob_net_big", NetSize.BIG, NetType.MOB, AnimalNetConfig.mob_net_big.maxSize, AnimalNetConfig.mob_net_big.maxUses);
+        npcNet = new AnimalNetItem("npc_net", NetSize.MEDIUM, NetType.NPC, AnimalNetConfig.npc_net.maxSize, AnimalNetConfig.npc_net.maxUses);
 
-        //spawnerFragmental = new ItemSpawnerFragmental();
+        spawnerFragmental = new ItemSpawnerFragmental();
 
         caughtEntityItem = new CaughtEntityItem();
 
         mobCore = new MobCore();
+
     }
 }

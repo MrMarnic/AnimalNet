@@ -1,21 +1,16 @@
 package me.marnic.animalnet.main;
 
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.item.ItemLead;
+import me.marnic.animalnet.config.AnimalNetConfig;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.EntityEntry;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = AnimalNet.MODID, name = AnimalNet.NAME, version = AnimalNet.VERSION)
-public class AnimalNet
-{
+public class AnimalNet {
     public static final String MODID = "animalnet";
     public static final String NAME = "Animal Net";
     public static final String VERSION = "1.11";
@@ -25,8 +20,7 @@ public class AnimalNet
     private static Logger logger;
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event)
-    {
+    public void preInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
         logger.info("Starting PreInitialization...");
         AnimalNetItems.init();
@@ -35,9 +29,9 @@ public class AnimalNet
     }
 
     @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
+    public void init(FMLInitializationEvent event) {
         logger.info("Starting Initialization...");
+        AnimalNetConfig.general_options.initExcludedEntitiesArraysList();
         logger.info("Initialization finished!");
     }
 

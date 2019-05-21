@@ -1,5 +1,8 @@
 package me.marnic.animalnet.api;
 
+import me.marnic.animalnet.main.AnimalNetItems;
+import net.minecraft.init.Enchantments;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -18,5 +21,15 @@ public class RecipeUtil {
         ee.remove(new ResourceLocation(idToReplace));
 
         ee.register(replacement);
+    }
+
+    public static ItemStack getCaughtEntityFixedStack() {
+        ItemStack stack = new ItemStack(AnimalNetItems.caughtEntityItem);
+        stack.setStackDisplayName("Caught Entity");
+        return stack;
+    }
+
+    public static boolean isNetWithData(ItemStack stack) {
+        return stack.getItem().equals(AnimalNetItems.caughtEntityItem) && (stack.hasTagCompound() ? stack.getTagCompound().hasKey("animalName") : false);
     }
 }

@@ -5,6 +5,8 @@ item.mob_net_small.name=Маленькая сеть монстров
 item.mob_net_big.name=Большая сеть монстров
 item.catched_animal.name=Пойманное животное / монстр
 item.mob_core.name=Ядро монстра
+item.spawner_fragmental.name=Рассадник монстров обломочных
+
 itemGroup.AnimalNet Items=AnimalNet Items
 
 message.animalnet.net_too_small=Вам нужна большая сеть

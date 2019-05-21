@@ -1,59 +1,55 @@
 package me.marnic.animalnet.recipes;
 
+import me.marnic.animalnet.api.RecipeUtil;
 import me.marnic.animalnet.item.CaughtEntityItem;
-import me.marnic.animalnet.main.AnimalNetItems;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.common.crafting.IShapedRecipe;
+import net.minecraftforge.common.crafting.IngredientNBT;
 
 /**
  * Copyright (c) 18.05.2019
  * Developed by MrMarnic
  * GitHub: https://github.com/MrMarnic
  */
-public class RecipeAnimalToChild implements IShapedRecipe {
+public class RecipeAnimalToChild extends ShapedRecipes {
+
     private ItemStack match;
 
-    private final ItemStack out = new ItemStack(AnimalNetItems.caughtEntityItem);
-
-    private NonNullList<Ingredient> ingredients;
-
     public RecipeAnimalToChild() {
-        ingredients = NonNullList.create();
-        ingredients.add(Ingredient.fromItem(Items.REDSTONE));
-        ingredients.add(Ingredient.fromItem(Items.REDSTONE));
-        ingredients.add(Ingredient.fromItem(Items.REDSTONE));
+        super("", 3, 3, NonNullList.create(), RecipeUtil.getCaughtEntityFixedStack());
+        getIngredients().add(Ingredient.fromItem(Items.REDSTONE));
+        getIngredients().add(Ingredient.fromItem(Items.REDSTONE));
+        getIngredients().add(Ingredient.fromItem(Items.REDSTONE));
 
-        ingredients.add(Ingredient.fromItem(Items.REDSTONE));
-        ingredients.add(Ingredient.fromItem(AnimalNetItems.caughtEntityItem));
-        ingredients.add(Ingredient.fromItem(Items.REDSTONE));
+        getIngredients().add(Ingredient.fromItem(Items.REDSTONE));
+        getIngredients().add(IngredientNBT.fromStacks(RecipeUtil.getCaughtEntityFixedStack()));
+        getIngredients().add(Ingredient.fromItem(Items.REDSTONE));
 
-        ingredients.add(Ingredient.fromItem(Items.REDSTONE));
-        ingredients.add(Ingredient.fromItem(Items.REDSTONE));
-        ingredients.add(Ingredient.fromItem(Items.REDSTONE));
+        getIngredients().add(Ingredient.fromItem(Items.REDSTONE));
+        getIngredients().add(Ingredient.fromItem(Items.REDSTONE));
+        getIngredients().add(Ingredient.fromItem(Items.REDSTONE));
+        setRegistryName("animalnet", "caught_animal_to_child");
     }
 
     @Override
     public boolean matches(InventoryCrafting inv, World worldIn) {
-        if(inv.getStackInSlot(0).getItem().equals(Items.REDSTONE)&&
-                inv.getStackInSlot(1).getItem().equals(Items.REDSTONE)&&
-                inv.getStackInSlot(2).getItem().equals(Items.REDSTONE)&&
-                inv.getStackInSlot(3).getItem().equals(Items.REDSTONE)&&
-                inv.getStackInSlot(4).getItem().equals(AnimalNetItems.caughtEntityItem)&&
-                inv.getStackInSlot(5).getItem().equals(Items.REDSTONE)&&
-                inv.getStackInSlot(6).getItem().equals(Items.REDSTONE)&&
-                inv.getStackInSlot(7).getItem().equals(Items.REDSTONE)&&
+        if (inv.getStackInSlot(0).getItem().equals(Items.REDSTONE) &&
+                inv.getStackInSlot(1).getItem().equals(Items.REDSTONE) &&
+                inv.getStackInSlot(2).getItem().equals(Items.REDSTONE) &&
+                inv.getStackInSlot(3).getItem().equals(Items.REDSTONE) &&
+                RecipeUtil.isNetWithData(inv.getStackInSlot(4)) &&
+                inv.getStackInSlot(5).getItem().equals(Items.REDSTONE) &&
+                inv.getStackInSlot(6).getItem().equals(Items.REDSTONE) &&
+                inv.getStackInSlot(7).getItem().equals(Items.REDSTONE) &&
                 inv.getStackInSlot(8).getItem().equals(Items.REDSTONE)) {
             match = inv.getStackInSlot(4).copy();
 
-            if(match.getTagCompound().hasKey("age")) {
+            if (match.getTagCompound().hasKey("age")) {
                 return true;
             }
 
@@ -67,45 +63,5 @@ public class RecipeAnimalToChild implements IShapedRecipe {
         ItemStack stack = match.copy();
         CaughtEntityItem.makeFakeChild(stack);
         return stack;
-    }
-
-    @Override
-    public boolean canFit(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getRecipeOutput() {
-        return out;
-    }
-
-    @Override
-    public IRecipe setRegistryName(ResourceLocation name) {
-        return this;
-    }
-
-    @Override
-    public ResourceLocation getRegistryName() {
-        return new ResourceLocation("animalnet:caught_animalToChild");
-    }
-
-    @Override
-    public Class<IRecipe> getRegistryType() {
-        return null;
-    }
-
-    @Override
-    public int getRecipeWidth() {
-        return 3;
-    }
-
-    @Override
-    public int getRecipeHeight() {
-        return 3;
-    }
-
-    @Override
-    public NonNullList<Ingredient> getIngredients() {
-        return ingredients;
     }
 }

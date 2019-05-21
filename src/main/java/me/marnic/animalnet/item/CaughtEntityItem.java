@@ -2,7 +2,6 @@ package me.marnic.animalnet.item;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.marnic.animalnet.api.BasicItem;
-import me.marnic.animalnet.main.AnimalNetItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
@@ -12,7 +11,6 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
@@ -26,7 +24,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
-import net.minecraftforge.fml.common.registry.EntityEntry;
 
 import javax.annotation.Nullable;
 import java.io.File;
@@ -45,6 +42,11 @@ public class CaughtEntityItem extends BasicItem {
         super("caught_entity");
     }
 
+    @Override
+    public boolean shouldBeAddedToTab() {
+        return false;
+    }
+
     private Entity entity;
 
     public ItemStack createInstance(Entity e) {
@@ -52,17 +54,17 @@ public class CaughtEntityItem extends BasicItem {
 
         ItemStack stack = new ItemStack(this);
 
-        String name = findGoodName(e, e.getEntityWorld().getSaveHandler().getWorldDirectory());
+        String name = findGoodName(e);
 
         NBTTagCompound tag = new NBTTagCompound();
 
         tag.setString("animalName", EntityList.getKey(entity).toString());
-        tag.setString("modName",EntityList.getKey(entity).getResourceDomain());
+        tag.setString("modName", EntityList.getKey(entity).getResourceDomain());
         tag.setString("fileName", name);
 
-        if(e.hasCustomName()) {
-                tag.setString("animalTag",e.getCustomNameTag());
-        }else{
+        if (e.hasCustomName()) {
+            tag.setString("animalTag", e.getCustomNameTag());
+        } else {
             tag.removeTag("animalTag");
         }
         tag.setString("location", "x:" + e.getPosition().getX() + " y:" + e.getPosition().getY() + " z:" + e.getPosition().getZ());
@@ -81,11 +83,9 @@ public class CaughtEntityItem extends BasicItem {
 
         stack.setTagCompound(tag);
 
-        stack.addEnchantment(Enchantments.UNBREAKING, 1);
-
-        if(!e.hasCustomName()) {
+        if (!e.hasCustomName()) {
             stack.setStackDisplayName("Caught " + e.getDisplayName().getFormattedText());
-        }else{
+        } else {
             stack.setStackDisplayName("Caught " + e.getCustomNameTag());
         }
 
@@ -106,28 +106,20 @@ public class CaughtEntityItem extends BasicItem {
         return stack;
     }
 
-    private String findGoodName(Entity e, File world) {
-        File f = new File(world.getPath() + "//animalData");
-
+    private String findGoodName(Entity e) {
         return e.getUniqueID().toString();
     }
 
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
+    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
         ItemStack itemstack = player.getHeldItem(hand);
 
-        if (worldIn.isRemote)
-        {
+        if (worldIn.isRemote) {
             return EnumActionResult.SUCCESS;
-        }
-        else if (!player.canPlayerEdit(pos.offset(facing), facing, itemstack))
-        {
+        } else if (!player.canPlayerEdit(pos.offset(facing), facing, itemstack)) {
             return EnumActionResult.FAIL;
-        }
-        else
-        {
+        } else {
 
 
             NBTTagCompound tagCompound = itemstack.getTagCompound();
@@ -136,12 +128,12 @@ public class CaughtEntityItem extends BasicItem {
             NBTTagCompound entTag = null;
 
             try {
-                File f = new File(DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath()+"//animalData//"+tagCompound.getString("fileName")+".dat");
-                if(f.exists()) {
+                File f = new File(DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath() + "//animalData//" + tagCompound.getString("fileName") + ".dat");
+                if (f.exists()) {
                     entTag = CompressedStreamTools.read(f);
-                }else{
+                } else {
                     entTag = new NBTTagCompound();
-                    sendError(player,"Error: The file for this entity : \""+f.getAbsolutePath() + "\" is missing!");
+                    sendError(player, "Error: The file for this entity : \"" + f.getAbsolutePath() + "\" is missing!");
                 }
 
 
@@ -159,9 +151,9 @@ public class CaughtEntityItem extends BasicItem {
             BlockPos blockpos = pos.offset(facing);
             double d0 = this.getYOffset(worldIn, blockpos);
 
-            Entity entity = spawnCreature(worldIn, new ResourceLocation(tagCompound.getString("animalName")), (double)blockpos.getX() + 0.5D, (double)blockpos.getY() + d0, (double)blockpos.getZ() + 0.5D,entTag,player);
+            Entity entity = spawnCreature(worldIn, new ResourceLocation(tagCompound.getString("animalName")), (double) blockpos.getX() + 0.5D, (double) blockpos.getY() + d0, (double) blockpos.getZ() + 0.5D, entTag, player);
 
-            if(tagCompound.hasKey("animalTag")) {
+            if (tagCompound.hasKey("animalTag")) {
                 entity.setCustomNameTag(tagCompound.getString("animalTag"));
                 entity.setAlwaysRenderNameTag(true);
             }
@@ -170,56 +162,48 @@ public class CaughtEntityItem extends BasicItem {
         }
     }
 
-    private void sendError(EntityPlayer player,String msg) {
+    private void sendError(EntityPlayer player, String msg) {
         player.sendMessage(new TextComponentString(ChatFormatting.RED + msg));
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        if(stack.getTagCompound()!=null) {
+        if (stack.getTagCompound() != null) {
             if (stack.getTagCompound().hasKey("animalTag")) {
                 tooltip.add(stack.getTagCompound().getString("animalTag"));
             }
             tooltip.add(stack.getTagCompound().getString("location"));
             tooltip.add(stack.getTagCompound().getString("date"));
             if (stack.getTagCompound().hasKey("age")) {
-                tooltip.add("Age: "+stack.getTagCompound().getString("age"));
+                tooltip.add("Age: " + stack.getTagCompound().getString("age"));
             }
             if (stack.getTagCompound().hasKey("modName")) {
-                tooltip.add("Mod: "+stack.getTagCompound().getString("modName"));
+                tooltip.add("Mod: " + stack.getTagCompound().getString("modName"));
             }
+        } else {
+            tooltip.add("§4DO NOT USE THIS ITEM! IT IS JUST A PLACEHOLDER!");
         }
     }
 
-    private ResourceLocation getRes(EntityEntry entry) {
-        return entry.delegate.name();
-    }
-
-    protected double getYOffset(World p_190909_1_, BlockPos p_190909_2_)
-    {
+    protected double getYOffset(World p_190909_1_, BlockPos p_190909_2_) {
         AxisAlignedBB axisalignedbb = (new AxisAlignedBB(p_190909_2_)).expand(0.0D, -1.0D, 0.0D);
-        List<AxisAlignedBB> list = p_190909_1_.getCollisionBoxes((Entity)null, axisalignedbb);
+        List<AxisAlignedBB> list = p_190909_1_.getCollisionBoxes((Entity) null, axisalignedbb);
 
-        if (list.isEmpty())
-        {
+        if (list.isEmpty()) {
             return 0.0D;
-        }
-        else
-        {
+        } else {
             double d0 = axisalignedbb.minY;
 
-            for (AxisAlignedBB axisalignedbb1 : list)
-            {
+            for (AxisAlignedBB axisalignedbb1 : list) {
                 d0 = Math.max(axisalignedbb1.maxY, d0);
             }
-            return d0 - (double)p_190909_2_.getY();
+            return d0 - (double) p_190909_2_.getY();
         }
     }
 
     @Nullable
-    public static Entity spawnCreature(World worldIn, @Nullable ResourceLocation entityID, double x, double y, double z,NBTTagCompound tag,EntityPlayer player)
-    {
-        if(entityID!=null) {
+    public static Entity spawnCreature(World worldIn, @Nullable ResourceLocation entityID, double x, double y, double z, NBTTagCompound tag, EntityPlayer player) {
+        if (entityID != null) {
             Entity entity = null;
 
 
@@ -241,30 +225,30 @@ public class CaughtEntityItem extends BasicItem {
         }
 
         return null;
-        }
+    }
 
     public static NBTTagCompound getTagForEntityFromItem(ItemStack stack) {
         NBTTagCompound tagCompound = stack.getTagCompound();
-        File f = new File(DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath()+"//animalData//"+tagCompound.getString("fileName")+".dat");
+        File f = new File(DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath() + "//animalData//" + tagCompound.getString("fileName") + ".dat");
 
         try {
-            if(f.exists()) {
+            if (f.exists()) {
                 return CompressedStreamTools.read(f);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return new NBTTagCompound();
     }
 
-    public static void writeTagForEntityFromItem(ItemStack stack,NBTTagCompound entity) {
+    public static void writeTagForEntityFromItem(ItemStack stack, NBTTagCompound entity) {
         NBTTagCompound tagCompound = stack.getTagCompound();
-        File f = new File(DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath()+"//animalData//"+tagCompound.getString("fileName")+".dat");
+        File f = new File(DimensionManager.getCurrentSaveRootDirectory().getAbsolutePath() + "//animalData//" + tagCompound.getString("fileName") + ".dat");
 
         try {
             f.delete();
-            CompressedStreamTools.write(entity,f);
-        }catch (Exception e) {
+            CompressedStreamTools.write(entity, f);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -272,15 +256,15 @@ public class CaughtEntityItem extends BasicItem {
     public static void makeAdult(ItemStack stack) {
 
         NBTTagCompound compound = CaughtEntityItem.getTagForEntityFromItem(stack);
-        compound.setInteger("Age",0);
+        compound.setInteger("Age", 0);
 
-        CaughtEntityItem.writeTagForEntityFromItem(stack,compound);
+        CaughtEntityItem.writeTagForEntityFromItem(stack, compound);
     }
 
     public static void makeFakeAdult(ItemStack stack) {
         NBTTagCompound st = stack.getTagCompound();
 
-        st.setString("age","Adult");
+        st.setString("age", "Adult");
 
         stack.setTagCompound(st);
     }
@@ -288,17 +272,26 @@ public class CaughtEntityItem extends BasicItem {
     public static void makeChild(ItemStack stack) {
 
         NBTTagCompound compound = CaughtEntityItem.getTagForEntityFromItem(stack);
-        compound.setInteger("Age",-23000);
+        compound.setInteger("Age", -23000);
 
-        CaughtEntityItem.writeTagForEntityFromItem(stack,compound);
+        CaughtEntityItem.writeTagForEntityFromItem(stack, compound);
     }
 
     public static void makeFakeChild(ItemStack stack) {
         NBTTagCompound st = stack.getTagCompound();
 
-        st.setString("age","Child");
+        st.setString("age", "Child");
 
         stack.setTagCompound(st);
     }
 
+    @Override
+    public boolean hasEffect(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public boolean isEnchantable(ItemStack stack) {
+        return false;
+    }
 }
