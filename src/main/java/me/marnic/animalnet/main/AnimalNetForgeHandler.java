@@ -1,11 +1,14 @@
 package me.marnic.animalnet.main;
 
+import me.marnic.animalnet.api.SpawnerUtil;
+import me.marnic.animalnet.config.AnimalNetConfig;
 import me.marnic.animalnet.items.AnimalNetItem;
 import me.marnic.animalnet.items.CaughtEntityItem;
 import me.marnic.animalnet.items.NetSize;
 import me.marnic.animalnet.items.NetType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.INpc;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
@@ -13,6 +16,8 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeItemHelper;
@@ -26,6 +31,7 @@ import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.RecipeType;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.EventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -33,6 +39,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 import java.io.File;
+import java.util.Random;
 
 /**
  * Copyright (c) 20.02.2019
@@ -47,7 +54,7 @@ public class AnimalNetForgeHandler {
     private static ItemStack currentItem;
 
     static boolean isValidEntity(Entity e) {
-        return e instanceof EntityLiving;
+        return e instanceof EntityLiving && canBeCaughtAtAll(e);
     }
 
     @SubscribeEvent
@@ -82,6 +89,37 @@ public class AnimalNetForgeHandler {
                 }
                 else {
                     CaughtEntityItem.makeChild(e.getCrafting(),e.getPlayer().world);
+                }
+            }
+        }
+    }
+
+    private static final Random RANDOM = new Random();
+
+    @SubscribeEvent
+    public static void dropEvent(BlockEvent.HarvestDropsEvent e) {
+        if (!e.getWorld().isRemote()) {
+            if (e.getState() == Blocks.SPAWNER.getDefaultState()) {
+                if (RANDOM.nextInt(3) == 2) {
+                    e.getDrops().add(new ItemStack(AnimalNetItems.spawnerFragmental, 2));
+                } else {
+                    e.getDrops().add(new ItemStack(AnimalNetItems.spawnerFragmental));
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void blockPlace(BlockEvent.EntityPlaceEvent e) {
+        if (!e.getWorld().isRemote()) {
+            if (e.getPlacedBlock() == Blocks.SPAWNER.getDefaultState() && e.getEntity() instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) e.getEntity();
+                if (SpawnerUtil.isCustomSpawner(player.getHeldItemMainhand())) {
+                    SpawnerUtil.makeSpawnerBlock(player.getHeldItemMainhand(), e.getWorld(), e.getPos());
+                    if(player.isCreative()) {
+                        ItemStack stack = player.getHeldItemMainhand().copy();
+                        player.setItemStackToSlot(EntityEquipmentSlot.MAINHAND,stack);
+                    }
                 }
             }
         }
@@ -136,7 +174,11 @@ public class AnimalNetForgeHandler {
     }
 
     private static boolean canBeCaughtByMobNet(Entity entity) {
-        return (entity instanceof EntityMob || entity instanceof IMob)  && !(entity instanceof EntityWither) && !(entity instanceof EntityDragon);
+        return (entity instanceof EntityMob || entity instanceof IMob);
+    }
+
+    private static boolean canBeCaughtAtAll(Entity entity) {
+        return !AnimalNetConfig.general_options.getExcluded_entities_array_list().contains(EntityType.getId(entity.getType()).toString());
     }
 
     private static void sendCanNotBeCaught(EntityPlayer p, Entity e) {

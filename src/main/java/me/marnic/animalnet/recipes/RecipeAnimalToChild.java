@@ -1,6 +1,7 @@
 package me.marnic.animalnet.recipes;
 
 import com.google.gson.JsonObject;
+import me.marnic.animalnet.api.RecipeUtil;
 import me.marnic.animalnet.items.CaughtEntityItem;
 import me.marnic.animalnet.main.AnimalNetItems;
 import net.minecraft.init.Items;
@@ -23,12 +24,12 @@ public class RecipeAnimalToChild extends ShapedRecipe {
 
 
     public RecipeAnimalToChild() {
-        super(new ResourceLocation("animalnet:caught_animal_to_child"), "", 3, 3, NonNullList.create(), new ItemStack(AnimalNetItems.caughtEntityItem));
+        super(new ResourceLocation("animalnet:caught_animal_to_child"), "", 3, 3, NonNullList.create(), RecipeUtil.getCaughtEntityFixedStack());
         getIngredients().add(Ingredient.fromItems(Items.REDSTONE));
         getIngredients().add(Ingredient.fromItems(Items.REDSTONE));
         getIngredients().add(Ingredient.fromItems(Items.REDSTONE));
         getIngredients().add(Ingredient.fromItems(Items.REDSTONE));
-        getIngredients().add(Ingredient.fromItems(AnimalNetItems.caughtEntityItem));
+        getIngredients().add(Ingredient.fromStacks(RecipeUtil.getCaughtEntityFixedStack()));
         getIngredients().add(Ingredient.fromItems(Items.REDSTONE));
         getIngredients().add(Ingredient.fromItems(Items.REDSTONE));
         getIngredients().add(Ingredient.fromItems(Items.REDSTONE));
@@ -41,7 +42,7 @@ public class RecipeAnimalToChild extends ShapedRecipe {
                 inv.getStackInSlot(1).getItem().equals(Items.REDSTONE)&&
                 inv.getStackInSlot(2).getItem().equals(Items.REDSTONE)&&
                 inv.getStackInSlot(3).getItem().equals(Items.REDSTONE)&&
-                inv.getStackInSlot(4).getItem().equals(AnimalNetItems.caughtEntityItem)&&
+                RecipeUtil.isNetWithData(inv.getStackInSlot(4))&&
                 inv.getStackInSlot(5).getItem().equals(Items.REDSTONE)&&
                 inv.getStackInSlot(6).getItem().equals(Items.REDSTONE)&&
                 inv.getStackInSlot(7).getItem().equals(Items.REDSTONE)&&

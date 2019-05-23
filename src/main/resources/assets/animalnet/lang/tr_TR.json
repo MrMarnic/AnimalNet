@@ -17,5 +17,6 @@
 "item.animalnet.catched_animal":"Yakalanmış Hayvan/Mob",
 "message.animalnet.animal_needed":"Normal hayvanları yakalaman için bir hayvan ağı gerek!",
 "item.animalnet.mob_net_big":"Büyük Hayvan Ağı",
-"message.animalnet.entity_too_big":"%s çok büyük ve yakalanamaz!"
+"message.animalnet.entity_too_big":"%s çok büyük ve yakalanamaz!",
+  "item.animalnet.spawner_fragmental": "Canavar Yaratıcısı parçalardan oluşmuş"
 }

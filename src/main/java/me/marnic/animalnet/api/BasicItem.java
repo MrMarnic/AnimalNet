@@ -5,6 +5,7 @@ import me.marnic.animalnet.main.AnimalNetModHandler;
 import net.minecraft.client.gui.recipebook.RecipeList;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -20,7 +21,7 @@ public class BasicItem extends Item {
         AnimalNetModHandler.itemsToRegister.add(this);
     }
 
-    public BasicItem(Properties properties,String name) {
+    public BasicItem(Properties properties, String name) {
         super(properties);
         setRegistryName(AnimalNet.MODID,name);
         AnimalNetModHandler.itemsToRegister.add(this);

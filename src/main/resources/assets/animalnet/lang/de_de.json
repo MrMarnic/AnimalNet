@@ -16,5 +16,6 @@
 "item.animalnet.catched_animal":"Gefangenes Tier/Monster",
 "message.animalnet.animal_needed":"Du brauchst ein Tiernetz um normale Tiere zu fangen!",
 "item.animalnet.mob_net_big":"Großes Monster Netz",
-"message.animalnet.entity_too_big":"%s ist zu groß und kann nicht gefangen werden!"
+"message.animalnet.entity_too_big":"%s ist zu groß und kann nicht gefangen werden!",
+  "item.animalnet.spawner_fragmental": "Spawner Fragment"
 }

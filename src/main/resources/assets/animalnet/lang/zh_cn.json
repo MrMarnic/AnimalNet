@@ -16,5 +16,6 @@
 "item.animalnet.catched_animal":"捕获动物/怪物",
 "message.animalnet.animal_needed":"你需要一个动物捕捉网来捕捉正常的动物!",
 "item.animalnet.mob_net_big":"大型怪物捕捉网",
-"message.animalnet.entity_too_big":"%s 太大了，不能被抓住!"
+"message.animalnet.entity_too_big":"%s 太大了，不能被抓住!",
+  "item.animalnet.spawner_fragmental": "Fragmental刷怪箱"
 }

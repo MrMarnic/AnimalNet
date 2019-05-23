@@ -1,9 +1,11 @@
 package me.marnic.animalnet.main;
 
 import me.marnic.animalnet.api.BasicItem;
+import me.marnic.animalnet.config.AnimalNetConfig;
 import me.marnic.animalnet.items.CaughtEntityItem;
 import me.marnic.animalnet.recipes.RecipeAnimalToChild;
 import me.marnic.animalnet.recipes.RecipeChildToAnimal;
+import me.marnic.animalnet.recipes.RecipeSpawner;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityType;
@@ -24,7 +26,9 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoader;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -44,15 +48,16 @@ public class AnimalNet {
     public static final String MODID = "animalnet";
 
     public AnimalNet() {
-        AnimalNetItems.init();
         MinecraftForge.EVENT_BUS.register(modHandler = new AnimalNetModHandler());
         MinecraftForge.EVENT_BUS.register(this);
+        AnimalNetConfig.init();
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AnimalNetConfig.SPEC);
     }
-
 
     @SubscribeEvent
     public void serverStarting(FMLServerStartingEvent e) {
         e.getServer().getRecipeManager().addRecipe(new RecipeChildToAnimal());
         e.getServer().getRecipeManager().addRecipe(new RecipeAnimalToChild());
+        e.getServer().getRecipeManager().addRecipe(new RecipeSpawner());
     }
 }

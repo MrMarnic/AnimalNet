@@ -22,6 +22,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
@@ -50,7 +51,7 @@ public class CaughtEntityItem extends BasicItem {
         this.entity = e;
 
         ItemStack stack = new ItemStack(this);
-        String name = findGoodName(e, e.getEntityWorld().getSaveHandler().getWorldDirectory());
+        String name = findGoodName(e);
 
         NBTTagCompound tag = new NBTTagCompound();
 
@@ -85,12 +86,10 @@ public class CaughtEntityItem extends BasicItem {
 
         stack.setTag(tag);
 
-        stack.addEnchantment(Enchantments.UNBREAKING, 1);
-
         if(!e.hasCustomName()) {
-            stack.setDisplayName(new TextComponentString("Caught " + toStringTranslate(e.getDisplayName())));
+            stack.setDisplayName(new TextComponentString("Caught " + toStringTranslate(e.getDisplayName())).applyTextStyle(TextFormatting.YELLOW));
         }else{
-            stack.setDisplayName(new TextComponentString("Caught " + toStringTranslate(e.getCustomName())));
+            stack.setDisplayName(new TextComponentString("Caught " + toStringTranslate(e.getCustomName())).applyTextStyle(TextFormatting.YELLOW));
         }
 
         try {
@@ -110,9 +109,7 @@ public class CaughtEntityItem extends BasicItem {
         return stack;
     }
 
-    private String findGoodName(Entity e, File world) {
-        File f = new File(world.getPath() + "//animalData");
-
+    private String findGoodName(Entity e) {
         return e.getUniqueID().toString();
     }
 
@@ -219,6 +216,8 @@ public class CaughtEntityItem extends BasicItem {
             if (stack.getTag().hasKey("modName")) {
                 tooltip.add(new TextComponentString("Mod: "+stack.getTag().getString("modName")));
             }
+        }else {
+            tooltip.add(new TextComponentString("DO NOT USE THIS ITEM! IT IS JUST A PLACEHOLDER!").applyTextStyle(TextFormatting.RED));
         }
     }
 
@@ -278,5 +277,15 @@ public class CaughtEntityItem extends BasicItem {
         }catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean hasEffect(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public boolean isEnchantable(ItemStack stack) {
+        return false;
     }
 }

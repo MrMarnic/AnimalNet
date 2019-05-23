@@ -3,6 +3,7 @@ package me.marnic.animalnet.items;
 import me.marnic.animalnet.api.BasicItem;
 import me.marnic.animalnet.main.AnimalNetItems;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -17,12 +18,10 @@ public class AnimalNetItem extends BasicItem {
     private double acceptedSize;
     private int uses;
 
-    public AnimalNetItem(String name,Properties properties, NetSize size, NetType type, double acceptedSize,int uses) {
-        super(properties.defaultMaxDamage(uses),name);
+    public AnimalNetItem(String name,Properties properties, NetSize size, NetType type) {
+        super(properties,name);
         this.size = size;
         this.type = type;
-        this.acceptedSize = acceptedSize;
-        this.uses = uses;
     }
 
     public double getAcceptedSize() {
@@ -42,6 +41,16 @@ public class AnimalNetItem extends BasicItem {
     }
 
     public int getUses() {
+        return uses;
+    }
+
+    public void initConfigValues(double acceptedSize,int uses) {
+        this.acceptedSize = acceptedSize;
+        this.uses = uses;
+    }
+
+    @Override
+    public int getMaxDamage(ItemStack stack) {
         return uses;
     }
 }

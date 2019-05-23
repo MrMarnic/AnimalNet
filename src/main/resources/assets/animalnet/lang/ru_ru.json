@@ -15,5 +15,6 @@
 "item.animalnet.catched_animal":"Пойманное животное / монстр",
 "message.animalnet.animal_needed":"Вам нужна сетка для животных, чтобы ловить нормальных животных!",
 "item.animalnet.mob_net_big":"Большая сеть монстров",
-"message.animalnet.entity_too_big":"%s слишком большой и не может быть пойман!"
+"message.animalnet.entity_too_big":"%s слишком большой и не может быть пойман!",
+  "item.animalnet.spawner_fragmental": "Рассадник монстров обломочных"
 }
