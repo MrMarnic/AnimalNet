@@ -7,6 +7,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.VillagerEntity;
+import net.minecraft.entity.passive.WanderingTraderEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -33,7 +34,7 @@ import java.util.Iterator;
  * Developed by MrMarnic
  * GitHub: https://github.com/MrMarnic
  */
-@Mixin(VillagerEntity.class)
+@Mixin(value = {VillagerEntity.class, WanderingTraderEntity.class})
 public abstract class AnimalNetMixinVillager extends LivingEntity {
 
 
@@ -53,51 +54,4 @@ public abstract class AnimalNetMixinVillager extends LivingEntity {
             infoReturnable.setReturnValue(true);
         }
     }
-
-    /*@Overwrite
-    public boolean interactMob(PlayerEntity playerEntity_1, Hand hand_1) {
-        ItemStack itemStack_1 = playerEntity_1.getStackInHand(hand_1);
-        boolean boolean_1 = itemStack_1.getItem() == Items.NAME_TAG || isNet(itemStack_1.getItem());
-        if (boolean_1) {
-            itemStack_1.interactWithEntity(playerEntity_1, this, hand_1);
-            return true;
-        } else if (itemStack_1.getItem() != Items.VILLAGER_SPAWN_EGG && this.isAlive() && !getVillager().hasCustomer() && !this.isSleeping()) {
-            if (this.isChild()) {
-                this.sayNo();
-                return getVillager().interactMob(playerEntity_1, hand_1);
-            } else {
-                boolean boolean_2 = getVillager().getOffers().isEmpty();
-                if (hand_1 == Hand.MAIN_HAND) {
-                    if (boolean_2) {
-                        this.sayNo();
-                    }
-
-                    playerEntity_1.incrementStat(Stats.TALKED_TO_VILLAGER);
-                }
-
-                if (boolean_2) {
-                    //return getVillager().interactMob(playerEntity_1, hand_1);
-                    return false;
-                } else {
-                    if (!this.world.isClient && !getVillager().getOffers().isEmpty()) {
-                        this.beginTradeWith(playerEntity_1);
-                    }
-
-                    return true;
-                }
-            }
-        } else {
-            return getVillager().interactMob(playerEntity_1, hand_1);
-        }
-    }*/
-
-    public VillagerEntity getVillager() {
-        return ((VillagerEntity)(LivingEntity)this);
-    }
-
-    @Shadow
-    private void sayNo() {}
-
-    @Shadow
-    private void beginTradeWith(PlayerEntity playerEntity_1) { }
 }

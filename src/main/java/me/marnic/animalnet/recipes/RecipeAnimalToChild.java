@@ -4,20 +4,13 @@ package me.marnic.animalnet.recipes;
 import me.marnic.animalnet.items.CaughtEntityItem;
 import me.marnic.animalnet.main.AnimalNetItems;
 import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.crafting.CraftingRecipe;
-import net.minecraft.recipe.crafting.ShapedRecipe;
+import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-
-import java.util.Arrays;
 
 /**
  * Copyright (c) 18.05.2019

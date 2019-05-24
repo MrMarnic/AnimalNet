@@ -15,10 +15,10 @@ import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.StringTextComponent;
-import net.minecraft.text.TextComponent;
-import net.minecraft.text.TranslatableTextComponent;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BoundingBox;
 
@@ -69,14 +69,14 @@ public class EntityHandler {
             } else {
                 if(net.getSize()!= NetSize.BIG) {
                     if(canBeCaughtByAnimalNet(target)&&net.getType()==NetType.ANIMAL) {
-                        sendStatus(playerEntity, new TranslatableTextComponent("message.animalnet.net_too_small"));
+                        sendStatus(playerEntity, new TranslatableComponent("message.animalnet.net_too_small"));
                     }else if(canBeCaughtByMobNet(target)&&net.getType()==NetType.MOB) {
-                        sendStatus(playerEntity, new TranslatableTextComponent("message.animalnet.net_too_small"));
+                        sendStatus(playerEntity, new TranslatableComponent("message.animalnet.net_too_small"));
                     }else{
                         sendCanNotBeCaught(playerEntity,target);
                     }
                 }else{
-                    sendStatus(playerEntity,  new TranslatableTextComponent("message.animalnet.entity_too_big",new TranslatableTextComponent(net.getType().getFormalTranslationKey())));
+                    sendStatus(playerEntity,  new TranslatableComponent("message.animalnet.entity_too_big",new TranslatableComponent(net.getType().getFormalTranslationKey())));
                 }
             }
         }else{
@@ -109,25 +109,25 @@ public class EntityHandler {
 
     private void sendCanNotBeCaught(PlayerEntity p, Entity e) {
         if(canBeCaughtByAnimalNet(e)) {
-            sendStatus(p,new TranslatableTextComponent("message.animalnet.animal_needed"));
+            sendStatus(p,new TranslatableComponent("message.animalnet.animal_needed"));
         }else if(canBeCaughtByMobNet(e)) {
-            sendStatus(p,new TranslatableTextComponent("message.animalnet.mob_needed"));
+            sendStatus(p,new TranslatableComponent("message.animalnet.mob_needed"));
         }else if(e instanceof Npc) {
             if(e instanceof VillagerEntity) {
-                sendStatus(p,new TranslatableTextComponent("message.animalnet.villager_needed"));
+                sendStatus(p,new TranslatableComponent("message.animalnet.villager_needed"));
             }else{
-                sendStatus(p,new TranslatableTextComponent("message.animalnet.npc_needed"));
+                sendStatus(p,new TranslatableComponent("message.animalnet.npc_needed"));
             }
         }else{
-            sendStatus(p,new TranslatableTextComponent("message.animalnet.can_not_be_caught"));
+            sendStatus(p,new TranslatableComponent("message.animalnet.can_not_be_caught"));
         }
     }
 
     private void sendStatus(PlayerEntity p,String msg) {
-        p.addChatMessage(new StringTextComponent(msg),true);
+        p.addChatMessage(new TextComponent(msg),true);
     }
 
-    private void sendStatus(PlayerEntity p, TextComponent msg) {
+    private void sendStatus(PlayerEntity p, BaseComponent msg) {
         p.addChatMessage(msg,true);
     }
 
