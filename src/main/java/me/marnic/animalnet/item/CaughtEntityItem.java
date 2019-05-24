@@ -10,7 +10,6 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
@@ -57,7 +56,6 @@ public class CaughtEntityItem extends BasicItem {
         String name = findGoodName(e);
 
         NBTTagCompound tag = new NBTTagCompound();
-
         tag.setString("animalName", EntityList.getKey(entity).toString());
         tag.setString("modName", EntityList.getKey(entity).getResourceDomain());
         tag.setString("fileName", name);

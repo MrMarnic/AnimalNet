@@ -2,15 +2,24 @@ package me.marnic.animalnet.recipes;
 
 import me.marnic.animalnet.api.RecipeUtil;
 import me.marnic.animalnet.api.SpawnerUtil;
+import me.marnic.animalnet.item.AnimalNetItem;
 import me.marnic.animalnet.main.AnimalNetItems;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.RecipeBookCloning;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.crafting.IngredientNBT;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import javax.annotation.Nullable;
+import java.util.function.Predicate;
 
 /**
  * Copyright (c) 19.05.2019
@@ -27,12 +36,25 @@ public class RecipeSpawner extends ShapedRecipes {
 
     public RecipeSpawner() {
         super("", 3, 3, NonNullList.create(), new ItemStack(Blocks.MOB_SPAWNER));
+        
+        /*getIngredients().add(new CustomIngredient(new ItemStack(AnimalNetItems.spawnerFragmental)));
+        getIngredients().add(new CustomIngredient(new ItemStack(AnimalNetItems.spawnerFragmental)));
+        getIngredients().add(new CustomIngredient(new ItemStack(AnimalNetItems.spawnerFragmental)));
+
+        getIngredients().add(new CustomIngredient(new ItemStack(AnimalNetItems.spawnerFragmental)));
+        getIngredients().add(Ingredient.fromItem(AnimalNetItems.caughtEntityItem));
+        getIngredients().add(new CustomIngredient(new ItemStack(AnimalNetItems.spawnerFragmental)));
+
+        getIngredients().add(new CustomIngredient(new ItemStack(AnimalNetItems.spawnerFragmental)));
+        getIngredients().add(new CustomIngredient(new ItemStack(AnimalNetItems.spawnerFragmental)));
+        getIngredients().add(new CustomIngredient(new ItemStack(AnimalNetItems.spawnerFragmental)));*/
+
         getIngredients().add(Ingredient.fromStacks(new ItemStack(AnimalNetItems.spawnerFragmental)));
         getIngredients().add(Ingredient.fromStacks(new ItemStack(AnimalNetItems.spawnerFragmental)));
         getIngredients().add(Ingredient.fromStacks(new ItemStack(AnimalNetItems.spawnerFragmental)));
 
         getIngredients().add(Ingredient.fromStacks(new ItemStack(AnimalNetItems.spawnerFragmental)));
-        getIngredients().add(Ingredient.fromStacks(RecipeUtil.getCaughtEntityFixedStack()));
+        getIngredients().add(Ingredient.fromStacks(new ItemStack(AnimalNetItems.caughtEntityItem)));
         getIngredients().add(Ingredient.fromStacks(new ItemStack(AnimalNetItems.spawnerFragmental)));
 
         getIngredients().add(Ingredient.fromStacks(new ItemStack(AnimalNetItems.spawnerFragmental)));
