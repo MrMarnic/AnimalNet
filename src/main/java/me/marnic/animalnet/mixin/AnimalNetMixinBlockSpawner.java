@@ -1,6 +1,5 @@
 package me.marnic.animalnet.mixin;
 
-import com.sun.istack.internal.Nullable;
 import me.marnic.animalnet.api.SpawnerUtil;
 import me.marnic.animalnet.main.AnimalNetItems;
 import net.minecraft.block.Block;
@@ -32,7 +31,7 @@ import java.util.Random;
 public class AnimalNetMixinBlockSpawner {
 
     @Inject(method = "onPlaced",at=@At("HEAD"))
-    public void onPlaced(World world_1, BlockPos blockPos_1, BlockState blockState_1, @Nullable LivingEntity livingEntity_1, ItemStack itemStack_1, CallbackInfo info) {
+    public void onPlaced(World world_1, BlockPos blockPos_1, BlockState blockState_1, LivingEntity livingEntity_1, ItemStack itemStack_1, CallbackInfo info) {
         if(!world_1.isClient) {
             if(blockState_1 == Blocks.SPAWNER.getDefaultState()) {
                 PlayerEntity player = (PlayerEntity) livingEntity_1;
