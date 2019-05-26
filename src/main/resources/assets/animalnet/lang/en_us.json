@@ -16,5 +16,6 @@
 "item.animalnet.catched_animal":"Caught Animal/Mob",
 "message.animalnet.animal_needed":"You need an animal net to catch normal animals!",
 "item.animalnet.mob_net_big":"Big Mob Net",
-"message.animalnet.entity_too_big":"%s is too big and can not be caught!"
+"message.animalnet.entity_too_big":"%s is too big and can not be caught!",
+  "item.animalnet.spawner_fragmental": "Spawner Fragmental"
 }

@@ -2,6 +2,7 @@ package me.marnic.animalnet.items;
 
 import me.marnic.animalnet.api.BasicItem;
 import me.marnic.animalnet.api.EntityUtil;
+import net.minecraft.ChatFormat;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
@@ -86,12 +87,10 @@ public class CaughtEntityItem extends BasicItem {
 
         stack.setTag(tag);
 
-        stack.addEnchantment(Enchantments.UNBREAKING, 1);
-
         if(!e.hasCustomName()) {
-            stack.setDisplayName(new TextComponent("Caught " + toStringTranslate(e.getDisplayName())));
+            stack.setDisplayName(new TextComponent("Caught " + toStringTranslate(e.getDisplayName())).applyFormat(ChatFormat.YELLOW));
         }else{
-            stack.setDisplayName(new TextComponent("Caught " + toStringTranslate(e.getCustomName())));
+            stack.setDisplayName(new TextComponent("Caught " + toStringTranslate(e.getCustomName())).applyFormat(ChatFormat.YELLOW));
         }
 
         try {
@@ -309,5 +308,10 @@ public class CaughtEntityItem extends BasicItem {
         }catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean hasEnchantmentGlint(ItemStack itemStack_1) {
+        return true;
     }
 }

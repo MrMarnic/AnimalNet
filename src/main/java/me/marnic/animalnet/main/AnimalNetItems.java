@@ -18,6 +18,7 @@ public class AnimalNetItems {
     public static CaughtEntityItem caughtEntityItem;
     public static ItemGroup ANIMAL_NET_ITEMS;
     public static MobCore mobCore;
+    public static ItemSpawnerFragmental spawnerFragmental;
 
     public static void init() {
         ANIMAL_NET_ITEMS  = FabricItemGroupBuilder.build(new Identifier(ModIdentification.MODID,"general"),()->new ItemStack(animalNetSmall));
@@ -33,5 +34,7 @@ public class AnimalNetItems {
         caughtEntityItem = new CaughtEntityItem(new Item.Settings().itemGroup(ANIMAL_NET_ITEMS));
 
         mobCore = new MobCore(new Item.Settings().itemGroup(ANIMAL_NET_ITEMS));
+
+        spawnerFragmental = new ItemSpawnerFragmental(new Item.Settings().itemGroup(ANIMAL_NET_ITEMS));
     }
 }
