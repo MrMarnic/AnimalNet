@@ -17,7 +17,7 @@ public class BasicItem extends Item {
         AnimalNet.ITEM_REGISTRY.itemsToRegister.add(this);
     }
 
-    public String getName() {
+    public String getItemName() {
         return name;
     }
 }

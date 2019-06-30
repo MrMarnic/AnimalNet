@@ -50,7 +50,7 @@ public abstract class AnimalNetMixinVillager extends LivingEntity {
     public void intercatMob(PlayerEntity playerEntity_1, Hand hand_1,CallbackInfoReturnable infoReturnable) {
         ItemStack itemStack_1 = playerEntity_1.getStackInHand(hand_1);
         if(isNet(itemStack_1.getItem())) {
-            itemStack_1.interactWithEntity(playerEntity_1, this, hand_1);
+            itemStack_1.useOnEntity(playerEntity_1, this, hand_1);
             infoReturnable.setReturnValue(true);
         }
     }

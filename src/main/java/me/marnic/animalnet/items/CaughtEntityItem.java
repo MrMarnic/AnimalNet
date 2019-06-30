@@ -2,11 +2,9 @@ package me.marnic.animalnet.items;
 
 import me.marnic.animalnet.api.BasicItem;
 import me.marnic.animalnet.api.EntityUtil;
-import net.minecraft.ChatFormat;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -19,11 +17,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtIo;
-import net.minecraft.network.chat.BaseComponent;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.BaseText;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -88,9 +87,9 @@ public class CaughtEntityItem extends BasicItem {
         stack.setTag(tag);
 
         if(!e.hasCustomName()) {
-            stack.setDisplayName(new TextComponent("Caught " + toStringTranslate(e.getDisplayName())).applyFormat(ChatFormat.YELLOW));
+            stack.setCustomName(new LiteralText("Caught " + toStringTranslate(e.getDisplayName())).formatted(Formatting.YELLOW));
         }else{
-            stack.setDisplayName(new TextComponent("Caught " + toStringTranslate(e.getCustomName())).applyFormat(ChatFormat.YELLOW));
+            stack.setCustomName(new LiteralText("Caught " + toStringTranslate(e.getCustomName())).formatted(Formatting.YELLOW));
         }
 
         try {
@@ -115,12 +114,12 @@ public class CaughtEntityItem extends BasicItem {
         return e.getUuid().toString();
     }
 
-    private String toString(Component c) {
-        return ((TextComponent) c).getText();
+    private String toString(Text c) {
+        return ((BaseText) c).asFormattedString();
     }
 
-    private String toStringTranslate(Component c) {
-        return ( c).getFormattedText();
+    private String toStringTranslate(Text c) {
+        return ( c).asFormattedString();
     }
 
     @Override
@@ -130,9 +129,9 @@ public class CaughtEntityItem extends BasicItem {
             return ActionResult.SUCCESS;
         } else {
             ServerWorld serverWorld = world.getServer().getWorld(world.dimension.getType());
-            ItemStack itemstack = con.getItemStack();
+            ItemStack itemstack = con.getStack();
             BlockPos blockpos = con.getBlockPos();
-            Direction enumfacing = con.getFacing();
+            Direction enumfacing = con.getSide();
             BlockState iblockstate = world.getBlockState(blockpos);
             Block block = iblockstate.getBlock();
 
@@ -163,10 +162,10 @@ public class CaughtEntityItem extends BasicItem {
                         sendError(con.getPlayer(), "Error: The file for this entity : \"" + f.getAbsolutePath() + "\" is missing!");
                     }
 
-                    TextComponent custName = null;
+                    BaseText custName = null;
 
                     if (tag.containsKey("animalTag")) {
-                        custName = (new TextComponent(tag.getString("animalTag")));
+                        custName = (new LiteralText(tag.getString("animalTag")));
                     }
 
 
@@ -199,7 +198,7 @@ public class CaughtEntityItem extends BasicItem {
                 }
 
                 if (entitytype == null || living != null) {
-                    itemstack.subtractAmount(1);
+                    itemstack.increment(-1);
                 }
             }else{
                 sendError(con.getPlayer(),"Error: The caught entity has no data in it.");
@@ -232,22 +231,22 @@ public class CaughtEntityItem extends BasicItem {
     }
 
     private void sendError(PlayerEntity player, String msg) {
-        player.addChatMessage(new TextComponent("§4" + msg),true);
+        player.addChatMessage(new LiteralText("§4" + msg),true);
     }
 
     @Override
-    public void buildTooltip(ItemStack stack, World world_1, List<Component> tooltip, TooltipContext tooltipContext_1) {
+    public void appendTooltip(ItemStack stack, World world_1, List<Text> tooltip, TooltipContext tooltipContext_1) {
         if(stack.hasTag()) {
             if (stack.getTag().containsKey("animalTag")) {
-                tooltip.add(new TextComponent(stack.getTag().getString("animalTag")));
+                tooltip.add(new LiteralText(stack.getTag().getString("animalTag")));
             }
-            tooltip.add(new TextComponent(stack.getTag().getString("location")));
-            tooltip.add(new TextComponent(stack.getTag().getString("date")));
+            tooltip.add(new LiteralText(stack.getTag().getString("location")));
+            tooltip.add(new LiteralText(stack.getTag().getString("date")));
             if (stack.getTag().containsKey("age")) {
-                tooltip.add(new TextComponent("Age: "+stack.getTag().getString("age")));
+                tooltip.add(new LiteralText("Age: "+stack.getTag().getString("age")));
             }
             if (stack.getTag().containsKey("modName")) {
-                tooltip.add(new TextComponent("Mod: "+stack.getTag().getString("modName")));
+                tooltip.add(new LiteralText("Mod: "+stack.getTag().getString("modName")));
             }
         }
     }

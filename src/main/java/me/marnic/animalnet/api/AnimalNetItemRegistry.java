@@ -21,7 +21,7 @@ public class AnimalNetItemRegistry {
 
     public void registerItems() {
         for(BasicItem item:itemsToRegister) {
-            Registry.register(Registry.ITEM,new Identifier(ModIdentification.MODID,item.getName()),item);
+            Registry.register(Registry.ITEM,new Identifier(ModIdentification.MODID,item.getItemName()),item);
         }
     }
 }

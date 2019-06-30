@@ -35,7 +35,7 @@ public class AnimalNetMixinCrafting extends Slot {
     @Overwrite
     public void onCrafted(ItemStack itemStack_1) {
         if (this.amount > 0) {
-            itemStack_1.onCrafted(this.player.world, this.player, this.amount);
+            itemStack_1.onCraft(this.player.world, this.player, this.amount);
             ServerHandler.handleOnCrafted(itemStack_1,player);
         }
 

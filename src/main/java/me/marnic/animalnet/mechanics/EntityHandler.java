@@ -4,7 +4,6 @@ import me.marnic.animalnet.items.AnimalNetItem;
 import me.marnic.animalnet.items.NetSize;
 import me.marnic.animalnet.items.NetType;
 import me.marnic.animalnet.main.AnimalNetItems;
-import net.minecraft.datafixers.fixes.ItemSpawnEggFix;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Npc;
@@ -15,12 +14,13 @@ import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.chat.BaseComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.BaseText;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Texts;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.BoundingBox;
+import net.minecraft.util.math.Box;
 
 /**
  * Copyright (c) 05.03.2019
@@ -34,7 +34,7 @@ public class EntityHandler {
     }
 
     private double size;
-    private BoundingBox boundingBox;
+    private Box boundingBox;
     private ItemStack currentItem;
 
     public boolean handleRightClick(LivingEntity e, Hand hand,ItemStack stack,PlayerEntity entity) {
@@ -69,14 +69,14 @@ public class EntityHandler {
             } else {
                 if(net.getSize()!= NetSize.BIG) {
                     if(canBeCaughtByAnimalNet(target)&&net.getType()==NetType.ANIMAL) {
-                        sendStatus(playerEntity, new TranslatableComponent("message.animalnet.net_too_small"));
+                        sendStatus(playerEntity, new TranslatableText("message.animalnet.net_too_small"));
                     }else if(canBeCaughtByMobNet(target)&&net.getType()==NetType.MOB) {
-                        sendStatus(playerEntity, new TranslatableComponent("message.animalnet.net_too_small"));
+                        sendStatus(playerEntity, new TranslatableText("message.animalnet.net_too_small"));
                     }else{
                         sendCanNotBeCaught(playerEntity,target);
                     }
                 }else{
-                    sendStatus(playerEntity,  new TranslatableComponent("message.animalnet.entity_too_big",new TranslatableComponent(net.getType().getFormalTranslationKey())));
+                    sendStatus(playerEntity,  new TranslatableText("message.animalnet.entity_too_big",new TranslatableText(net.getType().getFormalTranslationKey())));
                 }
             }
         }else{
@@ -91,9 +91,9 @@ public class EntityHandler {
         target.remove();
         if (!playerEntity.isCreative()) {
             currentItem = playerEntity.inventory.getMainHandStack();
-            currentItem.applyDamage(1,playerEntity.getRand(),(ServerPlayerEntity)playerEntity);
+            currentItem.damage(1,playerEntity.getRand(),(ServerPlayerEntity)playerEntity);
             if(currentItem.getDamage()>=((AnimalNetItem)currentItem.getItem()).getUses()) {
-                currentItem.setAmount(0);
+                currentItem.setCount(0);
             }
         }
         return true;
@@ -109,25 +109,25 @@ public class EntityHandler {
 
     private void sendCanNotBeCaught(PlayerEntity p, Entity e) {
         if(canBeCaughtByAnimalNet(e)) {
-            sendStatus(p,new TranslatableComponent("message.animalnet.animal_needed"));
+            sendStatus(p,new TranslatableText("message.animalnet.animal_needed"));
         }else if(canBeCaughtByMobNet(e)) {
-            sendStatus(p,new TranslatableComponent("message.animalnet.mob_needed"));
+            sendStatus(p,new TranslatableText("message.animalnet.mob_needed"));
         }else if(e instanceof Npc) {
             if(e instanceof VillagerEntity) {
-                sendStatus(p,new TranslatableComponent("message.animalnet.villager_needed"));
+                sendStatus(p,new TranslatableText("message.animalnet.villager_needed"));
             }else{
-                sendStatus(p,new TranslatableComponent("message.animalnet.npc_needed"));
+                sendStatus(p,new TranslatableText("message.animalnet.npc_needed"));
             }
         }else{
-            sendStatus(p,new TranslatableComponent("message.animalnet.can_not_be_caught"));
+            sendStatus(p,new TranslatableText("message.animalnet.can_not_be_caught"));
         }
     }
 
     private void sendStatus(PlayerEntity p,String msg) {
-        p.addChatMessage(new TextComponent(msg),true);
+        p.addChatMessage(new LiteralText(msg),true);
     }
 
-    private void sendStatus(PlayerEntity p, BaseComponent msg) {
+    private void sendStatus(PlayerEntity p, BaseText msg) {
         p.addChatMessage(msg,true);
     }
 

@@ -4,8 +4,9 @@ import net.minecraft.block.entity.MobSpawnerBlockEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.text.BaseText;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
@@ -27,9 +28,9 @@ public class SpawnerUtil {
         CompoundTag compound = new CompoundTag();
         compound.putString("entityID", id.toString());
         stack.setTag(compound);
-        TranslatableComponent translation = new TranslatableComponent(EntityType.get(id.toString()).get().getTranslationKey());
-        TextComponent text = new TextComponent(translation.getFormattedText() + " Spawner");
-        stack.setDisplayName(text);
+        TranslatableText translation = new TranslatableText(EntityType.get(id.toString()).get().getTranslationKey());
+        BaseText text = new LiteralText(translation.asFormattedString() + " Spawner");
+        stack.setCustomName(text);
     }
 
     public static void makeSpawnerBlock(ItemStack stack, IWorld world, BlockPos pos) {

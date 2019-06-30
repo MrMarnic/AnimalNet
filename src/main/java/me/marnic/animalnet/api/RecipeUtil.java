@@ -1,9 +1,9 @@
 package me.marnic.animalnet.api;
 
 import me.marnic.animalnet.main.AnimalNetItems;
-import net.minecraft.ChatFormat;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.text.LiteralText;
+import net.minecraft.util.Formatting;
 
 /**
  * Copyright (c) 18.02.2019
@@ -15,7 +15,7 @@ public class RecipeUtil {
 
     public static ItemStack getCaughtEntityFixedStack() {
         ItemStack stack = new ItemStack(AnimalNetItems.caughtEntityItem);
-        stack.setDisplayName(new TextComponent("Caught Entity").applyFormat(ChatFormat.YELLOW));
+        stack.setCustomName(new LiteralText("Caught Entity").formatted(Formatting.YELLOW));
         return stack;
     }
 
