@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.logging.log4j.core.util.ReflectionUtil;
 
 import java.lang.reflect.Field;
@@ -46,7 +47,7 @@ public class AnimalNet {
     @SubscribeEvent
     public void serverStarting(FMLServerStartingEvent e) {
         try {
-            Field field = RecipeManager.class.getDeclaredField("recipes");
+            Field field = getFieldForTypeInClass(Map.class,RecipeManager.class);
 
             Map<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>> recipes;
 
@@ -74,5 +75,14 @@ public class AnimalNet {
         }catch (Exception ee) {
             ee.printStackTrace();
         }
+    }
+
+    private Field getFieldForTypeInClass(Class type,Class loc) {
+        for(Field f:FieldUtils.getAllFields(loc)) {
+            if(f.getType().equals(type)) {
+                return f;
+            }
+        }
+        return null;
     }
 }
