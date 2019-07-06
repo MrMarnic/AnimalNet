@@ -164,7 +164,11 @@ public class AnimalNetForgeHandler {
         e.getTarget().remove();
         if (!e.getEntityPlayer().isCreative()) {
             currentItem = e.getEntityPlayer().inventory.getCurrentItem();
-            currentItem.damageItem(1,e.getEntityPlayer(), (p) -> p.sendBreakAnimation(p.getActiveHand()));
+            if(currentItem.getMaxDamage() > 0) {
+                currentItem.damageItem(1,e.getEntityPlayer(), (p) -> p.sendBreakAnimation(p.getActiveHand()));
+            }else {
+                e.getEntityPlayer().getHeldItem(e.getEntityPlayer().getActiveHand()).shrink(1);
+            }
         }
         return true;
     }
