@@ -192,13 +192,17 @@ public class AnimalNetModHandler {
             currentItem = e.getEntityPlayer().inventory.getCurrentItem();
             boolean add = false;
             ItemStack stack1 = currentItem;
-            if (currentItem.getCount() > 1) {
+            if(currentItem.getMaxDamage() > 0) {
+                if (currentItem.getCount() > 1) {
+                    e.getEntityPlayer().getHeldItemMainhand().shrink(1);
+                    ItemStack damagedItemStack = new ItemStack(currentItem.getItem());
+                    stack1 = damagedItemStack;
+                    add = true;
+                }
+                damageItem(stack1,e.getEntityPlayer().inventory,add);
+            }else {
                 e.getEntityPlayer().getHeldItemMainhand().shrink(1);
-                ItemStack damagedItemStack = new ItemStack(currentItem.getItem());
-                stack1 = damagedItemStack;
-                add = true;
             }
-            damageItem(stack1,e.getEntityPlayer().inventory,add);
         }
         return true;
     }
