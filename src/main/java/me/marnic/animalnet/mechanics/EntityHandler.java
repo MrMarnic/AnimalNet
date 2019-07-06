@@ -62,6 +62,8 @@ public class EntityHandler {
                         addNetToInv(playerEntity,target);
                     }else if(net.getType()==NetType.NPC && target instanceof Npc){
                         addNetToInv(playerEntity, target);
+                    }else if(target instanceof LivingEntity && net.getType() == NetType.ANIMAL){
+                        addNetToInv(playerEntity, target);
                     }else{
                         sendCanNotBeCaught(playerEntity,target);
                     }
@@ -71,6 +73,8 @@ public class EntityHandler {
                     if(canBeCaughtByAnimalNet(target)&&net.getType()==NetType.ANIMAL) {
                         sendStatus(playerEntity, new TranslatableText("message.animalnet.net_too_small"));
                     }else if(canBeCaughtByMobNet(target)&&net.getType()==NetType.MOB) {
+                        sendStatus(playerEntity, new TranslatableText("message.animalnet.net_too_small"));
+                    }else if(target instanceof LivingEntity && net.getType() == NetType.ANIMAL){
                         sendStatus(playerEntity, new TranslatableText("message.animalnet.net_too_small"));
                     }else{
                         sendCanNotBeCaught(playerEntity,target);
@@ -118,6 +122,8 @@ public class EntityHandler {
             }else{
                 sendStatus(p,new TranslatableText("message.animalnet.npc_needed"));
             }
+        } if(e instanceof LivingEntity) {
+            sendStatus(p, new TranslatableText("message.animalnet.animal_needed"));
         }else{
             sendStatus(p,new TranslatableText("message.animalnet.can_not_be_caught"));
         }
