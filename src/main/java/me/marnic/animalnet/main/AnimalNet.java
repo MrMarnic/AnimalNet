@@ -23,9 +23,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.IngredientNBT;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -56,6 +54,7 @@ public class AnimalNet {
 
     @SubscribeEvent
     public void serverStarting(FMLServerStartingEvent e) {
+        System.out.println("dddddd");
         e.getServer().getRecipeManager().addRecipe(new RecipeChildToAnimal());
         e.getServer().getRecipeManager().addRecipe(new RecipeAnimalToChild());
         e.getServer().getRecipeManager().addRecipe(new RecipeSpawner());

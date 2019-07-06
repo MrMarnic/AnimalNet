@@ -16,6 +16,7 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -135,6 +136,8 @@ public class AnimalNetForgeHandler {
                         addNetToInv(e);
                     }else if(net.getType()==NetType.NPC && e.getTarget() instanceof INpc){
                         addNetToInv(e);
+                    }else if(e.getTarget() instanceof EntityLiving && net.getType() == NetType.ANIMAL){
+                        addNetToInv(e);
                     }else{
                         sendCanNotBeCaught(e.getEntityPlayer(),e.getTarget());
                     }
@@ -144,6 +147,8 @@ public class AnimalNetForgeHandler {
                     if(canBeCaughtByAnimalNet(e.getTarget())&&net.getType()==NetType.ANIMAL) {
                         sendStatus(e.getEntityPlayer(), new TextComponentTranslation("message.animalnet.net_too_small"));
                     }else if(canBeCaughtByMobNet(e.getTarget())&&net.getType()==NetType.MOB) {
+                        sendStatus(e.getEntityPlayer(), new TextComponentTranslation("message.animalnet.net_too_small"));
+                    }else if(e.getTarget() instanceof EntityLiving && net.getType() == NetType.ANIMAL){
                         sendStatus(e.getEntityPlayer(), new TextComponentTranslation("message.animalnet.net_too_small"));
                     }else{
                         sendCanNotBeCaught(e.getEntityPlayer(),e.getTarget());
@@ -164,9 +169,24 @@ public class AnimalNetForgeHandler {
         e.getTarget().remove();
         if (!e.getEntityPlayer().isCreative()) {
             currentItem = e.getEntityPlayer().inventory.getCurrentItem();
-            currentItem.damageItem(1,e.getEntityPlayer());
+            boolean add = false;
+            ItemStack stack1 = currentItem;
+            if (currentItem.getCount() > 1) {
+                e.getEntityPlayer().getHeldItemMainhand().shrink(1);
+                ItemStack damagedItemStack = new ItemStack(currentItem.getItem());
+                stack1 = damagedItemStack;
+                add = true;
+            }
+            damageItem(stack1,e.getEntityPlayer().inventory,add);
         }
         return true;
+    }
+
+    private static void damageItem(ItemStack stack, InventoryPlayer inventoryPlayer, boolean addItem) {
+        stack.damageItem(1,inventoryPlayer.player);
+        if(addItem) {
+            addItem(inventoryPlayer.player,stack);
+        }
     }
 
     private static boolean canBeCaughtByAnimalNet(Entity entity) {
@@ -192,7 +212,9 @@ public class AnimalNetForgeHandler {
             }else{
                 sendStatus(p,new TextComponentTranslation("message.animalnet.npc_needed"));
             }
-        }else{
+        } if(e instanceof EntityLiving) {
+            sendStatus(p, new TextComponentTranslation("message.animalnet.animal_needed"));
+        } else{
             sendStatus(p,new TextComponentTranslation("message.animalnet.can_not_be_caught"));
         }
     }

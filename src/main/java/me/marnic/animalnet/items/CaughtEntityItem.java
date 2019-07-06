@@ -1,6 +1,5 @@
 package me.marnic.animalnet.items;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import me.marnic.animalnet.api.BasicItem;
 import me.marnic.animalnet.api.EntityUtil;
 import net.minecraft.block.Block;
@@ -199,7 +198,7 @@ public class CaughtEntityItem extends BasicItem {
     }
 
     private void sendError(EntityPlayer player,String msg) {
-        player.sendMessage(new TextComponentString(ChatFormatting.RED + msg));
+        player.sendMessage(new TextComponentString(TextFormatting.RED + msg));
     }
 
     @Override
