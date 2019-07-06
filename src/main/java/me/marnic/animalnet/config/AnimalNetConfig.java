@@ -35,12 +35,12 @@ public class AnimalNetConfig {
         BUILDER =  new ForgeConfigSpec.Builder();
 
         general_options =  new GeneralOptions(BUILDER);
-        animal_net_small  = new BasicAnimalNetConfig(BUILDER,0,0.5,"animal_net_small");
-        animal_net_medium  = new BasicAnimalNetConfig(BUILDER,0,1.2,"animal_net_medium");
+        animal_net_small  = new BasicAnimalNetConfig(BUILDER,1,0.5,"animal_net_small");
+        animal_net_medium  = new BasicAnimalNetConfig(BUILDER,1,1.2,"animal_net_medium");
         animal_net_big = new BasicAnimalNetConfig(BUILDER,2,10,"animal_net_big");
-        mob_net_small = new BasicAnimalNetConfig(BUILDER,0,1.3,"mob_net_small");
+        mob_net_small = new BasicAnimalNetConfig(BUILDER,1,1.3,"mob_net_small");
         mob_net_big  = new BasicAnimalNetConfig(BUILDER,2,10,"mob_net_big");
-        npc_net  = new BasicAnimalNetConfig(BUILDER,0,10,"npc_net");
+        npc_net  = new BasicAnimalNetConfig(BUILDER,1,10,"npc_net");
 
         SPEC = BUILDER.build();
     }

@@ -131,6 +131,8 @@ public class AnimalNetForgeHandler {
                         addNetToInv(e);
                     }else if(net.getType()==NetType.NPC && e.getTarget() instanceof INPC){
                         addNetToInv(e);
+                    }else if(e.getTarget() instanceof LivingEntity && net.getType() == NetType.ANIMAL){
+                        addNetToInv(e);
                     }else{
                         sendCanNotBeCaught(e.getEntityPlayer(),e.getTarget());
                     }
@@ -140,6 +142,8 @@ public class AnimalNetForgeHandler {
                     if(canBeCaughtByAnimalNet(e.getTarget())&&net.getType()==NetType.ANIMAL) {
                         sendStatus(e.getEntityPlayer(), new TranslationTextComponent("message.animalnet.net_too_small"));
                     }else if(canBeCaughtByMobNet(e.getTarget())&&net.getType()==NetType.MOB) {
+                        sendStatus(e.getEntityPlayer(), new TranslationTextComponent("message.animalnet.net_too_small"));
+                    }else if(e.getTarget() instanceof LivingEntity && net.getType() == NetType.ANIMAL){
                         sendStatus(e.getEntityPlayer(), new TranslationTextComponent("message.animalnet.net_too_small"));
                     }else{
                         sendCanNotBeCaught(e.getEntityPlayer(),e.getTarget());
@@ -188,6 +192,8 @@ public class AnimalNetForgeHandler {
             }else{
                 sendStatus(p,new TranslationTextComponent("message.animalnet.npc_needed"));
             }
+        } if(e instanceof LivingEntity) {
+            sendStatus(p, new TranslationTextComponent("message.animalnet.animal_needed"));
         }else{
             sendStatus(p,new TranslationTextComponent("message.animalnet.can_not_be_caught"));
         }
