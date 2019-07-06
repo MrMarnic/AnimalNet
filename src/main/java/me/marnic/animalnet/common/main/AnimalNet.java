@@ -1,6 +1,6 @@
-package me.marnic.animalnet.main;
+package me.marnic.animalnet.common.main;
 
-import me.marnic.animalnet.config.AnimalNetConfig;
+import me.marnic.animalnet.common.config.AnimalNetConfig;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 public class AnimalNet {
     public static final String MODID = "animalnet";
     public static final String NAME = "Animal Net";
-    public static final String VERSION = "1.12";
+    public static final String VERSION = "v1.12.2 b1";
     public static final AnimalNetModHandler ANIMAL_NET_MOD_HANDLER = new AnimalNetModHandler();
 
 

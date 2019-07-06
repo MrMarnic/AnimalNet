@@ -1,7 +1,5 @@
-package me.marnic.animalnet.recipes;
+package me.marnic.animalnet.common.recipes;
 
-import it.unimi.dsi.fastutil.ints.IntArrayList;
-import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.crafting.IngredientNBT;
 

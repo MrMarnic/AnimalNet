@@ -1,7 +1,7 @@
 package me.marnic.animalnet.api;
 
-import me.marnic.animalnet.main.AnimalNetItems;
-import me.marnic.animalnet.main.AnimalNetModHandler;
+import me.marnic.animalnet.common.main.AnimalNetItems;
+import me.marnic.animalnet.common.main.AnimalNetModHandler;
 import net.minecraft.item.Item;
 
 /**

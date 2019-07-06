@@ -1,25 +1,16 @@
-package me.marnic.animalnet.recipes;
+package me.marnic.animalnet.common.recipes;
 
 import me.marnic.animalnet.api.RecipeUtil;
 import me.marnic.animalnet.api.SpawnerUtil;
-import me.marnic.animalnet.item.AnimalNetItem;
-import me.marnic.animalnet.main.AnimalNetItems;
+import me.marnic.animalnet.common.main.AnimalNetItems;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.RecipeBookCloning;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.common.crafting.IngredientNBT;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-
-import javax.annotation.Nullable;
-import java.util.function.Predicate;
 
 /**
  * Copyright (c) 19.05.2019

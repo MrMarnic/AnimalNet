@@ -1,6 +1,6 @@
 package me.marnic.animalnet.api;
 
-import me.marnic.animalnet.main.AnimalNetItems;
+import me.marnic.animalnet.common.main.AnimalNetItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;

@@ -1,4 +1,4 @@
-package me.marnic.animalnet.item;
+package me.marnic.animalnet.common.item;
 
 /**
  * Copyright (c) 19.02.2019

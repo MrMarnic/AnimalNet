@@ -1,4 +1,4 @@
-package me.marnic.animalnet.item;
+package me.marnic.animalnet.common.item;
 
 import me.marnic.animalnet.api.BasicItem;
 

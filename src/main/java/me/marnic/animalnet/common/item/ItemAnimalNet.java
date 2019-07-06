@@ -1,4 +1,4 @@
-package me.marnic.animalnet.item;
+package me.marnic.animalnet.common.item;
 
 import me.marnic.animalnet.api.BasicItem;
 
@@ -7,13 +7,13 @@ import me.marnic.animalnet.api.BasicItem;
  * Developed by MrMarnic
  * GitHub: https://github.com/MrMarnic
  */
-public class AnimalNetItem extends BasicItem {
+public class ItemAnimalNet extends BasicItem {
     private NetSize size;
     private NetType type;
     private double acceptedSize;
     private int uses;
 
-    public AnimalNetItem(String name, NetSize size, NetType type, double acceptedSize, int uses) {
+    public ItemAnimalNet(String name, NetSize size, NetType type, double acceptedSize, int uses) {
         super(name);
         this.size = size;
         this.type = type;

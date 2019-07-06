@@ -1,4 +1,4 @@
-package me.marnic.animalnet.item;
+package me.marnic.animalnet.common.item;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.marnic.animalnet.api.BasicItem;
@@ -35,9 +35,9 @@ import java.util.List;
  * Developed by MrMarnic
  * GitHub: https://github.com/MrMarnic
  */
-public class CaughtEntityItem extends BasicItem {
+public class ItemCaughtEntity extends BasicItem {
 
-    public CaughtEntityItem() {
+    public ItemCaughtEntity() {
         super("caught_entity");
     }
 
@@ -253,10 +253,10 @@ public class CaughtEntityItem extends BasicItem {
 
     public static void makeAdult(ItemStack stack) {
 
-        NBTTagCompound compound = CaughtEntityItem.getTagForEntityFromItem(stack);
+        NBTTagCompound compound = ItemCaughtEntity.getTagForEntityFromItem(stack);
         compound.setInteger("Age", 0);
 
-        CaughtEntityItem.writeTagForEntityFromItem(stack, compound);
+        ItemCaughtEntity.writeTagForEntityFromItem(stack, compound);
     }
 
     public static void makeFakeAdult(ItemStack stack) {
@@ -269,10 +269,10 @@ public class CaughtEntityItem extends BasicItem {
 
     public static void makeChild(ItemStack stack) {
 
-        NBTTagCompound compound = CaughtEntityItem.getTagForEntityFromItem(stack);
+        NBTTagCompound compound = ItemCaughtEntity.getTagForEntityFromItem(stack);
         compound.setInteger("Age", -23000);
 
-        CaughtEntityItem.writeTagForEntityFromItem(stack, compound);
+        ItemCaughtEntity.writeTagForEntityFromItem(stack, compound);
     }
 
     public static void makeFakeChild(ItemStack stack) {

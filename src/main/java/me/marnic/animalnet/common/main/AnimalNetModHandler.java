@@ -1,4 +1,4 @@
-package me.marnic.animalnet.main;
+package me.marnic.animalnet.common.main;
 
 /**
  * Copyright (c) 18.02.2019
@@ -9,14 +9,14 @@ package me.marnic.animalnet.main;
 import me.marnic.animalnet.api.BasicItem;
 import me.marnic.animalnet.api.IModelRegistry;
 import me.marnic.animalnet.api.SpawnerUtil;
-import me.marnic.animalnet.config.AnimalNetConfig;
-import me.marnic.animalnet.item.AnimalNetItem;
-import me.marnic.animalnet.item.CaughtEntityItem;
-import me.marnic.animalnet.item.NetSize;
-import me.marnic.animalnet.item.NetType;
-import me.marnic.animalnet.recipes.RecipeAnimalToChild;
-import me.marnic.animalnet.recipes.RecipeChildToAnimal;
-import me.marnic.animalnet.recipes.RecipeSpawner;
+import me.marnic.animalnet.common.config.AnimalNetConfig;
+import me.marnic.animalnet.common.item.ItemAnimalNet;
+import me.marnic.animalnet.common.item.ItemCaughtEntity;
+import me.marnic.animalnet.common.item.NetSize;
+import me.marnic.animalnet.common.item.NetType;
+import me.marnic.animalnet.common.recipes.RecipeAnimalToChild;
+import me.marnic.animalnet.common.recipes.RecipeChildToAnimal;
+import me.marnic.animalnet.common.recipes.RecipeSpawner;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
@@ -28,6 +28,7 @@ import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -92,9 +93,9 @@ public class AnimalNetModHandler {
         if (!e.player.world.isRemote) {
             if (e.crafting.getItem().equals(AnimalNetItems.caughtEntityItem)) {
                 if (e.crafting.getTagCompound().getString("age").equalsIgnoreCase("Adult")) {
-                    CaughtEntityItem.makeAdult(e.crafting);
+                    ItemCaughtEntity.makeAdult(e.crafting);
                 } else {
-                    CaughtEntityItem.makeChild(e.crafting);
+                    ItemCaughtEntity.makeChild(e.crafting);
                 }
             }
         }
@@ -109,8 +110,8 @@ public class AnimalNetModHandler {
             if (e.getHand() == EnumHand.MAIN_HAND) {
                 boundingBox = e.getTarget().getEntityBoundingBox();
                 size = (boundingBox.maxX - boundingBox.minX) * (boundingBox.maxY - boundingBox.minY);
-                if (AnimalNetItem.class.isAssignableFrom(e.getItemStack().getItem().getClass())) {
-                    if (!checkEntity((AnimalNetItem) e.getItemStack().getItem(), e)) {
+                if (ItemAnimalNet.class.isAssignableFrom(e.getItemStack().getItem().getClass())) {
+                    if (!checkEntity((ItemAnimalNet) e.getItemStack().getItem(), e)) {
                         e.setCanceled(true);
                     }
                 }
@@ -144,7 +145,7 @@ public class AnimalNetModHandler {
         }
     }
 
-    private static boolean checkEntity(AnimalNetItem net, PlayerInteractEvent.EntityInteract e) {
+    private static boolean checkEntity(ItemAnimalNet net, PlayerInteractEvent.EntityInteract e) {
         if (isValidEntity(e.getTarget())) {
             if (net.fitSize(size)) {
                 if ((canBeCaughtByAnimalNet(e.getTarget()) && net.getType() == NetType.ANIMAL)) {
@@ -154,7 +155,9 @@ public class AnimalNetModHandler {
                         addNetToInv(e);
                     } else if (net.getType() == NetType.NPC && e.getTarget() instanceof INpc) {
                         addNetToInv(e);
-                    } else {
+                    } else if(e.getTarget() instanceof EntityLiving && net.getType() == NetType.ANIMAL){
+                        addNetToInv(e);
+                    }else {
                         sendCanNotBeCaught(e.getEntityPlayer(), e.getTarget());
                     }
                 }
@@ -164,7 +167,9 @@ public class AnimalNetModHandler {
                         sendStatus(e.getEntityPlayer(), new TextComponentTranslation("message.animalnet.net_too_small"));
                     } else if (canBeCaughtByMobNet(e.getTarget()) && net.getType() == NetType.MOB) {
                         sendStatus(e.getEntityPlayer(), new TextComponentTranslation("message.animalnet.net_too_small"));
-                    } else {
+                    } else if(e.getTarget() instanceof EntityLiving && net.getType() == NetType.ANIMAL){
+                        sendStatus(e.getEntityPlayer(), new TextComponentTranslation("message.animalnet.net_too_small"));
+                    }else {
                         sendCanNotBeCaught(e.getEntityPlayer(), e.getTarget());
                     }
                 } else {
@@ -185,20 +190,24 @@ public class AnimalNetModHandler {
         e.getTarget().setDead();
         if (!e.getEntityPlayer().isCreative()) {
             currentItem = e.getEntityPlayer().inventory.getCurrentItem();
+            boolean add = false;
+            ItemStack stack1 = currentItem;
             if (currentItem.getCount() > 1) {
-                currentItem.setCount(currentItem.getCount() - 1);
+                e.getEntityPlayer().getHeldItemMainhand().shrink(1);
                 ItemStack damagedItemStack = new ItemStack(currentItem.getItem());
-                damagedItemStack.damageItem(1, e.getEntityPlayer());
-                addItem(e.getEntityPlayer(), damagedItemStack);
-            } else {
-                if (currentItem.getItemDamage() == 0) {
-                    currentItem.damageItem(1, e.getEntityPlayer());
-                } else {
-                    e.getEntityPlayer().inventory.removeStackFromSlot(e.getEntityPlayer().inventory.currentItem);
-                }
+                stack1 = damagedItemStack;
+                add = true;
             }
+            damageItem(stack1,e.getEntityPlayer().inventory,add);
         }
         return true;
+    }
+
+    private static void damageItem(ItemStack stack, InventoryPlayer inventoryPlayer,boolean addItem) {
+        stack.damageItem(1,inventoryPlayer.player);
+        if(addItem) {
+            addItem(inventoryPlayer.player,stack);
+        }
     }
 
     private static boolean canBeCaughtByAnimalNet(Entity entity) {
@@ -224,6 +233,8 @@ public class AnimalNetModHandler {
             } else {
                 sendStatus(p, new TextComponentTranslation("message.animalnet.npc_needed"));
             }
+        } if(e instanceof EntityLiving) {
+            sendStatus(p, new TextComponentTranslation("message.animalnet.animal_needed"));
         } else {
             sendStatus(p, new TextComponentTranslation("message.animalnet.can_not_be_caught"));
         }

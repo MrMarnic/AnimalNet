@@ -1,6 +1,6 @@
-package me.marnic.animalnet.config;
+package me.marnic.animalnet.common.config;
 
-import me.marnic.animalnet.main.AnimalNet;
+import me.marnic.animalnet.common.main.AnimalNet;
 import net.minecraftforge.common.config.Config;
 
 import java.util.ArrayList;
@@ -16,14 +16,14 @@ public class AnimalNetConfig {
 
     public static GeneralOptions general_options = new GeneralOptions();
 
-    public static BasicAnimalNetConfig animal_net_small = new BasicAnimalNetConfig(0,0.5);
-    public static BasicAnimalNetConfig animal_net_medium = new BasicAnimalNetConfig(0,1.2);
+    public static BasicAnimalNetConfig animal_net_small = new BasicAnimalNetConfig(1,0.5);
+    public static BasicAnimalNetConfig animal_net_medium = new BasicAnimalNetConfig(1,1.2);
     public static BasicAnimalNetConfig animal_net_big = new BasicAnimalNetConfig(2,10);
 
-    public static BasicAnimalNetConfig mob_net_small = new BasicAnimalNetConfig(0,1.3);
+    public static BasicAnimalNetConfig mob_net_small = new BasicAnimalNetConfig(1,1.3);
     public static BasicAnimalNetConfig mob_net_big = new BasicAnimalNetConfig(2,10);
 
-    public static BasicAnimalNetConfig npc_net = new BasicAnimalNetConfig(0,10);
+    public static BasicAnimalNetConfig npc_net = new BasicAnimalNetConfig(1,10);
 
 
 

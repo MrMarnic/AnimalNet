@@ -1,7 +1,7 @@
-package me.marnic.animalnet.recipes;
+package me.marnic.animalnet.common.recipes;
 
 import me.marnic.animalnet.api.RecipeUtil;
-import me.marnic.animalnet.item.CaughtEntityItem;
+import me.marnic.animalnet.common.item.ItemCaughtEntity;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -61,7 +61,7 @@ public class RecipeAnimalToChild extends ShapedRecipes {
     @Override
     public ItemStack getCraftingResult(InventoryCrafting inv) {
         ItemStack stack = match.copy();
-        CaughtEntityItem.makeFakeChild(stack);
+        ItemCaughtEntity.makeFakeChild(stack);
         return stack;
     }
 }
