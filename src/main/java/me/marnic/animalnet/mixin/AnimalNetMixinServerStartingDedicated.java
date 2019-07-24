@@ -39,10 +39,6 @@ public abstract class AnimalNetMixinServerStartingDedicated extends MinecraftSer
     @Inject(method = "setupServer", at = @At("RETURN"))
     public void setup(CallbackInfoReturnable returnable) {
         ServerHandler.handleServerStarting(this);
-    }
-
-    @Inject(method = "loadWorld",at = @At("RETURN"))
-    public void loadWorld(String string_1, String string_2, long long_1, LevelGeneratorType levelGeneratorType_1, JsonElement jsonElement_1, CallbackInfo info) {
         StartingUtil.handleServerStart(getWorld(DimensionType.OVERWORLD).getSaveHandler().getWorldDir());
     }
 }
