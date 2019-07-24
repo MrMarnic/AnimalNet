@@ -49,11 +49,8 @@ public class RecipeAnimalToChild extends ShapedRecipes {
                 inv.getStackInSlot(8).getItem().equals(Items.REDSTONE)) {
             match = inv.getStackInSlot(4).copy();
 
-            if (match.getTagCompound().hasKey("age")) {
-                return true;
-            }
+            return match.getTagCompound().hasKey("age");
 
-            return false;
         }
         return false;
     }

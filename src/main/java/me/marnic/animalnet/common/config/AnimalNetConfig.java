@@ -16,20 +16,19 @@ public class AnimalNetConfig {
 
     public static GeneralOptions general_options = new GeneralOptions();
 
-    public static BasicAnimalNetConfig animal_net_small = new BasicAnimalNetConfig(1,0.5);
-    public static BasicAnimalNetConfig animal_net_medium = new BasicAnimalNetConfig(1,1.2);
-    public static BasicAnimalNetConfig animal_net_big = new BasicAnimalNetConfig(2,10);
+    public static BasicAnimalNetConfig animal_net_small = new BasicAnimalNetConfig(1, 0.5);
+    public static BasicAnimalNetConfig animal_net_medium = new BasicAnimalNetConfig(1, 1.2);
+    public static BasicAnimalNetConfig animal_net_big = new BasicAnimalNetConfig(2, 10);
 
-    public static BasicAnimalNetConfig mob_net_small = new BasicAnimalNetConfig(1,1.3);
-    public static BasicAnimalNetConfig mob_net_big = new BasicAnimalNetConfig(2,10);
+    public static BasicAnimalNetConfig mob_net_small = new BasicAnimalNetConfig(1, 1.3);
+    public static BasicAnimalNetConfig mob_net_big = new BasicAnimalNetConfig(2, 10);
 
-    public static BasicAnimalNetConfig npc_net = new BasicAnimalNetConfig(1,10);
-
+    public static BasicAnimalNetConfig npc_net = new BasicAnimalNetConfig(1, 10);
 
 
     public static class BasicAnimalNetConfig {
 
-        public BasicAnimalNetConfig(int maxUses,double size) {
+        public BasicAnimalNetConfig(int maxUses, double size) {
             this.maxUses = maxUses;
             this.maxSize = size;
         }
@@ -43,12 +42,12 @@ public class AnimalNetConfig {
 
     public static class GeneralOptions {
         @Config.Comment({"List of entities to be excluded from catching",
-                         "Example:",
-                         "S:excluded_entities <",
-                         "minecraft:pig",
-                         "minecraft:cow",
-                         ">"})
-        public String[] excluded_entities = new String[]{"minecraft:wither","minecraft:ender_dragon"};
+                "Example:",
+                "S:excluded_entities <",
+                "minecraft:pig",
+                "minecraft:cow",
+                ">"})
+        public String[] excluded_entities = new String[]{"minecraft:wither", "minecraft:ender_dragon"};
 
         private ArrayList<String> excluded_entities_array_list;
 

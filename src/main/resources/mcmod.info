@@ -1,16 +1,18 @@
 [
-{
-  "modid": "animalnet",
-  "name": "MrMarnics's Animal Net",
-  "description": "With this mod you can catch animals with a net",
-  "version": "v1.12.2 b1",
-  "mcversion": "1.12.2",
-  "url": "",
-  "updateUrl": "",
-  "authorList": ["MrMarnic"],
-  "credits": "MrMarnic",
-  "logoFile": "",
-  "screenshots": [],
-  "dependencies": []
-}
+  {
+    "modid": "animalnet",
+    "name": "MrMarnics's Animal Net",
+    "description": "With this mod you can catch animals with a net",
+    "version": "v1.12.2 b2",
+    "mcversion": "1.12.2",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [
+      "MrMarnic"
+    ],
+    "credits": "MrMarnic",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
 ]

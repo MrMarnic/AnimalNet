@@ -125,10 +125,19 @@ public class AnimalNetModHandler {
     public void dropEvent(BlockEvent.HarvestDropsEvent e) {
         if (!e.getWorld().isRemote) {
             if (e.getState() == Blocks.MOB_SPAWNER.getDefaultState()) {
-                if (RANDOM.nextInt(3) == 2) {
-                    e.getDrops().add(new ItemStack(AnimalNetItems.spawnerFragmental, 2));
-                } else {
-                    e.getDrops().add(new ItemStack(AnimalNetItems.spawnerFragmental));
+                boolean b = false;
+                for (ItemStack s : e.getDrops()) {
+                    if (s.getItem().equals(Item.getItemFromBlock(e.getState().getBlock()))) {
+                        b = true;
+                        break;
+                    }
+                }
+                if (!b) {
+                    if (RANDOM.nextInt(3) == 2) {
+                        e.getDrops().add(new ItemStack(AnimalNetItems.spawnerFragmental, 2));
+                    } else {
+                        e.getDrops().add(new ItemStack(AnimalNetItems.spawnerFragmental));
+                    }
                 }
             }
         }
@@ -155,9 +164,9 @@ public class AnimalNetModHandler {
                         addNetToInv(e);
                     } else if (net.getType() == NetType.NPC && e.getTarget() instanceof INpc) {
                         addNetToInv(e);
-                    } else if(e.getTarget() instanceof EntityLiving && net.getType() == NetType.ANIMAL){
+                    } else if (e.getTarget() instanceof EntityLiving && net.getType() == NetType.ANIMAL) {
                         addNetToInv(e);
-                    }else {
+                    } else {
                         sendCanNotBeCaught(e.getEntityPlayer(), e.getTarget());
                     }
                 }
@@ -167,9 +176,9 @@ public class AnimalNetModHandler {
                         sendStatus(e.getEntityPlayer(), new TextComponentTranslation("message.animalnet.net_too_small"));
                     } else if (canBeCaughtByMobNet(e.getTarget()) && net.getType() == NetType.MOB) {
                         sendStatus(e.getEntityPlayer(), new TextComponentTranslation("message.animalnet.net_too_small"));
-                    } else if(e.getTarget() instanceof EntityLiving && net.getType() == NetType.ANIMAL){
+                    } else if (e.getTarget() instanceof EntityLiving && net.getType() == NetType.ANIMAL) {
                         sendStatus(e.getEntityPlayer(), new TextComponentTranslation("message.animalnet.net_too_small"));
-                    }else {
+                    } else {
                         sendCanNotBeCaught(e.getEntityPlayer(), e.getTarget());
                     }
                 } else {
@@ -192,25 +201,25 @@ public class AnimalNetModHandler {
             currentItem = e.getEntityPlayer().inventory.getCurrentItem();
             boolean add = false;
             ItemStack stack1 = currentItem;
-            if(currentItem.getMaxDamage() > 0) {
+            if (currentItem.getMaxDamage() > 0) {
                 if (currentItem.getCount() > 1) {
                     e.getEntityPlayer().getHeldItemMainhand().shrink(1);
                     ItemStack damagedItemStack = new ItemStack(currentItem.getItem());
                     stack1 = damagedItemStack;
                     add = true;
                 }
-                damageItem(stack1,e.getEntityPlayer().inventory,add);
-            }else {
+                damageItem(stack1, e.getEntityPlayer().inventory, add);
+            } else {
                 e.getEntityPlayer().getHeldItemMainhand().shrink(1);
             }
         }
         return true;
     }
 
-    private static void damageItem(ItemStack stack, InventoryPlayer inventoryPlayer,boolean addItem) {
-        stack.damageItem(1,inventoryPlayer.player);
-        if(addItem) {
-            addItem(inventoryPlayer.player,stack);
+    private static void damageItem(ItemStack stack, InventoryPlayer inventoryPlayer, boolean addItem) {
+        stack.damageItem(1, inventoryPlayer.player);
+        if (addItem) {
+            addItem(inventoryPlayer.player, stack);
         }
     }
 
@@ -237,7 +246,8 @@ public class AnimalNetModHandler {
             } else {
                 sendStatus(p, new TextComponentTranslation("message.animalnet.npc_needed"));
             }
-        } if(e instanceof EntityLiving) {
+        }
+        if (e instanceof EntityLiving) {
             sendStatus(p, new TextComponentTranslation("message.animalnet.animal_needed"));
         } else {
             sendStatus(p, new TextComponentTranslation("message.animalnet.can_not_be_caught"));

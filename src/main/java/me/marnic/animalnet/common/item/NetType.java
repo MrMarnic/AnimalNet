@@ -6,14 +6,14 @@ package me.marnic.animalnet.common.item;
  * GitHub: https://github.com/MrMarnic
  */
 public enum NetType {
-    MOB("mob"),ANIMAL("animal"),NPC("npc");
+    MOB("mob"), ANIMAL("animal"), NPC("npc");
 
     private String name;
     private String translationKey;
 
-    NetType(String name){
+    NetType(String name) {
         this.name = name;
-        this.translationKey = "message.animalnet.formal_"+name;
+        this.translationKey = "message.animalnet.formal_" + name;
     }
 
     public String getName() {

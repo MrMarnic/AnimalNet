@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 public class AnimalNet {
     public static final String MODID = "animalnet";
     public static final String NAME = "Animal Net";
-    public static final String VERSION = "v1.12.2 b1";
+    public static final String VERSION = "v1.12.2 b2";
     public static final AnimalNetModHandler ANIMAL_NET_MOD_HANDLER = new AnimalNetModHandler();
 
 

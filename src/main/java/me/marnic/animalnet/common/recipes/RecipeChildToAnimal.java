@@ -53,10 +53,7 @@ public class RecipeChildToAnimal extends ShapedRecipes {
                 isBoneMeal(8, inv)) {
             match = inv.getStackInSlot(4).copy();
 
-            if (match.getTagCompound().hasKey("age")) {
-                return true;
-            }
-            return false;
+            return match.getTagCompound().hasKey("age");
         }
         return false;
     }
