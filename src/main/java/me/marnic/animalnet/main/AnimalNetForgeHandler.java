@@ -19,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeItemHelper;
@@ -101,10 +102,19 @@ public class AnimalNetForgeHandler {
     public static void dropEvent(BlockEvent.HarvestDropsEvent e) {
         if (!e.getWorld().isRemote()) {
             if (e.getState() == Blocks.SPAWNER.getDefaultState()) {
-                if (RANDOM.nextInt(3) == 2) {
-                    e.getDrops().add(new ItemStack(AnimalNetItems.spawnerFragmental, 2));
-                } else {
-                    e.getDrops().add(new ItemStack(AnimalNetItems.spawnerFragmental));
+                boolean b = false;
+                for (ItemStack s : e.getDrops()) {
+                    if (s.getItem().equals(Item.getItemFromBlock(e.getState().getBlock()))) {
+                        b = true;
+                        break;
+                    }
+                }
+                if (!b) {
+                    if (RANDOM.nextInt(3) == 2) {
+                        e.getDrops().add(new ItemStack(AnimalNetItems.spawnerFragmental, 2));
+                    } else {
+                        e.getDrops().add(new ItemStack(AnimalNetItems.spawnerFragmental));
+                    }
                 }
             }
         }
