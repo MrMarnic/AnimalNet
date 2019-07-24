@@ -11,7 +11,7 @@ import net.minecraft.item.Item;
 public class BasicItem extends Item {
     private String name;
 
-    public BasicItem(Settings settings,String name) {
+    public BasicItem(Settings settings, String name) {
         super(settings);
         this.name = name;
         AnimalNet.ITEM_REGISTRY.itemsToRegister.add(this);

@@ -24,7 +24,7 @@ public class RecipeAnimalToChild extends ShapedRecipe {
     private final ItemStack out = new ItemStack(AnimalNetItems.caughtEntityItem);
 
     public RecipeAnimalToChild() {
-        super(new Identifier("animalnet","caught_animal_to_child"), "", 3, 3, DefaultedList.create(), new ItemStack(AnimalNetItems.caughtEntityItem));
+        super(new Identifier("animalnet", "caught_animal_to_child"), "", 3, 3, DefaultedList.create(), new ItemStack(AnimalNetItems.caughtEntityItem));
         getPreviewInputs().add(Ingredient.ofItems(Items.REDSTONE));
         getPreviewInputs().add(Ingredient.ofItems(Items.REDSTONE));
         getPreviewInputs().add(Ingredient.ofItems(Items.REDSTONE));
@@ -38,22 +38,19 @@ public class RecipeAnimalToChild extends ShapedRecipe {
 
     @Override
     public boolean matches(CraftingInventory inv, World var2) {
-        if(inv.getInvStack(0).getItem().equals(Items.REDSTONE)&&
-                inv.getInvStack(1).getItem().equals(Items.REDSTONE)&&
-                inv.getInvStack(2).getItem().equals(Items.REDSTONE)&&
-                inv.getInvStack(3).getItem().equals(Items.REDSTONE)&&
-                inv.getInvStack(4).getItem().equals(AnimalNetItems.caughtEntityItem)&&
-                inv.getInvStack(5).getItem().equals(Items.REDSTONE)&&
-                inv.getInvStack(6).getItem().equals(Items.REDSTONE)&&
-                inv.getInvStack(7).getItem().equals(Items.REDSTONE)&&
+        if (inv.getInvStack(0).getItem().equals(Items.REDSTONE) &&
+                inv.getInvStack(1).getItem().equals(Items.REDSTONE) &&
+                inv.getInvStack(2).getItem().equals(Items.REDSTONE) &&
+                inv.getInvStack(3).getItem().equals(Items.REDSTONE) &&
+                inv.getInvStack(4).getItem().equals(AnimalNetItems.caughtEntityItem) &&
+                inv.getInvStack(5).getItem().equals(Items.REDSTONE) &&
+                inv.getInvStack(6).getItem().equals(Items.REDSTONE) &&
+                inv.getInvStack(7).getItem().equals(Items.REDSTONE) &&
                 inv.getInvStack(8).getItem().equals(Items.REDSTONE)) {
             match = inv.getInvStack(4).copy();
 
-            if(match.getTag().containsKey("age")) {
-                return true;
-            }
+            return match.getTag().containsKey("age");
 
-            return false;
         }
         return false;
     }

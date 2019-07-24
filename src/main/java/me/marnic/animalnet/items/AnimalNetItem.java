@@ -19,7 +19,7 @@ public class AnimalNetItem extends BasicItem {
     private double acceptedSize;
     private int uses;
 
-    public AnimalNetItem(String name,Settings settings, NetSize size, NetType type, double acceptedSize,int uses) {
+    public AnimalNetItem(String name, Settings settings, NetSize size, NetType type, double acceptedSize, int uses) {
         super(settings.maxDamageIfAbsent(uses), name);
         this.size = size;
         this.type = type;
@@ -29,10 +29,10 @@ public class AnimalNetItem extends BasicItem {
 
     @Override
     public boolean useOnEntity(ItemStack itemStack_1, PlayerEntity playerEntity_1, LivingEntity livingEntity_1, Hand hand_1) {
-        if(!playerEntity_1.getEntityWorld().isClient) {
+        if (!playerEntity_1.getEntityWorld().isClient) {
             return AnimalNet.ENTITY_HANDLER.handleRightClick(livingEntity_1, hand_1, itemStack_1, playerEntity_1);
         }
-        return super.useOnEntity(itemStack_1,playerEntity_1,livingEntity_1,hand_1);
+        return super.useOnEntity(itemStack_1, playerEntity_1, livingEntity_1, hand_1);
     }
 
     public double getAcceptedSize() {
@@ -40,7 +40,7 @@ public class AnimalNetItem extends BasicItem {
     }
 
     public boolean fitSize(double size) {
-        return size<=acceptedSize;
+        return size <= acceptedSize;
     }
 
     public NetType getType() {

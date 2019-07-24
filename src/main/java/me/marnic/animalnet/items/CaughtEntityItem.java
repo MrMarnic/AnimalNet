@@ -51,26 +51,26 @@ public class CaughtEntityItem extends BasicItem {
         this.entity = e;
 
         ItemStack stack = new ItemStack(this);
-        ServerWorld serverWorld = (ServerWorld)e.getEntityWorld();
+        ServerWorld serverWorld = (ServerWorld) e.getEntityWorld();
         String name = findGoodName(e, serverWorld.getSaveHandler().getWorldDir());
 
         CompoundTag tag = new CompoundTag();
 
         tag.putString("animalName", EntityType.getId(e.getType()).toString());
-        tag.putString("modName",EntityType.getId(e.getType()).getNamespace());
+        tag.putString("modName", EntityType.getId(e.getType()).getNamespace());
         tag.putString("fileName", name);
 
 
-        if(e.hasCustomName()) {
+        if (e.hasCustomName()) {
             if (!(toString(e.getCustomName()).equalsIgnoreCase(toString(e.getDisplayName())))) {
                 tag.putString("animalTag", toString(e.getCustomName()));
-            }else{
+            } else {
                 tag.remove("animalTag");
             }
-        }else{
+        } else {
             tag.remove("animalTag");
         }
-        tag.putString("location", "x:" + (int)e.getPos().getX() + " y:" + (int)e.getPos().getY() + " z:" + (int)e.getPos().getZ());
+        tag.putString("location", "x:" + (int) e.getPos().getX() + " y:" + (int) e.getPos().getY() + " z:" + (int) e.getPos().getZ());
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         java.util.Date date = new java.util.Date();
         tag.putString("date", formatter.format(date));
@@ -86,9 +86,9 @@ public class CaughtEntityItem extends BasicItem {
 
         stack.setTag(tag);
 
-        if(!e.hasCustomName()) {
+        if (!e.hasCustomName()) {
             stack.setCustomName(new LiteralText("Caught " + toStringTranslate(e.getDisplayName())).formatted(Formatting.YELLOW));
-        }else{
+        } else {
             stack.setCustomName(new LiteralText("Caught " + toStringTranslate(e.getCustomName())).formatted(Formatting.YELLOW));
         }
 
@@ -115,11 +115,11 @@ public class CaughtEntityItem extends BasicItem {
     }
 
     private String toString(Text c) {
-        return ((BaseText) c).asFormattedString();
+        return c.asFormattedString();
     }
 
     private String toStringTranslate(Text c) {
-        return ( c).asFormattedString();
+        return (c).asFormattedString();
     }
 
     @Override
@@ -143,7 +143,7 @@ public class CaughtEntityItem extends BasicItem {
                 blockpos1 = blockpos.offset(enumfacing);
             }
 
-            if(itemstack.hasTag()) {
+            if (itemstack.hasTag()) {
 
                 EntityType<LivingEntity> entitytype = getType(itemstack.getTag());
                 LivingEntity living = null;
@@ -169,7 +169,7 @@ public class CaughtEntityItem extends BasicItem {
                     }
 
 
-                    living = EntityUtil.createEntity(entitytype,world, null, custName, con.getPlayer(), blockpos1, SpawnType.SPAWN_EGG, true, !Objects.equals(blockpos, blockpos1) && enumfacing == Direction.UP);
+                    living = EntityUtil.createEntity(entitytype, world, null, custName, con.getPlayer(), blockpos1, SpawnType.SPAWN_EGG, true, !Objects.equals(blockpos, blockpos1) && enumfacing == Direction.UP);
 
                     //living = entitytype.create(world, null, custName, con.getPlayer(), blockpos1, SpawnType.SPAWN_EGG, true, !Objects.equals(blockpos, blockpos1) && enumfacing == Direction.UP);
 
@@ -184,7 +184,7 @@ public class CaughtEntityItem extends BasicItem {
 
                     //living.setPosition(blockpos1.getX(), blockpos1.getY(), blockpos1.getZ());
 
-                    living.setPositionAndAngles(x,y,z,yaw,pitch);
+                    living.setPositionAndAngles(x, y, z, yaw, pitch);
 
 
                     world.spawnEntity(living);
@@ -200,16 +200,16 @@ public class CaughtEntityItem extends BasicItem {
                 if (entitytype == null || living != null) {
                     itemstack.increment(-1);
                 }
-            }else{
-                sendError(con.getPlayer(),"Error: The caught entity has no data in it.");
+            } else {
+                sendError(con.getPlayer(), "Error: The caught entity has no data in it.");
             }
 
             return ActionResult.SUCCESS;
         }
     }
 
-    private void setBlockPosFromTag(CompoundTag tag,BlockPos pos) {
-        tag.put("Pos",toListTag(pos.getX(),pos.getY(),pos.getZ()));
+    private void setBlockPosFromTag(CompoundTag tag, BlockPos pos) {
+        tag.put("Pos", toListTag(pos.getX(), pos.getY(), pos.getZ()));
     }
 
     protected ListTag toListTag(double... doubles_1) {
@@ -217,7 +217,7 @@ public class CaughtEntityItem extends BasicItem {
         double[] var3 = doubles_1;
         int var4 = doubles_1.length;
 
-        for(int var5 = 0; var5 < var4; ++var5) {
+        for (int var5 = 0; var5 < var4; ++var5) {
             double double_1 = var3[var5];
             listTag_1.add(new DoubleTag(double_1));
         }
@@ -231,80 +231,80 @@ public class CaughtEntityItem extends BasicItem {
     }
 
     private void sendError(PlayerEntity player, String msg) {
-        player.addChatMessage(new LiteralText("§4" + msg),true);
+        player.addChatMessage(new LiteralText("§4" + msg), true);
     }
 
     @Override
     public void appendTooltip(ItemStack stack, World world_1, List<Text> tooltip, TooltipContext tooltipContext_1) {
-        if(stack.hasTag()) {
+        if (stack.hasTag()) {
             if (stack.getTag().containsKey("animalTag")) {
                 tooltip.add(new LiteralText(stack.getTag().getString("animalTag")));
             }
             tooltip.add(new LiteralText(stack.getTag().getString("location")));
             tooltip.add(new LiteralText(stack.getTag().getString("date")));
             if (stack.getTag().containsKey("age")) {
-                tooltip.add(new LiteralText("Age: "+stack.getTag().getString("age")));
+                tooltip.add(new LiteralText("Age: " + stack.getTag().getString("age")));
             }
             if (stack.getTag().containsKey("modName")) {
-                tooltip.add(new LiteralText("Mod: "+stack.getTag().getString("modName")));
+                tooltip.add(new LiteralText("Mod: " + stack.getTag().getString("modName")));
             }
         }
     }
 
     public static void makeAdult(ItemStack stack, World world) {
-        
-        CompoundTag compound = CaughtEntityItem.getTagForEntityFromItem(stack,world);
-        compound.putInt("Age",0);
 
-        CaughtEntityItem.writeTagForEntityFromItem(stack,compound,world);
+        CompoundTag compound = CaughtEntityItem.getTagForEntityFromItem(stack, world);
+        compound.putInt("Age", 0);
+
+        CaughtEntityItem.writeTagForEntityFromItem(stack, compound, world);
     }
 
     public static void makeFakeAdult(ItemStack stack) {
         CompoundTag st = stack.getTag();
 
-        st.putString("age","Adult");
+        st.putString("age", "Adult");
 
         stack.setTag(st);
     }
 
-    public static void makeChild(ItemStack stack,World world) {
+    public static void makeChild(ItemStack stack, World world) {
 
-        CompoundTag compound = CaughtEntityItem.getTagForEntityFromItem(stack,world);
-        compound.putInt("Age",-23000);
+        CompoundTag compound = CaughtEntityItem.getTagForEntityFromItem(stack, world);
+        compound.putInt("Age", -23000);
 
-        CaughtEntityItem.writeTagForEntityFromItem(stack,compound,world);
+        CaughtEntityItem.writeTagForEntityFromItem(stack, compound, world);
     }
 
     public static void makeFakeChild(ItemStack stack) {
         CompoundTag st = stack.getTag();
 
-        st.putString("age","Child");
+        st.putString("age", "Child");
 
         stack.setTag(st);
     }
 
     public static CompoundTag getTagForEntityFromItem(ItemStack stack, World world) {
         CompoundTag tagCompound = stack.getTag();
-        File f = new File(world.getServer().getWorld(world.dimension.getType()).getSaveHandler().getWorldDir().getAbsolutePath()+"//animalData//"+tagCompound.getString("fileName")+".dat");
+        File f = new File(world.getServer().getWorld(world.dimension.getType()).getSaveHandler().getWorldDir().getAbsolutePath() + "//animalData//" + tagCompound.getString("fileName") + ".dat");
 
         try {
-            if(f.exists()) {
+            if (f.exists()) {
                 return NbtIo.readCompressed(new FileInputStream(f));
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return new CompoundTag();
     }
 
-    public static void writeTagForEntityFromItem(ItemStack stack,CompoundTag entity,World world) {
+    public static void writeTagForEntityFromItem(ItemStack stack, CompoundTag entity, World world) {
         CompoundTag tagCompound = stack.getTag();
-        File f = new File(world.getServer().getWorld(world.dimension.getType()).getSaveHandler().getWorldDir().getAbsolutePath()+"//animalData//"+tagCompound.getString("fileName")+".dat");
+        File f = new File(world.getServer().getWorld(world.dimension.getType()).getSaveHandler().getWorldDir().getAbsolutePath() + "//animalData//" + tagCompound.getString("fileName") + ".dat");
 
         try {
             f.delete();
-            NbtIo.writeCompressed(entity,new FileOutputStream(f));
-        }catch (Exception e) {
+            NbtIo.writeCompressed(entity, new FileOutputStream(f));
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

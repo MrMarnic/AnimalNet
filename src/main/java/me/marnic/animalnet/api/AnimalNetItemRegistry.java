@@ -1,7 +1,6 @@
 package me.marnic.animalnet.api;
 
 import me.marnic.animalnet.main.ModIdentification;
-import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -20,8 +19,8 @@ public class AnimalNetItemRegistry {
     }
 
     public void registerItems() {
-        for(BasicItem item:itemsToRegister) {
-            Registry.register(Registry.ITEM,new Identifier(ModIdentification.MODID,item.getItemName()),item);
+        for (BasicItem item : itemsToRegister) {
+            Registry.register(Registry.ITEM, new Identifier(ModIdentification.MODID, item.getItemName()), item);
         }
     }
 }

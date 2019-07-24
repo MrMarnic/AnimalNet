@@ -27,7 +27,7 @@ public class RecipeSpawner extends ShapedRecipe {
     }
 
     public RecipeSpawner() {
-        super(new Identifier("animalnet","fragmentals_to_spawner"), "", 3,3, DefaultedList.create(), new ItemStack(Blocks.SPAWNER));
+        super(new Identifier("animalnet", "fragmentals_to_spawner"), "", 3, 3, DefaultedList.create(), new ItemStack(Blocks.SPAWNER));
         getPreviewInputs().add(Ingredient.ofItems(AnimalNetItems.spawnerFragmental));
         getPreviewInputs().add(Ingredient.ofItems(AnimalNetItems.spawnerFragmental));
         getPreviewInputs().add(Ingredient.ofItems(AnimalNetItems.spawnerFragmental));

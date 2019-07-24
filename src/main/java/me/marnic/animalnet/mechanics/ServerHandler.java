@@ -56,13 +56,12 @@ public class ServerHandler {
     }
 
     public static void handleOnCrafted(ItemStack stack, PlayerEntity playerEntity) {
-        if(!playerEntity.world.isClient) {
+        if (!playerEntity.world.isClient) {
             if (stack.getItem().equals(AnimalNetItems.caughtEntityItem)) {
                 if (stack.getTag().getString("age").equalsIgnoreCase("Adult")) {
-                    CaughtEntityItem.makeAdult(stack,playerEntity.world);
-                }
-                else {
-                    CaughtEntityItem.makeChild(stack,playerEntity.world);
+                    CaughtEntityItem.makeAdult(stack, playerEntity.world);
+                } else {
+                    CaughtEntityItem.makeChild(stack, playerEntity.world);
                 }
             }
         }

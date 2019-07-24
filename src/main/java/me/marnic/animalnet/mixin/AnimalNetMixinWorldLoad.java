@@ -20,11 +20,11 @@ import java.io.File;
 @Mixin(PlayerManager.class)
 public abstract class AnimalNetMixinWorldLoad {
 
-    @Inject(method = "onPlayerConnect",at = @At(value = "RETURN"))
-    public void onConnect( ClientConnection clientConnection_1, ServerPlayerEntity serverPlayerEntity_1,CallbackInfo info) {
+    @Inject(method = "onPlayerConnect", at = @At(value = "RETURN"))
+    public void onConnect(ClientConnection clientConnection_1, ServerPlayerEntity serverPlayerEntity_1, CallbackInfo info) {
         File f = serverPlayerEntity_1.getServerWorld().getSaveHandler().getWorldDir();
-        File animalData = new File(f.getAbsolutePath()+"\\animalData");
-        if(!animalData.exists()) {
+        File animalData = new File(f.getAbsolutePath() + "\\animalData");
+        if (!animalData.exists()) {
             animalData.mkdir();
         }
     }

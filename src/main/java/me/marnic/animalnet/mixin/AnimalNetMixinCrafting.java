@@ -4,14 +4,12 @@ import me.marnic.animalnet.mechanics.ServerHandler;
 import net.minecraft.container.CraftingResultSlot;
 import net.minecraft.container.Slot;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeUnlocker;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * Copyright (c) 18.05.2019
@@ -36,11 +34,11 @@ public class AnimalNetMixinCrafting extends Slot {
     public void onCrafted(ItemStack itemStack_1) {
         if (this.amount > 0) {
             itemStack_1.onCraft(this.player.world, this.player, this.amount);
-            ServerHandler.handleOnCrafted(itemStack_1,player);
+            ServerHandler.handleOnCrafted(itemStack_1, player);
         }
 
         if (this.inventory instanceof RecipeUnlocker) {
-            ((RecipeUnlocker)this.inventory).unlockLastRecipe(this.player);
+            ((RecipeUnlocker) this.inventory).unlockLastRecipe(this.player);
         }
 
         this.amount = 0;

@@ -10,7 +10,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 
-
 /**
  * Copyright (c) 18.02.2019
  * Developed by MrMarnic

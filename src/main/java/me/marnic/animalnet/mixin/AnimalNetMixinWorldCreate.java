@@ -18,17 +18,17 @@ import java.io.File;
  */
 
 @Mixin(MinecraftServer.class)
-public class AnimalNetMixinWorldCreate{
+public class AnimalNetMixinWorldCreate {
 
 
     @Shadow
     private File gameDir;
 
-    @Inject(method = "loadWorld",at=@At(value = "HEAD"))
-    public void loadWorld(String string_1, String string_2, long long_1, LevelGeneratorType levelGeneratorType_1, JsonElement jsonElement_1,CallbackInfo info) {
-        File f = new File(gameDir.getAbsolutePath()+"\\"+string_1);
-        File animalData = new File(f.getAbsolutePath()+"\\animalData");
-        if(!animalData.exists()) {
+    @Inject(method = "loadWorld", at = @At(value = "HEAD"))
+    public void loadWorld(String string_1, String string_2, long long_1, LevelGeneratorType levelGeneratorType_1, JsonElement jsonElement_1, CallbackInfo info) {
+        File f = new File(gameDir.getAbsolutePath() + "\\" + string_1);
+        File animalData = new File(f.getAbsolutePath() + "\\animalData");
+        if (!animalData.exists()) {
             animalData.mkdir();
         }
     }

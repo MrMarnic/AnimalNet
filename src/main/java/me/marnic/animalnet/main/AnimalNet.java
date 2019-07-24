@@ -3,10 +3,6 @@ package me.marnic.animalnet.main;
 import me.marnic.animalnet.api.AnimalNetItemRegistry;
 import me.marnic.animalnet.mechanics.EntityHandler;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.client.ClientTickCallback;
-import net.fabricmc.fabric.mixin.events.playerinteraction.MixinClientPlayerInteractionManager;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.server.world.ServerWorld;
 
 /**
  * Copyright (c) 04.03.2019

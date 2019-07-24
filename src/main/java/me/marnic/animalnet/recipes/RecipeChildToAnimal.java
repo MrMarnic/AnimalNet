@@ -23,7 +23,7 @@ public class RecipeChildToAnimal extends ShapedRecipe {
     private final ItemStack out = new ItemStack(AnimalNetItems.caughtEntityItem);
 
     public RecipeChildToAnimal() {
-        super(new Identifier("animalnet","caught_child_to_adult"), "", 3, 3, DefaultedList.create(), new ItemStack(AnimalNetItems.caughtEntityItem));
+        super(new Identifier("animalnet", "caught_child_to_adult"), "", 3, 3, DefaultedList.create(), new ItemStack(AnimalNetItems.caughtEntityItem));
         getPreviewInputs().add(Ingredient.ofItems(Items.BONE_MEAL));
         getPreviewInputs().add(Ingredient.ofItems(Items.BONE_MEAL));
         getPreviewInputs().add(Ingredient.ofItems(Items.BONE_MEAL));
@@ -38,21 +38,18 @@ public class RecipeChildToAnimal extends ShapedRecipe {
 
     @Override
     public boolean matches(CraftingInventory inv, World var2) {
-        if(inv.getInvStack(0).getItem().equals(Items.BONE_MEAL)&&
-                inv.getInvStack(1).getItem().equals(Items.BONE_MEAL)&&
-                inv.getInvStack(2).getItem().equals(Items.BONE_MEAL)&&
-                inv.getInvStack(3).getItem().equals(Items.BONE_MEAL)&&
-                inv.getInvStack(4).getItem().equals(AnimalNetItems.caughtEntityItem)&&
-                inv.getInvStack(5).getItem().equals(Items.BONE_MEAL)&&
-                inv.getInvStack(6).getItem().equals(Items.BONE_MEAL)&&
-                inv.getInvStack(7).getItem().equals(Items.BONE_MEAL)&&
+        if (inv.getInvStack(0).getItem().equals(Items.BONE_MEAL) &&
+                inv.getInvStack(1).getItem().equals(Items.BONE_MEAL) &&
+                inv.getInvStack(2).getItem().equals(Items.BONE_MEAL) &&
+                inv.getInvStack(3).getItem().equals(Items.BONE_MEAL) &&
+                inv.getInvStack(4).getItem().equals(AnimalNetItems.caughtEntityItem) &&
+                inv.getInvStack(5).getItem().equals(Items.BONE_MEAL) &&
+                inv.getInvStack(6).getItem().equals(Items.BONE_MEAL) &&
+                inv.getInvStack(7).getItem().equals(Items.BONE_MEAL) &&
                 inv.getInvStack(8).getItem().equals(Items.BONE_MEAL)) {
             match = inv.getInvStack(4).copy();
 
-            if(match.getTag().containsKey("age")) {
-                return true;
-            }
-            return false;
+            return match.getTag().containsKey("age");
         }
         return false;
     }
