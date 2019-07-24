@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = 'v1.14.3 Forge b4'
+version = 'v1.14.3 Forge b5'
 group = 'me.marnic.animalnet' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'animalnet'
 

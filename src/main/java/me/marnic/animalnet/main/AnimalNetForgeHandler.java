@@ -20,6 +20,7 @@ import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -96,10 +97,19 @@ public class AnimalNetForgeHandler {
     public static void dropEvent(BlockEvent.HarvestDropsEvent e) {
         if (!e.getWorld().isRemote()) {
             if (e.getState() == Blocks.SPAWNER.getDefaultState()) {
-                if (RANDOM.nextInt(3) == 2) {
-                    e.getDrops().add(new ItemStack(AnimalNetItems.spawnerFragmental, 2));
-                } else {
-                    e.getDrops().add(new ItemStack(AnimalNetItems.spawnerFragmental));
+                boolean b = false;
+                for (ItemStack s : e.getDrops()) {
+                    if (s.getItem().equals(e.getState().getBlock().asItem())) {
+                        b = true;
+                        break;
+                    }
+                }
+                if (!b) {
+                    if (RANDOM.nextInt(3) == 2) {
+                        e.getDrops().add(new ItemStack(AnimalNetItems.spawnerFragmental, 2));
+                    } else {
+                        e.getDrops().add(new ItemStack(AnimalNetItems.spawnerFragmental));
+                    }
                 }
             }
         }
