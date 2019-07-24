@@ -23,7 +23,7 @@ public class RecipeChildToAnimal extends ShapedRecipe {
     private final ItemStack out = new ItemStack(AnimalNetItems.caughtEntityItem);
 
     public RecipeChildToAnimal() {
-        super(new Identifier("animalnet", "caught_child_to_adult"), "", 3, 3, DefaultedList.create(), new ItemStack(AnimalNetItems.caughtEntityItem));
+        super(new Identifier("animalnet", "caught_child_to_adult"), "", 3, 3, DefaultedList.of(), new ItemStack(AnimalNetItems.caughtEntityItem));
         getPreviewInputs().add(Ingredient.ofItems(Items.BONE_MEAL));
         getPreviewInputs().add(Ingredient.ofItems(Items.BONE_MEAL));
         getPreviewInputs().add(Ingredient.ofItems(Items.BONE_MEAL));

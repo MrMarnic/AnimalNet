@@ -16,6 +16,7 @@ import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.logging.log4j.core.util.ReflectionUtil;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
