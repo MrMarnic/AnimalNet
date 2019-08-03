@@ -39,8 +39,6 @@ public abstract class AnimalNetMixinServerStartingIntegrated extends MinecraftSe
     @Inject(method = "setupServer", at = @At("RETURN"))
     public void setup(CallbackInfoReturnable returnable) {
         ServerHandler.handleServerStarting(this);
-
-        System.out.println(getRunDirectory());
     }
 
     @Inject(method = "loadWorld",at = @At("RETURN"))
