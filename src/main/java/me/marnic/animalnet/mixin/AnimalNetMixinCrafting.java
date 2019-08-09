@@ -10,6 +10,9 @@ import net.minecraft.recipe.RecipeUnlocker;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * Copyright (c) 18.05.2019
@@ -30,17 +33,10 @@ public class AnimalNetMixinCrafting extends Slot {
         super(inventory_1, int_1, int_2, int_3);
     }
 
-    @Overwrite
-    public void onCrafted(ItemStack itemStack_1) {
+    @Inject(method = "onCrafted(Lnet/minecraft/item/ItemStack;)V",at = @At("HEAD"))
+    public void onCrafted(ItemStack stack,CallbackInfo info) {
         if (this.amount > 0) {
-            itemStack_1.onCraft(this.player.world, this.player, this.amount);
-            ServerHandler.handleOnCrafted(itemStack_1, player);
+            ServerHandler.handleOnCrafted(stack, player);
         }
-
-        if (this.inventory instanceof RecipeUnlocker) {
-            ((RecipeUnlocker) this.inventory).unlockLastRecipe(this.player);
-        }
-
-        this.amount = 0;
     }
 }

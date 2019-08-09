@@ -5,11 +5,11 @@
   "mixins": [
     "AnimalNetMixinVillager",
     "AnimalNetMixinServerStartingDedicated",
-    "AnimalNetMixinServerStartingIntegrated",
     "AnimalNetMixinCrafting",
     "AnimalNetMixinBlockSpawner"
   ],
   "client": [
+    "AnimalNetMixinServerStartingIntegrated"
   ],
   "injectors": {
     "defaultRequire": 1
