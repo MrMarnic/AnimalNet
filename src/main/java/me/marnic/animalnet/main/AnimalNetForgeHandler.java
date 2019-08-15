@@ -22,22 +22,27 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.storage.loot.*;
+import net.minecraft.world.storage.loot.conditions.ILootCondition;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LootingLevelEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.gui.GuiModList;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 import java.io.File;
 import java.util.Random;
+import java.util.function.Consumer;
 
 /**
  * Copyright (c) 20.02.2019
@@ -94,28 +99,12 @@ public class AnimalNetForgeHandler {
 
     private static final Random RANDOM = new Random();
 
+    public static ResourceLocation SPAWNER = new ResourceLocation("minecraft","blocks/spawner");
+
     @SubscribeEvent
-    public static void dropEvent(BlockEvent.HarvestDropsEvent e) {
-        System.out.println("DROP");
-
-        if (!e.getWorld().isRemote()) {
-            if (e.getState().getBlock().equals(Blocks.SPAWNER)) {
-                boolean b = false;
-                for (ItemStack s : e.getDrops()) {
-                    if (s.getItem().equals(e.getState().getBlock().asItem())) {
-                        b = true;
-                        break;
-                    }
-                }
-
-                if (!b) {
-                    if (RANDOM.nextInt(3) == 2) {
-                        e.getDrops().add(new ItemStack(AnimalNetItems.spawnerFragmental, 2));
-                    } else {
-                        e.getDrops().add(new ItemStack(AnimalNetItems.spawnerFragmental));
-                    }
-                }
-            }
+    public static void lootTableLoad(LootTableLoadEvent e) {
+        if(e.getName().equals(SPAWNER)) {
+            e.getTable().addPool(LootPool.builder().addEntry(ItemLootEntry.builder(AnimalNetItems.spawnerFragmental)).build());
         }
     }
 
