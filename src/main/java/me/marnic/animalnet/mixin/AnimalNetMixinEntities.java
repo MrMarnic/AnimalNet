@@ -3,6 +3,8 @@ package me.marnic.animalnet.mixin;
 import me.marnic.animalnet.items.AnimalNetItem;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.AbstractDonkeyEntity;
+import net.minecraft.entity.passive.MuleEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.passive.WanderingTraderEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,11 +22,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  * Developed by MrMarnic
  * GitHub: https://github.com/MrMarnic
  */
-@Mixin(value = {VillagerEntity.class, WanderingTraderEntity.class})
-public abstract class AnimalNetMixinVillager extends LivingEntity {
+@Mixin(value = {VillagerEntity.class, WanderingTraderEntity.class,AbstractDonkeyEntity.class})
+public abstract class AnimalNetMixinEntities extends LivingEntity {
 
 
-    protected AnimalNetMixinVillager(EntityType<LivingEntity> entityType_1, World world_1) {
+    protected AnimalNetMixinEntities(EntityType<LivingEntity> entityType_1, World world_1) {
         super(entityType_1, world_1);
     }
 

@@ -3,7 +3,7 @@
   "package": "me.marnic.animalnet.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "AnimalNetMixinVillager",
+    "AnimalNetMixinEntities",
     "AnimalNetMixinServerStartingDedicated",
     "AnimalNetMixinCrafting",
     "AnimalNetMixinBlockSpawner"

@@ -25,6 +25,7 @@ import java.util.Map;
  * Copyright (c) 18.05.2019
  * Developed by MrMarnic
  * GitHub: https://github.com/MrMarnic
+ *
  */
 public class ServerHandler {
     public static void handleServerStarting(MinecraftServer server) {
