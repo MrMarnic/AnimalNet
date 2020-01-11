@@ -164,7 +164,7 @@ public class CaughtEntityItem extends BasicItem {
 
                     BaseText custName = null;
 
-                    if (tag.containsKey("animalTag")) {
+                    if (tag.contains("animalTag")) {
                         custName = (new LiteralText(tag.getString("animalTag")));
                     }
 
@@ -174,9 +174,9 @@ public class CaughtEntityItem extends BasicItem {
                     //living = entitytype.create(world, null, custName, con.getPlayer(), blockpos1, SpawnType.SPAWN_EGG, true, !Objects.equals(blockpos, blockpos1) && enumfacing == Direction.UP);
 
 
-                    double x = living.x;
-                    double y = living.y;
-                    double z = living.z;
+                    double x = living.getX();
+                    double y = living.getY();
+                    double z = living.getZ();
                     float yaw = living.yaw;
                     float pitch = living.pitch;
 
@@ -219,7 +219,7 @@ public class CaughtEntityItem extends BasicItem {
 
         for (int var5 = 0; var5 < var4; ++var5) {
             double double_1 = var3[var5];
-            listTag_1.add(new DoubleTag(double_1));
+            listTag_1.add(DoubleTag.of(double_1));
         }
 
         return listTag_1;
@@ -237,15 +237,15 @@ public class CaughtEntityItem extends BasicItem {
     @Override
     public void appendTooltip(ItemStack stack, World world_1, List<Text> tooltip, TooltipContext tooltipContext_1) {
         if (stack.hasTag()) {
-            if (stack.getTag().containsKey("animalTag")) {
+            if (stack.getTag().contains("animalTag")) {
                 tooltip.add(new LiteralText(stack.getTag().getString("animalTag")));
             }
             tooltip.add(new LiteralText(stack.getTag().getString("location")));
             tooltip.add(new LiteralText(stack.getTag().getString("date")));
-            if (stack.getTag().containsKey("age")) {
+            if (stack.getTag().contains("age")) {
                 tooltip.add(new LiteralText("Age: " + stack.getTag().getString("age")));
             }
-            if (stack.getTag().containsKey("modName")) {
+            if (stack.getTag().contains("modName")) {
                 tooltip.add(new LiteralText("Mod: " + stack.getTag().getString("modName")));
             }
         }

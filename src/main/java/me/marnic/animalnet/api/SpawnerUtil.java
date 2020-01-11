@@ -19,7 +19,7 @@ import net.minecraft.world.IWorld;
 public class SpawnerUtil {
     public static boolean isCustomSpawner(ItemStack stack) {
         if (stack.hasTag()) {
-            return stack.getTag().containsKey("entityID");
+            return stack.getTag().contains("entityID");
         }
         return false;
     }

@@ -49,7 +49,7 @@ public class RecipeChildToAnimal extends ShapedRecipe {
                 inv.getInvStack(8).getItem().equals(Items.BONE_MEAL)) {
             match = inv.getInvStack(4).copy();
 
-            return match.getTag().containsKey("age");
+            return match.getTag().contains("age");
         }
         return false;
     }

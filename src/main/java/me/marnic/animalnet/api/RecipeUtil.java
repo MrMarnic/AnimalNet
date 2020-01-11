@@ -20,6 +20,6 @@ public class RecipeUtil {
     }
 
     public static boolean isNetWithData(ItemStack stack) {
-        return stack.getItem().equals(AnimalNetItems.caughtEntityItem) && (stack.hasTag() && stack.getTag().containsKey("animalName"));
+        return stack.getItem().equals(AnimalNetItems.caughtEntityItem) && (stack.hasTag() && stack.getTag().contains("animalName"));
     }
 }
