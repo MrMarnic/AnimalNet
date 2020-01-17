@@ -39,7 +39,7 @@ public class AnimalNetMixinBlockSpawner {
                     SpawnerUtil.makeSpawnerBlock(player.inventory.getMainHandStack(), world_1, blockPos_1);
                     if (player.isCreative()) {
                         ItemStack stack = player.inventory.getMainHandStack().copy();
-                        player.setEquippedStack(EquipmentSlot.MAINHAND, stack);
+                        player.equipStack(EquipmentSlot.MAINHAND, stack);
                     }
                 }
             }

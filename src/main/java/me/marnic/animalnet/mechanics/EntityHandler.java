@@ -7,12 +7,12 @@ import me.marnic.animalnet.main.AnimalNetItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Npc;
-import net.minecraft.entity.WaterCreatureEntity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.mob.AmbientEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.Monster;
+import net.minecraft.entity.mob.WaterCreatureEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -43,7 +43,7 @@ public class EntityHandler {
         if (!e.getEntityWorld().isClient) {
             if (hand == Hand.MAIN_HAND) {
                 boundingBox = e.getBoundingBox();
-                size = (boundingBox.maxX - boundingBox.minX) * (boundingBox.maxY - boundingBox.minY);
+                size = (boundingBox.x2 - boundingBox.x1) * (boundingBox.y2 - boundingBox.y1);
                 if (AnimalNetItem.class.isAssignableFrom(stack.getItem().getClass())) {
                     if (!checkEntity((AnimalNetItem) stack.getItem(), e, entity)) {
 
@@ -97,7 +97,7 @@ public class EntityHandler {
         target.remove();
         if (!playerEntity.isCreative()) {
             currentItem = playerEntity.inventory.getMainHandStack();
-            currentItem.damage(1, playerEntity.getRand(), (ServerPlayerEntity) playerEntity);
+            currentItem.damage(1, playerEntity.getRandom(), (ServerPlayerEntity) playerEntity);
             if (currentItem.getDamage() >= ((AnimalNetItem) currentItem.getItem()).getUses()) {
                 currentItem.setCount(0);
             }
