@@ -1,0 +1,22 @@
+{
+  "item.animalnet.mob_net_small": "Küçük Mob Ağı",
+  "itemGroup.AnimalNet Items": "AnimalNet Eşyaları",
+  "message.animalnet.formal_animal": "Bu hayvan",
+  "item.animalnet.animal_net_big": "Büyük Hayvan Ağı",
+  "message.animalnet.npc_needed": "NPCleri yakalaman için bir NPC ağı gerek!",
+  "item.animalnet.animal_net_small": "Küçük Hayvan Ağı",
+  "item.animalnet.animal_net_medium": "Orta Hayvan Ağı",
+  "message.animalnet.can_not_be_caught": "Bu varlık yakalanamaz!",
+  "message.animalnet.net_too_small": "Daha büyük bir ağ gerek!",
+  "message.animalnet.formal_npc": "Bu NPC",
+  "message.animalnet.formal_mob": "Bu mob",
+  "item.animalnet.mob_core": "Mob Çekirdeği",
+  "message.animalnet.villager_needed": "Köylü yakalaman için NPC ağı gerek!",
+  "item.animalnet.npc_net": "NPC Ağı",
+  "message.animalnet.mob_needed": "Mobları yakalaman için bir mob ağı gerek!",
+  "item.animalnet.catched_animal": "Yakalanmış Hayvan/Mob",
+  "message.animalnet.animal_needed": "Normal hayvanları yakalaman için bir hayvan ağı gerek!",
+  "item.animalnet.mob_net_big": "Büyük Hayvan Ağı",
+  "message.animalnet.entity_too_big": "%s çok büyük ve yakalanamaz!",
+  "item.animalnet.spawner_fragmental": "Canavar Yaratıcısı parçalardan oluşmuş"
+}

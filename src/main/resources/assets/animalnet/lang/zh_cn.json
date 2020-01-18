@@ -1,0 +1,22 @@
+{
+  "item.animalnet.mob_net_small": "小型怪物捕捉网",
+  "itemGroup.AnimalNet Items": "动物捕捉网",
+  "message.animalnet.formal_animal": "这种动物",
+  "item.animalnet.animal_net_big": "大型动物捕捉网",
+  "message.animalnet.npc_needed": "你需要一个npc网来抓住村民!",
+  "item.animalnet.animal_net_small": "小型动物捕捉网",
+  "item.animalnet.animal_net_medium": "中型动物捕捉网",
+  "message.animalnet.can_not_be_caught": "这种动物无法捕获！",
+  "message.animalnet.net_too_small": "你需要一个更大的网！",
+  "message.animalnet.formal_npc": "这个村民",
+  "message.animalnet.formal_mob": "这个怪物",
+  "item.animalnet.mob_core": "生物核心",
+  "message.animalnet.villager_needed": "你需要一个npc捕捉网来抓住村民!",
+  "item.animalnet.npc_net": "NPC捕捉网",
+  "message.animalnet.mob_needed": "你需要一个怪物捕捉网来捕捉怪物!",
+  "item.animalnet.catched_animal": "捕获动物/怪物",
+  "message.animalnet.animal_needed": "你需要一个动物捕捉网来捕捉正常的动物!",
+  "item.animalnet.mob_net_big": "大型怪物捕捉网",
+  "message.animalnet.entity_too_big": "%s 太大了，不能被抓住!",
+  "item.animalnet.spawner_fragmental": "Fragmental刷怪箱"
+}
