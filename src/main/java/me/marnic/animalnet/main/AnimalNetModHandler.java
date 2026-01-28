@@ -15,6 +15,6 @@ public class AnimalNetModHandler {
 
     @SubscribeEvent
     public static void configLoadEvent(ModConfig.Loading e) {
-        AnimalNetConfig.general_options.initExcludedEntitiesArraysList();
+        AnimalNetConfig.GENERAL_OPTIONS.initExcludedEntitiesArraysList();
     }
 }

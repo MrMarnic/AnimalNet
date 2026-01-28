@@ -13,26 +13,26 @@ import java.util.List;
  */
 public class AnimalNetConfig {
 
-    public static GeneralOptions general_options;
-    public static BasicAnimalNetConfig animal_net_small;
-    public static BasicAnimalNetConfig animal_net_medium;
-    public static BasicAnimalNetConfig animal_net_big;
-    public static BasicAnimalNetConfig mob_net_small;
-    public static BasicAnimalNetConfig mob_net_big;
-    public static BasicAnimalNetConfig npc_net;
+    public static GeneralOptions GENERAL_OPTIONS;
+    public static BasicAnimalNetConfig ANIMAL_NET_SMALL;
+    public static BasicAnimalNetConfig ANIMAL_NET_MEDIUM;
+    public static BasicAnimalNetConfig ANIMAL_NET_BIG;
+    public static BasicAnimalNetConfig MONSTER_NET_SMALL;
+    public static BasicAnimalNetConfig MONSTER_NET_BIG;
+    public static BasicAnimalNetConfig NPC_NET;
     public static ForgeConfigSpec SPEC;
     private static ForgeConfigSpec.Builder BUILDER;
 
     public static void init() {
         BUILDER = new ForgeConfigSpec.Builder();
 
-        general_options = new GeneralOptions(BUILDER);
-        animal_net_small = new BasicAnimalNetConfig(BUILDER, 1, 0.5, "animal_net_small");
-        animal_net_medium = new BasicAnimalNetConfig(BUILDER, 1, 1.2, "animal_net_medium");
-        animal_net_big = new BasicAnimalNetConfig(BUILDER, 2, 10, "animal_net_big");
-        mob_net_small = new BasicAnimalNetConfig(BUILDER, 1, 1.3, "mob_net_small");
-        mob_net_big = new BasicAnimalNetConfig(BUILDER, 2, 10, "mob_net_big");
-        npc_net = new BasicAnimalNetConfig(BUILDER, 1, 10, "npc_net");
+        GENERAL_OPTIONS = new GeneralOptions(BUILDER);
+        ANIMAL_NET_SMALL = new BasicAnimalNetConfig(BUILDER, 1, 0.5, "ANIMAL_NET_SMALL");
+        ANIMAL_NET_MEDIUM = new BasicAnimalNetConfig(BUILDER, 1, 1.2, "ANIMAL_NET_MEDIUM");
+        ANIMAL_NET_BIG = new BasicAnimalNetConfig(BUILDER, 2, 10, "ANIMAL_NET_BIG");
+        MONSTER_NET_SMALL = new BasicAnimalNetConfig(BUILDER, 1, 1.3, "MONSTER_NET_SMALL");
+        MONSTER_NET_BIG = new BasicAnimalNetConfig(BUILDER, 2, 10, "MONSTER_NET_BIG");
+        NPC_NET = new BasicAnimalNetConfig(BUILDER, 1, 10, "NPC_NET");
 
         SPEC = BUILDER.build();
     }

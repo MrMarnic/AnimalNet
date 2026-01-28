@@ -6,7 +6,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.AmbientEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.WaterMobEntity;
@@ -96,7 +95,7 @@ public class AnimalNetItem extends Item {
     }
 
     private static boolean canBeCaughtAtAll(Entity entity) {
-        return !AnimalNetConfig.general_options.getExcluded_entities_array_list().contains(EntityType.byString(entity.getType().getRegistryName().toString()).toString());
+        return !AnimalNetConfig.GENERAL_OPTIONS.getExcluded_entities_array_list().contains(EntityType.byString(entity.getType().getRegistryName().toString()).toString());
     }
 
     private static void sendStatus(PlayerEntity p, ITextComponent msg) {
@@ -140,7 +139,7 @@ public class AnimalNetItem extends Item {
     }
 
     public static boolean monsterNetPredicate(LivingEntity entity) {
-        return entity instanceof MonsterEntity;
+        return entity instanceof IMob;
     }
 
     public Predicate<LivingEntity> getAccepts() {
