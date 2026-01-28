@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "animalnet:items/animal_net_small"
+  }
+}
